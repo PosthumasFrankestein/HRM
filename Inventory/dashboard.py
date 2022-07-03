@@ -1,20 +1,13 @@
 from tkinter import *
 from employee import employeeclass
+from mngattendance import AttendanceMng
 import sqlite3
 import os  
 from logins import Login_system
 import datetime
 
 class EMS:
-    def __init__(self,root,eid):
-       self.root=root
-       self.root.geometry("1350x700+0+0")
-       self.root.title("Logged as Admin")
-       self.root.config(bg="skyblue")
-       
-       #clock ko lagi      Time
-       self.lbl_clock=Label(self.root,text="Welcome to Desktop Application for Employee Management\t\t Date: DD-MM-YYYY\t\t Time: HH:MM:SS",font=("times new roman",15,"bold"),bg="green",fg="white") 
-       self.lbl_clock.place(x=0,y=0,relwidth=1,height=30)
+    def __init__(self,root):lbl_clock.place(x=0,y=0,relwidth=1,height=30)
 
        #left menu
        LeftMenu=Frame(self.root,bd=2,relief=RIDGE,bg="white")
@@ -67,7 +60,7 @@ class EMS:
 
     def Attendance(self):
         self.new_win=Toplevel(self.root)
-        self.new_obj=attendance(self.new_win)   
+        self.new_obj=AttendanceMng(self.new_win)   
 
     def logout(self):
         self.lbl_clock.after_cancel(self.root.update)
