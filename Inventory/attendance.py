@@ -32,10 +32,7 @@ class calender:
         cal.pack(pady = 20,fill="both",expand=True)
 
         #data
-        self.var_date=StringVar()
-        self.var_astatus="present"
-        self.var_status="unapproved"
-        self.var_remark=""
+        
         self.var_eid=eid
 
         def present():
@@ -44,18 +41,19 @@ class calender:
             con=sqlite3.connect(database=r'ims.db')
             cur=con.cursor()
             try:
-                print("1")
-                cur.execute("Select date from attendance where eid=?",(str(eid)))
-                print("2")
+                cur.execute("Select date from attendance where eid=?  ORDER BY aid DESC",(str(eid)))
+                print("HERE")
                 row=cur.fetchone()
-                print(row[-1])
-                if row[-1]==dvalue:
-                        messagebox.showerror("Error","Today's attendance registered",parent=self.root)
+                print("HERE!")  
+                print(row)
+                if row==None or row[-1]!=dvalue:
+                    dvalue=cal.get_date()
+                    cur.execute("Insert into attendance (date,astatus,status,remark,eid) values(?,'present','unapproved','',?)",(dvalue,eid))       
+                    con.commit()
+                    messagebox.showinfo('Success',"Attendance Registered",parent=self.root)
                 else:
-                        dvalue=cal.get_date()
-                        cur.execute("Insert into attendance (date,astatus,status,remark,eid) values(?,'present','unapproved','',?)",(dvalue,eid))       
-                        con.commit()
-                        messagebox.showinfo('Success',"Employee added Sucessfully",parent=self.root)
+                    print("HERE@")
+                    messagebox.showerror("Error","Today's attendance already registered",parent=self.root)
             except Exception as ex:
                 print(str(ex))
                 messagebox.showerror("Error",f"Error due to : {str(ex)}",parent=self.root)

@@ -7,7 +7,8 @@ from logins import Login_system
 import datetime
 
 class EMS:
-    def __init__(self,root):lbl_clock.place(x=0,y=0,relwidth=1,height=30)
+    def __init__(self,root):
+       lbl_clock.place(x=0,y=0,relwidth=1,height=30)
 
        #left menu
        LeftMenu=Frame(self.root,bd=2,relief=RIDGE,bg="white")
