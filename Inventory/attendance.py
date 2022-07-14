@@ -11,6 +11,9 @@ class calender:
         # Set geometry
         self.root=root
         root.geometry('600x450+300+160')
+        con=sqlite3.connect(database=r'ims.db')
+        cur=con.cursor()
+            
         # Add Calendar
         cal = Calendar(root,firstweekday="sunday",
         weekenddays=[6,7], 
@@ -23,11 +26,23 @@ class calender:
         selectbackground="skyblue",
         selectforeground="white"
         )
+        cur.execute("Select date,astatus from attendance where eid=?",(str(eid)))
+        days=cur.fetchall()
+        for day in days:
+            from datetime import datetime
+
+            date = datetime.strptime(day[0], '%m/%d/%y').date()
+
+
+            if day[1]=='present':
+                cal.calevent_create(date, 'Reminder 1', 'present')
+
         now = cal.datetime.today()
         cal.calevent_create(now + cal.timedelta(days=-2), 'Reminder 1', 'absent')
-        cal.calevent_create(now + cal.timedelta(days=3), 'Message', 'half')
+        # cal.calevent_create(now + cal.timedelta(days=3), 'Message', 'half')
         cal.tag_config('absent', background='red', foreground='yellow')
         cal.tag_config('half', background='yellow', foreground='red')
+        cal.tag_config('present', background='green', foreground='white')
 
         cal.pack(pady = 20,fill="both",expand=True)
 
@@ -38,21 +53,15 @@ class calender:
         def present():
             dvalue=cal.get_date()
             date.config(text = "Attendence recorded for " + dvalue)
-            con=sqlite3.connect(database=r'ims.db')
-            cur=con.cursor()
             try:
                 cur.execute("Select date from attendance where eid=?  ORDER BY aid DESC",(str(eid)))
-                print("HERE")
                 row=cur.fetchone()
-                print("HERE!")  
-                print(row)
                 if row==None or row[-1]!=dvalue:
                     dvalue=cal.get_date()
                     cur.execute("Insert into attendance (date,astatus,status,remark,eid) values(?,'present','unapproved','',?)",(dvalue,eid))       
                     con.commit()
                     messagebox.showinfo('Success',"Attendance Registered",parent=self.root)
                 else:
-                    print("HERE@")
                     messagebox.showerror("Error","Today's attendance already registered",parent=self.root)
             except Exception as ex:
                 print(str(ex))

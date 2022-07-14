@@ -3,6 +3,7 @@ from tkinter import *
 # from PIL import Image,ImageTk
 import sqlite3
 from tkinter import ttk,messagebox
+from logins import Login_system
 
 
 class employeeclass:
@@ -10,7 +11,7 @@ class employeeclass:
        self.root=root
        self.root.geometry("1100x500+220+130")
        self.root.title("Employee Management System")
-       self.root.config(bg="black")
+       self.root.config(bg="white")
        #All Varialble
        self.var_searchby=StringVar()
        self.var_searchtxt=StringVar()
@@ -294,5 +295,6 @@ class employeeclass:
            messagebox.showerror("Error",f"Error due to : {str(ex)}",parent=self.root)
 if __name__=="__main__":      
     root=Tk()
-    obj=employeeclass(root)
+#     obj=employeeclass(root)
+    obj=Login_system(root)
     root.mainloop()      
