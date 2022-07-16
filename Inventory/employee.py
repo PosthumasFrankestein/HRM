@@ -139,7 +139,7 @@ class employeeclass:
            if self.var_emp_id.get()=="":
                   messagebox.showerror("Error","Employee ID must be required",parent=self.root)   
            else:
-                  cur.execute("Select *from employee where eid=?",(self.var_emp_id.get(),))
+                  cur.execute("Select * from employee where eid=?",(self.var_emp_id.get(),))
                   row=cur.fetchone()
                   if row!=None:
                          messagebox.showerror("Error","This Employee ID already assigned,try different",parent=self.root)

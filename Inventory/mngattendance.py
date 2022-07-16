@@ -55,8 +55,8 @@ class AttendanceMng:
        self.txt_remark.place(x=150,y=230,width=300,height=60)       
        
       #button
-       btn_update=Button(self.root,text="Approve",command=self.approve,font=("goudy old style",15),bg="#4caf50",fg="white",cursor="hand2").place(x=50,y=305,width=110,height=28)
-       btn_clear=Button(self.root,text="Reject",command=self.reject,font=("goudy old style",15),bg="red",fg="white",cursor="hand2").place(x=150,y=305,width=110,height=28)
+       btn_approve=Button(self.root,text="Approve",command=self.approve,font=("goudy old style",15),bg="#4caf50",fg="white",cursor="hand2").place(x=50,y=305,width=110,height=28)
+       btn_reject=Button(self.root,text="Reject",command=self.reject,font=("goudy old style",15),bg="red",fg="white",cursor="hand2").place(x=150,y=305,width=110,height=28)
 
        #Employee Details
        emp_frame=Frame(self.root,bd=3,relief=RIDGE)
@@ -100,10 +100,16 @@ class AttendanceMng:
        cur=con.cursor()
        try:
               cur.execute("Select eid,name,email,dob,contact,utype from employee")
+              # cur.execute("Select eid,name,email,dob,contact,utype from employee where eid=(Select eid from attendance where status='unapproved')")
               rows=cur.fetchall()
               self.EmployeeTable.delete(*self.EmployeeTable.get_children())
+              cur.execute("Select remark from attendance where eid=(Select eid from attendance where status='approve')")
+              i=0
+              rows1=cur.fetchall()
               for row in rows:
-                     self.EmployeeTable.insert('',END,values=row)
+                     value=row+rows1[i]
+                     self.EmployeeTable.insert('',END,values=value)
+                     
 
        except Exception as ex:
            messagebox.showerror("Error",f"Error due to : {str(ex)}",parent=self.root) 
@@ -118,6 +124,8 @@ class AttendanceMng:
        self.var_emp_date.set(row[3]),
        self.var_emp_contact.set(row[4]),
        self.var_emp_utype.set(row[5]),
+       self.txt_remark.delete('1.0',END)
+       self.txt_remark.insert(END,row[6]),
 
     def approve(self):
        con=sqlite3.connect(database=r'ims.db')
@@ -126,20 +134,16 @@ class AttendanceMng:
            if self.var_emp_id.get()=="":
                   messagebox.showerror("Error","Employee ID must be required",parent=self.root)   
            else:
-                  cur.execute("Select *from employee where eid=?",(self.var_emp_id.get(),))
+                  cur.execute("Select * from employee where eid=?",(self.var_emp_id.get(),))
                   row=cur.fetchone()
                   if row==None:
                          messagebox.showerror("Error","Invalid employee id",parent=self.root)
                   else:
-                         cur.execute("Update employee set name=?,email=?,dob=?,contact=?,utype=? where eid=?",(
-                                   self.var_emp_name.get(),
-                                   self.var_emp_email.get(),
-                                   self.var_emp_date.get(),
-                                   self.var_emp_contact.get(),
-
-                                   self.var_emp_utype.get(),
+                         cur.execute("Update attendance set status=?,remark=? where eid=?",(
+                                   "approve",
+                                   self.txt_remark.get('1.0',END),
                                    self.var_emp_id.get(),
-     
+                                   
                          ))       
                          con.commit()
                          messagebox.showinfo('Success',"Employee Updated Sucessfully",parent=self.root)
@@ -155,21 +159,16 @@ class AttendanceMng:
            if self.var_emp_id.get()=="":
                   messagebox.showerror("Error","Employee ID must be required",parent=self.root)   
            else:
-                  cur.execute("Select *from employee where eid=?",(self.var_emp_id.get(),))
+                  cur.execute("Select * from employee where eid=?",(self.var_emp_id.get(),))
                   row=cur.fetchone()
                   if row==None:
                          messagebox.showerror("Error","Invalid employee id",parent=self.root)
                   else:
-                         cur.execute("Update employee set name=?,email=?,dob=?,contact=?,utype=? where eid=?",(
-                                   self.var_emp_name.get(),
-                                   self.var_emp_email.get(),
-                                   self.var_emp_date.get(),
-                                   self.var_emp_contact.get(),
-
-                                   self.var_emp_utype.get(),
-                                #    self.txt_remark.get('1.0',END),
+                         cur.execute("Update attendance set status=?,remark=? where eid=?",(
+                                   "reject",
+                                   self.txt_remark.get('1.0',END),
                                    self.var_emp_id.get(),
-     
+                                   
                          ))       
                          con.commit()
                          messagebox.showinfo('Success',"Employee Updated Sucessfully",parent=self.root)
@@ -199,5 +198,6 @@ class AttendanceMng:
            messagebox.showerror("Error",f"Error due to : {str(ex)}",parent=self.root)
 if __name__=="__main__":      
     root=Tk()
-    obj=employeeclass(root)
+#     obj=employeeclass(root)
+    obj=AttendanceMng(root)
     root.mainloop()      

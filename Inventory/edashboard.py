@@ -63,7 +63,6 @@ class EMS:
         self.new_obj=bonus(self.new_win)
 
     def Attendance(self,eid):
-        print(eid)
         self.new_win=Toplevel(self.root)
         self.new_obj=calender(self.new_win,eid)   
 
