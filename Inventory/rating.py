@@ -1,21 +1,19 @@
-from sqlite3.dbapi2 import connect
 from tkinter import *
 import sqlite3
 from tkinter import ttk, messagebox
 from datetime import *
 from calendar import monthrange
 import customtkinter
-import tkinter
 from logins import Login_system
 
 
 class Rating:
-    def __init__(self, root,eid):
+    def __init__(self, root, eid):
         self.root = root
         self.root.geometry("1100x500+220+130")
         self.root.resizable(True, True)
         self.root.config(bg="black")
-        eid=eid
+        eid = eid
         # All Varialble
         self.var_searchby = StringVar()
         self.var_searchtxt = StringVar()
@@ -168,16 +166,16 @@ class Rating:
             bg="black",
             fg="white",
         )
-        label.place(x=560,y=240)
+        label.place(x=560, y=240)
 
         slider2 = customtkinter.CTkSlider(
-            master=self.root, 
-            from_=0, 
+            master=self.root,
+            from_=0,
             width=320,
-            to=5, 
-            number_of_steps=5, 
-            variable=self.value2
-        ).place(x=720,y=245)
+            to=5,
+            number_of_steps=5,
+            variable=self.value2,
+        ).place(x=720, y=245)
 
         label = Label(
             master=self.root,
@@ -186,15 +184,15 @@ class Rating:
             bg="black",
             fg="white",
         )
-        label.place(x=50,y=280)
+        label.place(x=50, y=280)
 
         slider3 = customtkinter.CTkSlider(
-            master=self.root, 
-            from_=0, 
+            master=self.root,
+            from_=0,
             width=320,
-            to=5, 
-            number_of_steps=5, 
-            variable=self.value3
+            to=5,
+            number_of_steps=5,
+            variable=self.value3,
         ).place(x=190, y=285)
 
         label = Label(
@@ -204,16 +202,16 @@ class Rating:
             bg="black",
             fg="white",
         )
-        label.place(x=560,y=280)
+        label.place(x=560, y=280)
 
         slider4 = customtkinter.CTkSlider(
-            master=self.root, 
-            from_=0, 
-            to=5, 
+            master=self.root,
+            from_=0,
+            to=5,
             width=320,
-            number_of_steps=5, 
-            variable=self.value4
-        ).place(x=720,y=285)
+            number_of_steps=5,
+            variable=self.value4,
+        ).place(x=720, y=285)
 
         button = customtkinter.CTkButton(
             master=self.root,
@@ -221,8 +219,8 @@ class Rating:
             corner_radius=8,
             fg_color="green",
             text="Rate",
-            command=lambda:self.tvalue(eid),
-            text_font=("goudy old style", 11)
+            command=lambda: self.tvalue(eid),
+            text_font=("goudy old style", 11),
         )
         button.place(x=850, y=310, width=180, height=28)
 
@@ -264,7 +262,7 @@ class Rating:
         self.EmployeeTable.bind("<ButtonRelease-1>", self.get_data)
         self.show()
 
-    def tvalue(self,eid):
+    def tvalue(self, eid):
         con = sqlite3.connect(database=r"ims.db")
         cur = con.cursor()
         value = (
@@ -273,21 +271,29 @@ class Rating:
             + self.value3.get()
             + self.value4.get()
         )
-        fvalue=(value/20)*8
-        dvalue=date.today().strftime("%m/%d/%y")
+        fvalue = (value / 20) * 8
+        dvalue = date.today().strftime("%m/%d/%y")
         try:
 
-            cur.execute("Select rdate from rating where eid=? and ratedby IS NOT NULL ORDER BY rid DESC",(str(self.var_eid.get())))
-            row=cur.fetchone()
-            print(dvalue,row)
-            if row is None or (row[0]!=dvalue):
-                cur.execute("Insert into rating (rdate,eid,rate,ratedby) values(?,?,?,?)",(dvalue,self.var_eid.get(),fvalue,eid))       
+            cur.execute(
+                "Select rdate from rating where eid=? and ratedby IS NOT NULL ORDER BY rid DESC",
+                (str(self.var_eid.get())),
+            )
+            row = cur.fetchone()
+            print(dvalue, row)
+            if row is None or (row[0] != dvalue):
+                cur.execute(
+                    "Insert into rating (rdate,eid,rate,ratedby) values(?,?,?,?)",
+                    (dvalue, self.var_eid.get(), fvalue, eid),
+                )
                 con.commit()
                 messagebox.showinfo(
                     "Success", "Employee Updated Sucessfully", parent=self.root
                 )
             else:
-                messagebox.showerror("Error","You have already rated for today",parent=self.root)
+                messagebox.showerror(
+                    "Error", "You have already rated for today", parent=self.root
+                )
             self.show()
 
         except Exception as ex:
@@ -325,8 +331,8 @@ class Rating:
                 "Select count(*),sum(rate) from rating where eid=?",
                 (str(row[0])),
             )
-            rows1=cur.fetchone()
-            value=(rows1[1]/rows1[0])
+            rows1 = cur.fetchone()
+            value = rows1[1] / rows1[0]
 
         except Exception as ex:
             messagebox.showerror("Error", f"Error due to : {str(ex)}", parent=self.root)

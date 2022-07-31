@@ -1,18 +1,16 @@
-from sqlite3.dbapi2 import connect
 from tkinter import *
 import sqlite3
 from tkinter import ttk, messagebox
 from datetime import *
-from calendar import monthrange
 from logins import Login_system
 import customtkinter
 from tkcalendar import *
 
 
 class Mngtask:
-    def __init__(self, root,eid):
+    def __init__(self, root, eid):
         self.root = root
-        self.aby=eid
+        self.aby = eid
         self.root.geometry("1100x500+220+130")
         self.root.resizable(True, True)
         self.root.config(bg="black")
@@ -22,16 +20,16 @@ class Mngtask:
         self.var_emp_id = StringVar()
         self.var_emp_name = StringVar()
         cal = Calendar()
-        self.var_adate =StringVar()
+        self.var_adate = StringVar()
         self.var_adate.set(cal.get_date())
         self.var_cdate = StringVar()
         self.var_task = StringVar()
-        self.value=[]
+        self.value = []
 
         con = sqlite3.connect(database=r"ims.db")
         cur = con.cursor()
         cur.execute("Select eid from employee")
-        rows= cur.fetchall()
+        rows = cur.fetchall()
         for row in rows:
             self.value.append(str(row[0]))
 
@@ -84,11 +82,12 @@ class Mngtask:
             bg="#211f1f",
             fg="white",
         ).place(x=160, y=150, width=180)
-        txt_eid = customtkinter.CTkComboBox(self.root,
-                                     values=self.value,
-                                     variable=self.var_emp_id,
-                                     command=self.fetchName,
-                                     ).place(x=500, y=150, width=180)
+        txt_eid = customtkinter.CTkComboBox(
+            self.root,
+            values=self.value,
+            variable=self.var_emp_id,
+            command=self.fetchName,
+        ).place(x=500, y=150, width=180)
         txt_name = Label(
             self.root,
             textvariable=self.var_emp_name,
@@ -125,7 +124,7 @@ class Mngtask:
             textvariable=self.var_adate,
             font=("goudy old style", 11),
             bg="#211f1f",
-            fg="white"
+            fg="white",
         ).place(x=160, y=190, width=180)
         txt_date_completed = Label(
             self.root,
@@ -158,9 +157,9 @@ class Mngtask:
             font=("goudy old style", 11),
             bg="#211f1f",
             fg="white",
-            insertbackground="white"
+            insertbackground="white",
         )
-        self.var_tremark.place(x=160, y=230, width=280,height=100)
+        self.var_tremark.place(x=160, y=230, width=280, height=100)
 
         # button
         btn_add = customtkinter.CTkButton(
@@ -205,7 +204,16 @@ class Mngtask:
 
         self.EmployeeTable = ttk.Treeview(
             emp_frame,
-            columns=("tid","task","eid","name", "adate","cdate","tstatus","tremark"),
+            columns=(
+                "tid",
+                "task",
+                "eid",
+                "name",
+                "adate",
+                "cdate",
+                "tstatus",
+                "tremark",
+            ),
             yscrollcommand=scrolly.set,
             xscrollcommand=scrollx.set,
             style="mystyle.Treeview",
@@ -238,16 +246,14 @@ class Mngtask:
         self.EmployeeTable.bind("<ButtonRelease-1>", self.get_data)
         self.show()
 
-
-    def fetchName(self,choice):
+    def fetchName(self, choice):
         con = sqlite3.connect(database=r"ims.db")
         cur = con.cursor()
         try:
-            cur.execute("Select name from employee where eid=?",choice)
+            cur.execute("Select name from employee where eid=?", choice)
             rows = cur.fetchone()
             self.var_emp_name.set(rows[0])
             self.var_emp_id.set(choice)
-
 
         except Exception as ex:
             messagebox.showerror("Error", f"Error due to : {str(ex)}", parent=self.root)
@@ -256,13 +262,15 @@ class Mngtask:
         con = sqlite3.connect(database=r"ims.db")
         cur = con.cursor()
         try:
-            cur.execute("Select tid,task,eid,adate,cdate,tstatus,tremark from tasks where tstatus!='approved'")
+            cur.execute(
+                "Select tid,task,eid,adate,cdate,tstatus,tremark from tasks where tstatus!='approved'"
+            )
             rows = cur.fetchall()
             self.EmployeeTable.delete(*self.EmployeeTable.get_children())
             for row in rows:
-                cur.execute("Select name from employee where eid=?",str(row[2]))
+                cur.execute("Select name from employee where eid=?", str(row[2]))
                 row1 = cur.fetchone()
-                value=list(row[0:3])+list(row1[0:])+list(row[3:])
+                value = list(row[0:3]) + list(row1[0:]) + list(row[3:])
                 self.EmployeeTable.insert("", END, values=value)
 
         except Exception as ex:
@@ -272,34 +280,32 @@ class Mngtask:
         f = self.EmployeeTable.focus()
         content = self.EmployeeTable.item(f)
         row = content["values"]
-        if row!="":
+        if row != "":
             self.var_task_id.set(row[0])
             self.var_emp_id.set(row[2])
             self.var_emp_name.set(row[3])
             self.var_adate.set(row[4])
             self.var_cdate.set(row[5])
             self.var_task.set(row[1])
-            self.var_tremark.delete('1.0',END)
-            self.var_tremark.insert(END,row[7])
+            self.var_tremark.delete("1.0", END)
+            self.var_tremark.insert(END, row[7])
 
     def add(self):
         con = sqlite3.connect(database=r"ims.db")
         cur = con.cursor()
         try:
             if self.var_emp_name.get() == "":
-                messagebox.showerror(
-                    "Error", "Select Employee Id", parent=self.root
-                )
+                messagebox.showerror("Error", "Select Employee Id", parent=self.root)
             else:
                 cur.execute(
                     "Insert into tasks (adate,tstatus,task,tremark,eid,aby) values(?,?,?,?,?,?)",
-                    (   
+                    (
                         self.var_adate.get(),
-                        'pending',
+                        "pending",
                         self.var_task.get(),
-                        self.var_tremark.get('1.0',END),
+                        self.var_tremark.get("1.0", END),
                         self.var_emp_id.get(),
-                        self.aby
+                        self.aby,
                     ),
                 )
                 con.commit()
@@ -309,7 +315,6 @@ class Mngtask:
                 self.show()
         except Exception as ex:
             messagebox.showerror("Error", f"Error due to : {str(ex)}", parent=self.root)
-
 
     def approve(self):
         con = sqlite3.connect(database=r"ims.db")
@@ -326,12 +331,11 @@ class Mngtask:
                 if op is True:
 
                     cur.execute(
-                        "update tasks set tstatus='approved' where tid=?", (self.var_task_id.get(),)
+                        "update tasks set tstatus='approved' where tid=?",
+                        (self.var_task_id.get(),),
                     )
                     con.commit()
-                    messagebox.showinfo(
-                        "Success", "Task Approved", parent=self.root
-                    )
+                    messagebox.showinfo("Success", "Task Approved", parent=self.root)
                     self.show()
                     self.clear()
 
@@ -351,9 +355,11 @@ class Mngtask:
                     "Confirm", "Do you really want to Reassign?", parent=self.root
                 )
                 if op is True:
-                    cal=Calendar()
-                    dvalue=cal.get_date()
-                    cur.execute("Select eid from tasks where tid=?",self.var_task_id.get())
+                    cal = Calendar()
+                    dvalue = cal.get_date()
+                    cur.execute(
+                        "Select eid from tasks where tid=?", self.var_task_id.get()
+                    )
                     rows = cur.fetchone()
                     cur.execute(
                         "Insert into rtasks (tid,trdate,rejectby,eid) values(?,?,?,?)",
@@ -369,9 +375,8 @@ class Mngtask:
                         "Update tasks set eid=?,tremark=? where tid=?",
                         (
                             self.var_emp_id.get(),
-                            self.var_tremark.get('1.0',END),
-                            self.var_task_id.get()
-
+                            self.var_tremark.get("1.0", END),
+                            self.var_task_id.get(),
                         ),
                     )
                     con.commit()
@@ -383,7 +388,6 @@ class Mngtask:
 
         except Exception as ex:
             messagebox.showerror("Error", f"Error due to : {str(ex)}", parent=self.root)
-
 
     def reject(self):
         con = sqlite3.connect(database=r"ims.db")

@@ -1,16 +1,14 @@
-from sqlite3.dbapi2 import connect
 from tkinter import *
 import sqlite3
 from tkinter import ttk, messagebox
 from datetime import *
-from calendar import monthrange
 from logins import Login_system
 import customtkinter
 from tkcalendar import *
 
 
 class taskClass:
-    def __init__(self, root,eid):
+    def __init__(self, root, eid):
         self.root = root
         eid = eid
         self.root.geometry("1100x500+220+130")
@@ -158,7 +156,7 @@ class taskClass:
         btn_complete = customtkinter.CTkButton(
             self.root,
             text="Complete",
-            command=lambda:self.complete(eid),
+            command=lambda: self.complete(eid),
             text_font=("goudy old style", 15),
             fg_color="#4caf50",
             cursor="hand2",
@@ -166,7 +164,7 @@ class taskClass:
         btn_forfeit = customtkinter.CTkButton(
             self.root,
             text="Forfeit",
-            command=lambda:self.forfeit(eid),
+            command=lambda: self.forfeit(eid),
             text_font=("goudy old style", 15),
             fg_color="#f44336",
             cursor="hand2",
@@ -174,7 +172,7 @@ class taskClass:
         btn_clear = customtkinter.CTkButton(
             self.root,
             text="Clear",
-            command=lambda:self.clear(eid),
+            command=lambda: self.clear(eid),
             text_font=("goudy old style", 15),
             fg_color="#607d8b",
             cursor="hand2",
@@ -231,13 +229,13 @@ class taskClass:
         self.EmployeeTable.bind("<ButtonRelease-1>", self.get_data)
         self.show(eid)
 
-
-    def show(self,eid):
+    def show(self, eid):
         con = sqlite3.connect(database=r"ims.db")
         cur = con.cursor()
         try:
             cur.execute(
-                "Select tid,task,eid,adate,cdate,tstatus,tremark from tasks where eid=? and tstatus!='approved' and tstatus!='forfeit'",str(eid)
+                "Select tid,task,eid,adate,cdate,tstatus,tremark from tasks where eid=? and tstatus!='approved' and tstatus!='forfeit'",
+                str(eid),
             )
             rows = cur.fetchall()
             self.EmployeeTable.delete(*self.EmployeeTable.get_children())
@@ -264,13 +262,12 @@ class taskClass:
             self.var_tremark.delete("1.0", END)
             self.var_tremark.insert(END, row[7])
 
-
-    def complete(self,eid):
+    def complete(self, eid):
         con = sqlite3.connect(database=r"ims.db")
         cur = con.cursor()
 
         cal = Calendar()
-        cdate=cal.get_date()
+        cdate = cal.get_date()
         try:
             if self.var_emp_name.get() == "":
                 messagebox.showerror("Error", "Select Employee ID", parent=self.root)
@@ -285,7 +282,7 @@ class taskClass:
                         (
                             cdate,
                             self.var_task_id.get(),
-                            )
+                        ),
                     )
                     con.commit()
                     messagebox.showinfo("Success", "Task Completed", parent=self.root)
@@ -295,8 +292,7 @@ class taskClass:
         except Exception as ex:
             messagebox.showerror("Error", f"Error due to : {str(ex)}", parent=self.root)
 
-
-    def forfeit(self,eid):
+    def forfeit(self, eid):
         con = sqlite3.connect(database=r"ims.db")
         cur = con.cursor()
         try:
@@ -321,8 +317,7 @@ class taskClass:
         except Exception as ex:
             messagebox.showerror("Error", f"Error due to : {str(ex)}", parent=self.root)
 
-
-    def clear(self,eid):
+    def clear(self, eid):
         self.var_emp_id.set(""),
 
         self.var_emp_name.set(""),

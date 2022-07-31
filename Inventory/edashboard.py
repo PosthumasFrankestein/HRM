@@ -3,9 +3,8 @@ from tkinter import messagebox
 import customtkinter
 from tkinter import *
 from employee import employeeclass
-from mngattendance import AttendanceMng
 import sqlite3
-import os  
+import os
 from logins import Login_system
 from esalary import esalaryClass
 import datetime
@@ -13,19 +12,23 @@ from attendance import calender
 from erating import EmpRate
 from task import taskClass
 
-customtkinter.set_appearance_mode("System")  # Modes: "System" (standard), "Dark", "Light"
-customtkinter.set_default_color_theme("dark-blue")  # Themes: "blue" (standard), "green", "dark-blue"
+customtkinter.set_appearance_mode(
+    "System"
+)  # Modes: "System" (standard), "Dark", "Light"
+customtkinter.set_default_color_theme(
+    "dark-blue"
+)  # Themes: "blue" (standard), "green", "dark-blue"
+
 
 class App(customtkinter.CTk):
 
     WIDTH = 780
     HEIGHT = 520
 
-    def __init__(self,eid):
+    def __init__(self, eid):
         super().__init__()
         self.geometry("1350x700+0+0")
         self.title("Logged as Employee")
-
 
         # ============ create two frames ============
 
@@ -52,32 +55,42 @@ class App(customtkinter.CTk):
         self.label_1.grid(row=1, column=0, pady=10, padx=10)
 
         self.button_1 = customtkinter.CTkButton(
-            master=self.frame_left, cursor="hand2",
-            text="Employee", command=self.button_event
+            master=self.frame_left,
+            cursor="hand2",
+            text="Employee",
+            command=self.button_event,
         )
         self.button_1.grid(row=2, column=0, pady=10, padx=20)
 
         self.button_2 = customtkinter.CTkButton(
-            master=self.frame_left, cursor="hand2",
-            text="Salary", command=lambda:self.salary(eid)
+            master=self.frame_left,
+            cursor="hand2",
+            text="Salary",
+            command=lambda: self.salary(eid),
         )
         self.button_2.grid(row=3, column=0, pady=10, padx=20)
 
         self.button_3 = customtkinter.CTkButton(
-            master=self.frame_left, cursor="hand2",
-            text="Task", command=lambda:self.task(eid)
+            master=self.frame_left,
+            cursor="hand2",
+            text="Task",
+            command=lambda: self.task(eid),
         )
         self.button_3.grid(row=4, column=0, pady=10, padx=20)
 
         self.button_4 = customtkinter.CTkButton(
-            master=self.frame_left, cursor="hand2",
-            text="Rating", command=lambda:self.Rating(eid)
+            master=self.frame_left,
+            cursor="hand2",
+            text="Rating",
+            command=lambda: self.Rating(eid),
         )
         self.button_4.grid(row=5, column=0, pady=10, padx=20)
 
         self.button_5 = customtkinter.CTkButton(
-            master=self.frame_left, cursor="hand2",
-            text="Attendance", command=lambda:self.Attendance(eid)
+            master=self.frame_left,
+            cursor="hand2",
+            text="Attendance",
+            command=lambda: self.Attendance(eid),
         )
         self.button_5.grid(row=6, column=0, pady=10, padx=20)
 
@@ -127,8 +140,8 @@ class App(customtkinter.CTk):
         self.frame_info.rowconfigure(0, weight=1)
         self.frame_info.columnconfigure(0, weight=1)
 
-        self.frame_list.rowconfigure((0,1), weight=1)
-        self.frame_list.columnconfigure((0,1,2), weight=1)
+        self.frame_list.rowconfigure((0, 1), weight=1)
+        self.frame_list.columnconfigure((0, 1, 2), weight=1)
 
         self.label_info_1 = customtkinter.CTkLabel(
             master=self.frame_info,
@@ -180,7 +193,7 @@ class App(customtkinter.CTk):
             fg="white",
             text_font=("goudy old style", 20, "bold"),
         )
-        self.lbl_product.grid(column=0, row=1, sticky="ew",padx=15, pady=15)
+        self.lbl_product.grid(column=0, row=1, sticky="ew", padx=15, pady=15)
 
         self.lbl_product = customtkinter.CTkLabel(
             self.frame_list,
@@ -211,7 +224,6 @@ class App(customtkinter.CTk):
 
         # ============ frame_right ============
 
-
     @staticmethod
     def button_event():
         print("Button pressed")
@@ -224,55 +236,57 @@ class App(customtkinter.CTk):
         self.destroy()
 
     def employee(self):
-        self.new_win=Toplevel(self)
-        self.new_obj=employeeclass(self.new_win)
+        self.new_win = Toplevel(self)
+        self.new_obj = employeeclass(self.new_win)
 
-    def salary(self,eid):
-        self.new_win=Toplevel(self)
-        self.new_obj=esalaryClass(self.new_win,eid)
+    def salary(self, eid):
+        self.new_win = Toplevel(self)
+        self.new_obj = esalaryClass(self.new_win, eid)
 
-    def task(self,eid):
-        self.new_win=Toplevel(self)
-        self.new_obj=taskClass(self.new_win,eid)
+    def task(self, eid):
+        self.new_win = Toplevel(self)
+        self.new_obj = taskClass(self.new_win, eid)
 
-    def Rating(self,eid):
-        self.new_win=Toplevel(self)
-        self.new_obj=EmpRate(self.new_win,eid)
+    def Rating(self, eid):
+        self.new_win = Toplevel(self)
+        self.new_obj = EmpRate(self.new_win, eid)
 
-    def Attendance(self,eid):
-        self.new_win=Toplevel(self)
-        self.new_obj=calender(self.new_win,eid)   
+    def Attendance(self, eid):
+        self.new_win = Toplevel(self)
+        self.new_obj = calender(self.new_win, eid)
 
     def logout(self):
         self.label_info_1.after_cancel(self.update)
         self.destroy()
-        root=customtkinter.CTk()
-        obj=Login_system(root)
-        root.mainloop()                       
+        root = customtkinter.CTk()
+        obj = Login_system(root)
+        root.mainloop()
 
     def update_content(self):
-        con=sqlite3.connect(database=r'ims.db')
-        cur=con.cursor()
+        con = sqlite3.connect(database=r"ims.db")
+        cur = con.cursor()
 
         try:
-           cur.execute("select * from employee")
-           employee=cur.fetchall()
-           self.lbl_employee.configure(text=f'Total Employee\n[{str(len(employee))}]')
-           attendence=len(os.listdir('Inventory/attendence'))
-           self.lbl_sales.configure(text=f'Attendance \n [{str(attendence)}]')
+            cur.execute("select * from employee")
+            employee = cur.fetchall()
+            self.lbl_employee.configure(text=f"Total Employee\n[{str(len(employee))}]")
+            attendence = len(os.listdir("Inventory/attendence"))
+            self.lbl_sales.configure(text=f"Attendance \n [{str(attendence)}]")
 
-           now=datetime.datetime.now()
+            now = datetime.datetime.now()
 
-           self.label_info_1.configure(text=f'Employee Management System \t Time: {now.strftime("%I:%M:%S")}  \t Date: {now.strftime("%d-%m-%Y")}')
-           self.update=self.label_info_1.after(200,self.update_content)
+            self.label_info_1.configure(
+                text=f'Employee Management System \t Time: {now.strftime("%I:%M:%S")}  \t Date: {now.strftime("%d-%m-%Y")}'
+            )
+            self.update = self.label_info_1.after(200, self.update_content)
 
         except Exception as ex:
             print(ex)
-            messagebox.showerror("Error",f'Error due to : {str(ex)}',parent=self)
+            messagebox.showerror("Error", f"Error due to : {str(ex)}", parent=self)
 
 
 if __name__ == "__main__":
 
-    root=customtkinter.CTk()
-    obj=Login_system(root)
+    root = customtkinter.CTk()
+    obj = Login_system(root)
     root.mainloop()
