@@ -4,6 +4,7 @@ from tkinter import ttk, messagebox
 from datetime import *
 from calendar import monthrange
 import customtkinter
+from sqlalchemy import null
 from logins import Login_system
 
 class EmpRate():
@@ -218,9 +219,9 @@ class EmpRate():
         fvalue=(value/20)*2
         dvalue=date.today().strftime("%m/%d/%y")
         try:
-            cur.execute("Select rdate from rating where eid=? ORDER BY rid DESC",(str(eid)))
+            cur.execute("Select rdate from rating where eid=? and ratedby is NULL ORDER BY rid DESC",(str(eid)))
             row=cur.fetchone()
-            if row==None or row[-1]!=dvalue:
+            if row==None or (row[0]!=dvalue):
                 cur.execute("Insert into rating (rdate,eid,rate) values(?,?,?)",(dvalue,eid,fvalue))       
                 con.commit()
                 messagebox.showinfo(

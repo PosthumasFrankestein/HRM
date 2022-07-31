@@ -15,6 +15,7 @@ class Rating:
         self.root.geometry("1100x500+220+130")
         self.root.resizable(True, True)
         self.root.config(bg="black")
+        eid=eid
         # All Varialble
         self.var_searchby = StringVar()
         self.var_searchtxt = StringVar()
@@ -275,9 +276,11 @@ class Rating:
         fvalue=(value/20)*8
         dvalue=date.today().strftime("%m/%d/%y")
         try:
-            cur.execute("Select rdate,ratedby from rating where eid=? ORDER BY rid DESC",(str(self.var_eid.get())))
+            
+            cur.execute("Select rdate from rating where eid=? and ratedby IS NOT NULL ORDER BY rid DESC",(str(self.var_eid.get())))
             row=cur.fetchone()
-            if row==None or (row[0]==dvalue and row[-1]==None):
+            print(dvalue,row)
+            if row==None or (row[0]!=dvalue):
                 cur.execute("Insert into rating (rdate,eid,rate,ratedby) values(?,?,?,?)",(dvalue,self.var_eid.get(),fvalue,eid))       
                 con.commit()
                 messagebox.showinfo(
