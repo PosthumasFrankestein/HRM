@@ -66,7 +66,7 @@ class calender:
             try:
                 cur.execute("Select date from attendance where eid=?  ORDER BY aid DESC",(str(eid)))
                 row=cur.fetchone()
-                if row==None or row[-1]!=dvalue:
+                if row is None or row[-1]!=dvalue:
                     dvalue=cal.get_date()
                     cur.execute("Insert into attendance (date,astatus,status,remark,eid) values(?,'present','unapproved','',?)",(dvalue,eid))       
                     con.commit()

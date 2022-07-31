@@ -127,7 +127,7 @@ class adminclass:
            else:
                   cur.execute("Select *from admin where eid=?",(self.var_emp_id.get(),))
                   row=cur.fetchone()
-                  if row!=None:
+                  if row is not None:
                          messagebox.showerror("Error","This Admin ID already assigned,try different",parent=self.root)
                   else:
                          cur.execute("Insert into admin (eid,login,name,email,gender,contact,dob,doj,pass,address,salary) values(?,?,?,?,?,?,?,?,?,?,?)",(
@@ -193,7 +193,7 @@ class adminclass:
            else:
                   cur.execute("Select *from admin where eid=?",(self.var_emp_id.get(),))
                   row=cur.fetchone()
-                  if row==None:
+                  if row is None:
                          messagebox.showerror("Error","Invalid admin id",parent=self.root)
                   else:
                          cur.execute("Update admin set name=?,email=?,gender=?,contact=?,dob=?,doj=?,pass=?,utype=?,address=?,salary=? where eid=?",(
@@ -227,11 +227,11 @@ class adminclass:
            else:
                   cur.execute("Select *from admin where eid=?",(self.var_emp_id.get(),))
                   row=cur.fetchone()
-                  if row==None:
+                  if row is None:
                          messagebox.showerror("Error","Invalid admin id",parent=self.root)
                   else:
                          op=messagebox.askyesno("Confirm","Do you really want to delete?",parent=self.root)
-                         if op==True:
+                         if op is True:
 
                             cur.execute("delete from admin where eid=?",(self.var_emp_id.get(),))
                             con.commit()

@@ -140,7 +140,7 @@ class AttendanceMng:
            else:
                   cur.execute("Select * from employee where eid=?",(self.var_emp_id.get(),))
                   row=cur.fetchone()
-                  if row==None:
+                  if row is None:
                          messagebox.showerror("Error","Invalid employee id",parent=self.root)
                   else:
                          cur.execute("Update attendance set status=?,astatus=?,remark=? where eid=? and date=?",(
@@ -166,7 +166,7 @@ class AttendanceMng:
            else:
                   cur.execute("Select * from employee where eid=?",(self.var_emp_id.get(),))
                   row=cur.fetchone()
-                  if row==None:
+                  if row is None:
                          messagebox.showerror("Error","Invalid employee id",parent=self.root)
                   else:
                          cur.execute("Update attendance set status=?,astatus=?,remark=? where eid=? and date=?",(

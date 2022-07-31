@@ -322,7 +322,7 @@ class salaryClass:
                     "Select *from employee where eid=?", (self.var_emp_id.get(),)
                 )
                 row = cur.fetchone()
-                if row == None:
+                if row is None:
                     messagebox.showerror(
                         "Error", "Invalid employee id", parent=self.root
                     )
@@ -359,7 +359,7 @@ class salaryClass:
                     "Select *from employee where eid=?", (self.var_emp_id.get(),)
                 )
                 row = cur.fetchone()
-                if row == None:
+                if row is None:
                     messagebox.showerror(
                         "Error", "Invalid employee id", parent=self.root
                     )
