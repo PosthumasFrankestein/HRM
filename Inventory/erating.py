@@ -1,10 +1,9 @@
 from tkinter import *
 import sqlite3
-from tkinter import ttk, messagebox
+from tkinter import messagebox
 from datetime import *
 from calendar import monthrange
 import customtkinter
-from sqlalchemy import null
 from logins import Login_system
 
 class EmpRate():

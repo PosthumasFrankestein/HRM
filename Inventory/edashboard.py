@@ -3,7 +3,6 @@ from tkinter import messagebox
 import customtkinter
 from tkinter import *
 from employee import employeeclass
-from mngattendance import AttendanceMng
 import sqlite3
 import os  
 from logins import Login_system

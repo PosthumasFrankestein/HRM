@@ -1,7 +1,4 @@
-import tkinter
-import tkinter.messagebox
 import customtkinter
-from complex_example import App
 import sqlite3
 
 
