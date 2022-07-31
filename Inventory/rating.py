@@ -280,7 +280,7 @@ class Rating:
             cur.execute("Select rdate from rating where eid=? and ratedby IS NOT NULL ORDER BY rid DESC",(str(self.var_eid.get())))
             row=cur.fetchone()
             print(dvalue,row)
-            if row==None or (row[0]!=dvalue):
+            if row is None or (row[0]!=dvalue):
                 cur.execute("Insert into rating (rdate,eid,rate,ratedby) values(?,?,?,?)",(dvalue,self.var_eid.get(),fvalue,eid))       
                 con.commit()
                 messagebox.showinfo(

@@ -47,7 +47,7 @@ class Login_system:
             else:
                 cur.execute("select utype,eid from employee where eid=? AND pass=?",(self.eid.get(),self.password.get()))
                 user=cur.fetchone()
-                if user==None:
+                if user is None:
                     messagebox.showerror("Error","Invalid username/password",parent=self.root)
                 elif user[0]=='Admin':
                     eid=user[1]

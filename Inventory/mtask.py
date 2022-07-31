@@ -323,7 +323,7 @@ class Mngtask:
                 op = messagebox.askyesno(
                     "Confirm", "Do you really want to Approve?", parent=self.root
                 )
-                if op == True:
+                if op is True:
 
                     cur.execute(
                         "update tasks set tstatus='approved' where tid=?", (self.var_task_id.get(),)
@@ -350,7 +350,7 @@ class Mngtask:
                 op = messagebox.askyesno(
                     "Confirm", "Do you really want to Reassign?", parent=self.root
                 )
-                if op == True:
+                if op is True:
                     cal=Calendar()
                     dvalue=cal.get_date()
                     cur.execute("Select eid from tasks where tid=?",self.var_task_id.get())
@@ -398,7 +398,7 @@ class Mngtask:
                     "Select *from employee where eid=?", (self.var_emp_id.get(),)
                 )
                 row = cur.fetchone()
-                if row == None:
+                if row is None:
                     messagebox.showerror(
                         "Error", "Invalid employee id", parent=self.root
                     )

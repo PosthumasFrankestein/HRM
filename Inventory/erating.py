@@ -221,7 +221,7 @@ class EmpRate():
         try:
             cur.execute("Select rdate from rating where eid=? and ratedby is NULL ORDER BY rid DESC",(str(eid)))
             row=cur.fetchone()
-            if row==None or (row[0]!=dvalue):
+            if row is None or (row[0]!=dvalue):
                 cur.execute("Insert into rating (rdate,eid,rate) values(?,?,?)",(dvalue,eid,fvalue))       
                 con.commit()
                 messagebox.showinfo(

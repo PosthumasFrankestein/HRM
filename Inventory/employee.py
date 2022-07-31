@@ -134,7 +134,7 @@ class employeeclass:
            else:
                   cur.execute("Select * from employee where eid=?",(self.var_emp_id.get(),))
                   row=cur.fetchone()
-                  if row!=None:
+                  if row is not None:
                          messagebox.showerror("Error","This Employee ID already assigned,try different",parent=self.root)
                   else:
                          cur.execute("Insert into employee (eid,name,email,gender,contact,dob,doj,pass,utype,address,salary) values(?,?,?,?,?,?,?,?,?,?,?)",(
@@ -200,7 +200,7 @@ class employeeclass:
            else:
                   cur.execute("Select *from employee where eid=?",(self.var_emp_id.get(),))
                   row=cur.fetchone()
-                  if row==None:
+                  if row is None:
                          messagebox.showerror("Error","Invalid employee id",parent=self.root)
                   else:
                          cur.execute("Update employee set name=?,email=?,gender=?,contact=?,dob=?,doj=?,pass=?,utype=?,address=?,salary=? where eid=?",(
@@ -234,11 +234,11 @@ class employeeclass:
            else:
                   cur.execute("Select *from employee where eid=?",(self.var_emp_id.get(),))
                   row=cur.fetchone()
-                  if row==None:
+                  if row is None:
                          messagebox.showerror("Error","Invalid employee id",parent=self.root)
                   else:
                          op=messagebox.askyesno("Confirm","Do you really want to delete?",parent=self.root)
-                         if op==True:
+                         if op is True:
 
                             cur.execute("delete from employee where eid=?",(self.var_emp_id.get(),))
                             con.commit()
