@@ -7,7 +7,6 @@ def create_db():
     cur.execute("CREATE TABLE IF NOT EXISTS rating(rid INTEGER PRIMARY KEY AUTOINCREMENT,rdate text,rstatus text,eid integer,ratedby integer,rate float,FOREIGN KEY(eid) REFERENCES employee(eid))")
     cur.execute("CREATE TABLE IF NOT EXISTS tasks(tid INTEGER PRIMARY KEY AUTOINCREMENT,adate text,cdate text,tstatus text,task text,tremark text,eid integer,aby integer,FOREIGN KEY(eid) REFERENCES employee(eid))")
     cur.execute("CREATE TABLE IF NOT EXISTS rtasks(trid INTEGER PRIMARY KEY AUTOINCREMENT,tid integer,trdate text,rejectby integer,eid integer,FOREIGN KEY(eid) REFERENCES employee(eid),FOREIGN KEY(tid) REFERENCES tasks(tid))")
-    # cur.execute("Drop table tasks")
 
     con.commit()
 

@@ -372,7 +372,6 @@ class salaryClass:
                             self.var_emp_date.get(),
                             self.var_emp_contact.get(),
                             self.var_emp_utype.get(),
-                            #    self.txt_remark.get('1.0',END),
                             self.var_emp_id.get(),
                         ),
                     )

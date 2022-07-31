@@ -49,7 +49,6 @@ class calender:
                 cal.calevent_create(date, 'Reminder 1', 'present')
 
         now = cal.datetime.today()
-        # cal.calevent_create(now + cal.timedelta(days=3), 'Message', 'half')
         cal.tag_config('absent', background='#f7163c', foreground='yellow')
         cal.tag_config('half', background='yellow', foreground='red')
         cal.tag_config('present', background='#50f01a', foreground='white')

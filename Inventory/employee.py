@@ -1,6 +1,5 @@
 from sqlite3.dbapi2 import connect
 from tkinter import *
-# from PIL import Image,ImageTk
 import sqlite3
 from tkinter import ttk,messagebox
 from logins import Login_system
@@ -187,7 +186,6 @@ class employeeclass:
 
        self.var_emp_pass.set(row[7]),
        self.var_emp_utype.set(row[8]),
-       # self.txt_address.get('1.0',END),
        self.txt_address.delete('1.0',END)
        self.txt_address.insert(END,row[9]),
 
@@ -287,8 +285,6 @@ class employeeclass:
        except Exception as ex:
            messagebox.showerror("Error",f"Error due to : {str(ex)}",parent=self.root)
 if __name__=="__main__":      
-#     root=Tk()
-#     obj=employeeclass(root)
     root=customtkinter.CTk()
     obj=Login_system(root)
     root.mainloop()      

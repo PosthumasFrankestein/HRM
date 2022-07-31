@@ -1,6 +1,5 @@
 from sqlite3.dbapi2 import connect
 from tkinter import *
-# from PIL import Image,ImageTk
 import sqlite3
 from tkinter import ttk,messagebox
 
@@ -180,7 +179,6 @@ class adminclass:
 
        self.var_emp_pass.set(row[7]),
        self.var_login.set(row[8]),
-       # self.txt_address.get('1.0',END),
        self.txt_address.delete('1.0',END)
        self.txt_address.insert(END,row[9]),
 
