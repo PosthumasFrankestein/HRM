@@ -36,7 +36,7 @@ class App(customtkinter.CTk):
 
         # configure grid layout (1x11)
         self.frame_left.grid_rowconfigure(7, weight=1)  # empty row as spacing
-        
+
         self.label_1 = customtkinter.CTkLabel(master=self.frame_left,
                                               text="CustomTkinter",
                                               text_font=("Roboto Medium", -16))  # font name and size in px
@@ -119,7 +119,7 @@ class App(customtkinter.CTk):
                                                 command=self.progressbar.set)
         self.slider_2.grid(row=5, column=0, columnspan=2, pady=10, padx=20, sticky="we")
 
-        
+
         # set default values
         self.optionmenu_1.set("Dark")
         self.button_3.configure(state="disabled", text="Disabled CTkButton")

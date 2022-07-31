@@ -12,7 +12,7 @@ class employeeclass:
        self.root=root
        self.root.geometry("1100x500+220+130")
        self.root.config(bg="black")
-       
+
        #All Varialble
        self.var_searchby=StringVar()
        self.var_searchtxt=StringVar()
@@ -28,8 +28,8 @@ class employeeclass:
        self.var_emp_utype=StringVar()
        self.var_emp_salary=StringVar()   
        self.var_emp_address=StringVar()    
-       
-       
+
+
     #title
 
        title=Label(self.root,text="Employee Details",font=("goudy old style",15),bg="#0f4d7d",fg="white").place(x=50,y=100,width=1000)
@@ -217,7 +217,7 @@ class employeeclass:
                                    self.txt_address.get('1.0',END),
                                    self.var_emp_salary.get(),
                                    self.var_emp_id.get(),
-     
+
                          ))       
                          con.commit()
                          messagebox.showinfo('Success',"Employee Updated Sucessfully",parent=self.root)

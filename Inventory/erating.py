@@ -206,7 +206,7 @@ class EmpRate():
         button.place(x=850, y=310, width=180, height=28)
         self.get_data(eid)
 
-        
+
     def tvalue(self,eid):
         con = sqlite3.connect(database=r"ims.db")
         cur = con.cursor()
@@ -229,7 +229,7 @@ class EmpRate():
                 )
             else:
                 messagebox.showerror("Error","You have already rated for today",parent=self.root)
-        
+
         except Exception as ex:
             messagebox.showerror("Error", f"Error due to : {str(ex)}", parent=self.root)
 
@@ -251,7 +251,7 @@ class EmpRate():
         except Exception as ex:
             messagebox.showerror("Error", f"Error here due to : {str(ex)}", parent=self.root)
 
-        
+
 
 
 if __name__ == "__main__":

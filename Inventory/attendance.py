@@ -14,7 +14,7 @@ class calender:
         root.geometry('600x450+300+160')
         con=sqlite3.connect(database=r'ims.db')
         cur=con.cursor()
-            
+
         # Add Calendar
         cal = Calendar(root,firstweekday="sunday",
         weekenddays=[6,7], 
@@ -57,7 +57,7 @@ class calender:
         cal.pack(pady = 20,fill="both",expand=True)
 
         #data
-        
+
         self.var_eid=eid
 
         def present():

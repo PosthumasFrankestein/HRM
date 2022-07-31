@@ -210,7 +210,7 @@ class adminclass:
                                    self.txt_address.get('1.0',END),
                                    self.var_emp_salary.get(),
                                    self.var_emp_id.get(),
-     
+
                          ))       
                          con.commit()
                          messagebox.showinfo('Success',"Admin Updated Sucessfully",parent=self.root)

@@ -212,7 +212,7 @@ class App(customtkinter.CTk):
 
         # ============ frame_right ============
 
-        
+
     def button_event(self):
         print("Button pressed")
 
@@ -221,7 +221,7 @@ class App(customtkinter.CTk):
 
     def on_closing(self, event=0):
         self.destroy()
-    
+
     def employee(self):
         self.new_win=Toplevel(self)
         self.new_obj=employeeclass(self.new_win)
@@ -261,10 +261,10 @@ class App(customtkinter.CTk):
            self.lbl_sales.configure(text=f'Attendance \n [{str(attendence)}]')
 
            now=datetime.datetime.now()
-           
+
            self.label_info_1.configure(text=f'Employee Management System \t Time: {now.strftime("%I:%M:%S")}  \t Date: {now.strftime("%d-%m-%Y")}')
            self.update=self.label_info_1.after(200,self.update_content)
-       
+
         except Exception as ex:
             print(ex)
             messagebox.showerror("Error",f'Error due to : {str(ex)}',parent=self)

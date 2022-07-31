@@ -17,7 +17,7 @@ class salaryClass:
         self.root.title("Employee Management System")
         self.root.config(bg="black")
         # All Varialble
-    
+
         self.var_emp_id = StringVar()
         self.var_emp_date = StringVar()
         self.var_emp_contact = StringVar()
@@ -130,7 +130,7 @@ class salaryClass:
             font=("goudy old style", 11),
             bg="#211f1f",fg="white"
         ).place(x=850, y=190, width=180)
-       
+
         # row 3
         # ====row4=======
         lbl_present = Label(
@@ -174,7 +174,7 @@ class salaryClass:
             font=("goudy old style", 11),
             bg="#211f1f",fg="white"
         ).place(x=850, y=230, width=180)
-        
+
         #row 4
         lbl_rating = Label(
             self.root,
@@ -289,12 +289,12 @@ class salaryClass:
         num_days = monthrange(today.year,today.month)
         con = sqlite3.connect(database=r"ims.db")
         cur = con.cursor()
-        
+
         try:
             cur.execute("Select count(*) from attendance where eid=? and astatus='present'",(str(row[0])))
             rows = cur.fetchone()
 
-            
+
 
         except Exception as ex:
             messagebox.showerror("Error", f"Error due to : {str(ex)}", parent=self.root)

@@ -19,7 +19,7 @@ class Login_system:
         login_frame=customtkinter.CTkFrame(self.root,bd=2,relief=RIDGE,fg_color="white")
         login_frame.place(x=520,y=90,width=350,height=460)
 
-        
+
         title=Label(login_frame,text="Login System",font=("Elephant",30,"bold"),bg="white").place(x=0,y=30,relwidth=1)
 
 
@@ -36,7 +36,7 @@ class Login_system:
                                  hover_color="green",
                                  text="Log In",
                                  command=self.login).place(x=50,y=300)
-                                 
+
     def login(self):
         con=sqlite3.connect(database=r'ims.db')
         cur=con.cursor()
