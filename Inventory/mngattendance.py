@@ -1,6 +1,5 @@
 from sqlite3.dbapi2 import connect
 from tkinter import *
-# from PIL import Image,ImageTk
 import sqlite3
 from tkinter import ttk,messagebox
 from logins import Login_system
@@ -104,7 +103,6 @@ class AttendanceMng:
        cur=con.cursor()
        try:
               cur.execute("Select date,remark,eid from attendance where status!='approve'")
-              # cur.execute("Select eid,name,email,dob,contact,utype from employee where eid=(Select eid from attendance where status='unapproved')")
               rows=cur.fetchall()
               self.EmployeeTable.delete(*self.EmployeeTable.get_children())
               for row in rows:
@@ -204,7 +202,6 @@ class AttendanceMng:
        except Exception as ex:
            messagebox.showerror("Error",f"Error due to : {str(ex)}",parent=self.root)
 if __name__=="__main__":     
-#     root=Tk() 
     root=customtkinter.CTk()
     obj=Login_system(root)
     root.mainloop()      

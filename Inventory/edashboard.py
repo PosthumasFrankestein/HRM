@@ -26,7 +26,6 @@ class App(customtkinter.CTk):
         self.geometry("1350x700+0+0")
         self.title("Logged as Employee")
 
-        #    self.root.config(bg="black")
 
         # ============ create two frames ============
 
@@ -134,7 +133,6 @@ class App(customtkinter.CTk):
         self.label_info_1 = customtkinter.CTkLabel(
             master=self.frame_info,
             text="Employee Management \t\t Date: DD-MM-YYYY \t\t Time: HH:MM:SS \t\t",
-            # height=40,
             corner_radius=6,  # <- custom corner radius
             fg_color=("white", "gray38"),  # <- custom tuple-color
             justify=tkinter.LEFT,
