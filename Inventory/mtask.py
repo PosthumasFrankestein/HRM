@@ -1,7 +1,6 @@
 from sqlite3.dbapi2 import connect
 from tkinter import *
 import sqlite3
-from tkinter import ttk, messagebox
 from datetime import *
 from calendar import monthrange
 from logins import Login_system

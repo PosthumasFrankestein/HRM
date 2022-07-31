@@ -2,7 +2,6 @@ from sqlite3.dbapi2 import connect
 from tkinter import *
 # from PIL import Image,ImageTk
 import sqlite3
-from tkinter import ttk,messagebox
 
 
 class adminclass:
