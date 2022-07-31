@@ -6,15 +6,14 @@ from calendar import monthrange
 import customtkinter
 
 
-
 class esalaryClass:
-    def __init__(self, root,eid):
+    def __init__(self, root, eid):
         self.root = root
         self.root.geometry("1100x400+220+130")
         self.root.resizable(True, True)
         self.root.title("Employee Management System")
         self.root.config(bg="black")
-        eid=eid
+        eid = eid
         # All Varialble
 
         self.var_emp_id = StringVar()
@@ -31,9 +30,6 @@ class esalaryClass:
         self.var_emp_bonus = StringVar()
         self.var_emp_rating = StringVar()
         self.var_emp_tsalary = StringVar()
-
-
-
 
         title = Label(
             self.root,
@@ -52,7 +48,7 @@ class esalaryClass:
             bg="black",
             fg="white",
         ).place(x=50, y=150)
-        lbl_name= Label(
+        lbl_name = Label(
             self.root, text="Name", font=("goudy old style", 11), bg="black", fg="white"
         ).place(x=350, y=150)
         lbl_email = Label(
@@ -67,19 +63,22 @@ class esalaryClass:
             self.root,
             textvariable=self.var_emp_id,
             font=("goudy old style", 11),
-            bg="#211f1f",fg="white",
+            bg="#211f1f",
+            fg="white",
         ).place(x=150, y=150, width=180)
         txt_name = Label(
             self.root,
             textvariable=self.var_emp_name,
             font=("goudy old style", 11),
-            bg="#211f1f",fg="white",
+            bg="#211f1f",
+            fg="white",
         ).place(x=500, y=150, width=180)
         txt_email = Label(
             self.root,
             textvariable=self.var_emp_email,
             font=("goudy old style", 11),
-            bg="#211f1f",fg="white",
+            bg="#211f1f",
+            fg="white",
         ).place(x=850, y=150, width=180)
 
         # row 2
@@ -105,20 +104,23 @@ class esalaryClass:
             self.root,
             textvariable=self.var_emp_date,
             font=("goudy old style", 11),
-            bg="#211f1f",fg="white",
+            bg="#211f1f",
+            fg="white",
         ).place(x=150, y=190, width=180)
         txt_salary = Label(
             self.root,
             textvariable=self.var_emp_salary,
             font=("goudy old style", 11),
-            bg="#211f1f",fg="white",
+            bg="#211f1f",
+            fg="white",
         ).place(x=500, y=190, width=180)
         txt_utype = Label(
             self.root,
             textvariable=self.var_emp_utype,
             justify=CENTER,
             font=("goudy old style", 11),
-            bg="#211f1f",fg="white"
+            bg="#211f1f",
+            fg="white",
         ).place(x=850, y=190, width=180)
 
         # row 3
@@ -149,23 +151,26 @@ class esalaryClass:
             self.root,
             textvariable=self.var_emp_present,
             font=("goudy old style", 11),
-            bg="#211f1f",fg="white",
+            bg="#211f1f",
+            fg="white",
         ).place(x=150, y=230, width=180)
         txt_absent = Label(
             self.root,
             textvariable=self.var_emp_absent,
             font=("goudy old style", 11),
-            bg="#211f1f",fg="white",
+            bg="#211f1f",
+            fg="white",
         ).place(x=500, y=230, width=180)
         txt_holiday = Entry(
             self.root,
             textvariable=self.var_emp_holiday,
             insertbackground="white",
             font=("goudy old style", 11),
-            bg="#211f1f",fg="white"
+            bg="#211f1f",
+            fg="white",
         ).place(x=850, y=230, width=180)
 
-        #row 4
+        # row 4
         lbl_rating = Label(
             self.root,
             text="Rating",
@@ -192,13 +197,15 @@ class esalaryClass:
             self.root,
             textvariable=self.var_emp_rating,
             font=("goudy old style", 11),
-            bg="#211f1f",fg="white",
+            bg="#211f1f",
+            fg="white",
         ).place(x=150, y=270, width=180)
         txt_bonus = Entry(
             self.root,
             textvariable=self.var_emp_bonus,
             font=("goudy old style", 11),
-            bg="#211f1f",fg="white",
+            bg="#211f1f",
+            fg="white",
             insertbackground="white",
         ).place(x=500, y=270, width=180)
         txt_tsalary = Label(
@@ -206,33 +213,37 @@ class esalaryClass:
             textvariable=self.var_emp_tsalary,
             justify=CENTER,
             font=("goudy old style", 11),
-            bg="#211f1f",fg="white"
+            bg="#211f1f",
+            fg="white",
         ).place(x=850, y=270, width=180)
 
         # button
         btn_receipt = customtkinter.CTkButton(
             self.root,
             text="Get Data",
-            command=lambda:self.get_data(eid),
+            command=lambda: self.get_data(eid),
             text_font=("goudy old style", 11),
             fg_color="#4caf50",
             cursor="hand2",
         ).place(x=850, y=305, width=180, height=28)
 
-
     def get_data(self, eid):
         today = date.today()
-        num_days = monthrange(today.year,today.month)
+        num_days = monthrange(today.year, today.month)
         con = sqlite3.connect(database=r"ims.db")
         cur = con.cursor()
-        cur.execute("Select eid,name,email,dob,contact,utype,salary from employee where eid=?",str(eid))
+        cur.execute(
+            "Select eid,name,email,dob,contact,utype,salary from employee where eid=?",
+            str(eid),
+        )
         row = cur.fetchone()
 
         try:
-            cur.execute("Select count(*) from attendance where eid=? and astatus='present'",(str(row[0])))
+            cur.execute(
+                "Select count(*) from attendance where eid=? and astatus='present'",
+                (str(row[0])),
+            )
             rows = cur.fetchone()
-
-
 
         except Exception as ex:
             messagebox.showerror("Error", f"Error due to : {str(ex)}", parent=self.root)
@@ -244,7 +255,7 @@ class esalaryClass:
         self.var_emp_contact.set(row[4]),
         self.var_emp_utype.set(row[5]),
         self.var_emp_salary.set(row[6]),
-        self.var_emp_absent.set(int(num_days[1])-int(rows[0]))
+        self.var_emp_absent.set(int(num_days[1]) - int(rows[0]))
         self.var_emp_present.set(rows[0])
 
 

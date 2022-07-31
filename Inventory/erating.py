@@ -6,14 +6,15 @@ from calendar import monthrange
 import customtkinter
 from logins import Login_system
 
-class EmpRate():
-    def __init__(self,root,eid):
+
+class EmpRate:
+    def __init__(self, root, eid):
         self.root = root
         self.root.geometry("1100x500+220+130")
         self.root.resizable(True, True)
         self.root.config(bg="black")
         # All Varialble
-        eid=eid
+        eid = eid
         self.var_emp_id = StringVar()
         self.var_emp_date = StringVar()
         self.var_emp_contact = StringVar()
@@ -22,7 +23,7 @@ class EmpRate():
         self.var_emp_salary = StringVar()
         self.var_emp_utype = StringVar()
         self.var_emp_rating = StringVar()
-        self.var_emp_tsalary = StringVar()        
+        self.var_emp_tsalary = StringVar()
         self.value1 = IntVar()
         self.value2 = IntVar()
         self.value3 = IntVar()
@@ -146,16 +147,16 @@ class EmpRate():
             bg="black",
             fg="white",
         )
-        label.place(x=560,y=240)
+        label.place(x=560, y=240)
 
         slider2 = customtkinter.CTkSlider(
-            master=self.root, 
-            from_=0, 
+            master=self.root,
+            from_=0,
             width=320,
-            to=5, 
-            number_of_steps=5, 
-            variable=self.value2
-        ).place(x=720,y=245)
+            to=5,
+            number_of_steps=5,
+            variable=self.value2,
+        ).place(x=720, y=245)
 
         label = Label(
             master=self.root,
@@ -164,15 +165,15 @@ class EmpRate():
             bg="black",
             fg="white",
         )
-        label.place(x=50,y=280)
+        label.place(x=50, y=280)
 
         slider3 = customtkinter.CTkSlider(
-            master=self.root, 
-            from_=0, 
+            master=self.root,
+            from_=0,
             width=320,
-            to=5, 
-            number_of_steps=5, 
-            variable=self.value3
+            to=5,
+            number_of_steps=5,
+            variable=self.value3,
         ).place(x=190, y=285)
 
         label = Label(
@@ -182,16 +183,16 @@ class EmpRate():
             bg="black",
             fg="white",
         )
-        label.place(x=560,y=280)
+        label.place(x=560, y=280)
 
         slider4 = customtkinter.CTkSlider(
-            master=self.root, 
-            from_=0, 
-            to=5, 
+            master=self.root,
+            from_=0,
+            to=5,
             width=320,
-            number_of_steps=5, 
-            variable=self.value4
-        ).place(x=720,y=285)
+            number_of_steps=5,
+            variable=self.value4,
+        ).place(x=720, y=285)
 
         button = customtkinter.CTkButton(
             master=self.root,
@@ -199,14 +200,13 @@ class EmpRate():
             corner_radius=8,
             fg_color="green",
             text="Rate",
-            command=lambda:self.tvalue(eid),
-            text_font=("goudy old style", 11)
+            command=lambda: self.tvalue(eid),
+            text_font=("goudy old style", 11),
         )
         button.place(x=850, y=310, width=180, height=28)
         self.get_data(eid)
 
-
-    def tvalue(self,eid):
+    def tvalue(self, eid):
         con = sqlite3.connect(database=r"ims.db")
         cur = con.cursor()
         value = (
@@ -215,19 +215,27 @@ class EmpRate():
             + self.value3.get()
             + self.value4.get()
         )
-        fvalue=(value/20)*2
-        dvalue=date.today().strftime("%m/%d/%y")
+        fvalue = (value / 20) * 2
+        dvalue = date.today().strftime("%m/%d/%y")
         try:
-            cur.execute("Select rdate from rating where eid=? and ratedby is NULL ORDER BY rid DESC",(str(eid)))
-            row=cur.fetchone()
-            if row is None or (row[0]!=dvalue):
-                cur.execute("Insert into rating (rdate,eid,rate) values(?,?,?)",(dvalue,eid,fvalue))       
+            cur.execute(
+                "Select rdate from rating where eid=? and ratedby is NULL ORDER BY rid DESC",
+                (str(eid)),
+            )
+            row = cur.fetchone()
+            if row is None or (row[0] != dvalue):
+                cur.execute(
+                    "Insert into rating (rdate,eid,rate) values(?,?,?)",
+                    (dvalue, eid, fvalue),
+                )
                 con.commit()
                 messagebox.showinfo(
                     "Success", "Employee Updated Sucessfully", parent=self.root
                 )
             else:
-                messagebox.showerror("Error","You have already rated for today",parent=self.root)
+                messagebox.showerror(
+                    "Error", "You have already rated for today", parent=self.root
+                )
 
         except Exception as ex:
             messagebox.showerror("Error", f"Error due to : {str(ex)}", parent=self.root)
@@ -239,7 +247,9 @@ class EmpRate():
         cur = con.cursor()
 
         try:
-            cur.execute("Select eid,name,utype,doj,salary from employee where eid=?",str(eid))
+            cur.execute(
+                "Select eid,name,utype,doj,salary from employee where eid=?", str(eid)
+            )
             row = cur.fetchone()
             self.var_emp_id.set(row[0]),
             self.var_emp_name.set(row[1]),
@@ -248,12 +258,12 @@ class EmpRate():
             self.var_emp_salary.set(row[4])
 
         except Exception as ex:
-            messagebox.showerror("Error", f"Error here due to : {str(ex)}", parent=self.root)
-
-
+            messagebox.showerror(
+                "Error", f"Error here due to : {str(ex)}", parent=self.root
+            )
 
 
 if __name__ == "__main__":
-    root=customtkinter.CTk()
+    root = customtkinter.CTk()
     obj = Login_system(root)
     root.mainloop()
