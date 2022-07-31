@@ -9,13 +9,14 @@ import customtkinter
 
 
 
-class salaryClass:
+class esalaryClass:
     def __init__(self, root):
         self.root = root
-        self.root.geometry("1100x500+220+130")
+        self.root.geometry("1100x400+220+130")
         self.root.resizable(True, True)
         self.root.title("Employee Management System")
         self.root.config(bg="black")
+        eid=2
         # All Varialble
     
         self.var_emp_id = StringVar()
@@ -34,16 +35,7 @@ class salaryClass:
         self.var_emp_tsalary = StringVar()
 
 
-        style = ttk.Style()
-        style.configure(
-            "mystyle.Treeview",
-            highlightthickness=0,
-            bd=0,
-            font=("Calibri", 11),
-            background="black",
-            fieldbackground="black",
-            foreground="white",
-        ) 
+        
 
         title = Label(
             self.root,
@@ -220,75 +212,23 @@ class salaryClass:
         ).place(x=850, y=270, width=180)
 
         # button
-        btn_receipt = Button(
+        btn_receipt = customtkinter.CTkButton(
             self.root,
-            text="Approve",
-            command=self.approve,
-            font=("goudy old style", 11),
-            bg="#4caf50",
-            fg="white",
+            text="Get Data",
+            command=lambda:self.get_data(eid),
+            text_font=("goudy old style", 11),
+            fg_color="#4caf50",
             cursor="hand2",
-        ).place(x=850, y=305, width=210, height=28)
+        ).place(x=850, y=305, width=180, height=28)
 
-        # Employee Details
-        emp_frame = Frame(self.root, bd=3, relief=RIDGE)
-        emp_frame.place(x=0, y=350, relwidth=1, height=150)
 
-        scrolly = Scrollbar(emp_frame, orient=VERTICAL)
-        scrollx = Scrollbar(emp_frame, orient=HORIZONTAL)
-
-        self.EmployeeTable = ttk.Treeview(
-            emp_frame,
-            columns=("eid", "name", "salary", "absent_days", "present_days", "fsalary"),
-            yscrollcommand=scrolly.set,
-            xscrollcommand=scrollx.set,
-            style="mystyle.Treeview",
-        )
-        scrollx.pack(side=BOTTOM, fill=X)
-        scrolly.pack(side=RIGHT, fill=Y)
-        scrollx.config(command=self.EmployeeTable.xview)
-        scrolly.config(command=self.EmployeeTable.yview)
-        self.EmployeeTable.heading("eid", text="EMP ID")
-        self.EmployeeTable.heading("name", text="Name")
-        self.EmployeeTable.heading("salary", text="Salary")
-        self.EmployeeTable.heading("absent_days", text="Absent Days")
-        self.EmployeeTable.heading("present_days", text="Present Days")
-        self.EmployeeTable.heading("fsalary", text="Final Salary")
-        self.EmployeeTable["show"] = "headings"
-
-        self.EmployeeTable.column("eid", width=90)
-        self.EmployeeTable.column("name", width=100)
-        self.EmployeeTable.column("salary", width=100)
-        self.EmployeeTable.column("absent_days", width=100)
-        self.EmployeeTable.column("present_days", width=100)
-        self.EmployeeTable.column("fsalary", width=100)
-
-        self.EmployeeTable.pack(fill=BOTH, expand=1)
-
-        self.EmployeeTable.bind("<ButtonRelease-1>", self.get_data)
-        self.show()
-
-    def show(self):
-        con = sqlite3.connect(database=r"ims.db")
-        cur = con.cursor()
-        try:
-            cur.execute("Select eid,name,email,dob,contact,utype,salary from employee")
-            rows = cur.fetchall()
-            self.EmployeeTable.delete(*self.EmployeeTable.get_children())
-            for row in rows:
-                self.EmployeeTable.insert("", END, values=row)
-
-        except Exception as ex:
-            messagebox.showerror("Error", f"Error due to : {str(ex)}", parent=self.root)
-
-    def get_data(self, ev):
-        f = self.EmployeeTable.focus()
-        content = self.EmployeeTable.item(f)
-        row = content["values"]
+    def get_data(self, eid):
         today = date.today()
         num_days = monthrange(today.year,today.month)
         con = sqlite3.connect(database=r"ims.db")
         cur = con.cursor()
+        cur.execute("Select eid,name,email,dob,contact,utype,salary from employee where eid=?",str(eid))
+        row = cur.fetchone()
         
         try:
             cur.execute("Select count(*) from attendance where eid=? and astatus='present'",(str(row[0])))
@@ -309,83 +249,8 @@ class salaryClass:
         self.var_emp_absent.set(int(num_days[1])-int(rows[0]))
         self.var_emp_present.set(rows[0])
 
-    def approve(self):
-        con = sqlite3.connect(database=r"ims.db")
-        cur = con.cursor()
-        try:
-            if self.var_emp_id.get() == "":
-                messagebox.showerror(
-                    "Error", "Employee ID must be required", parent=self.root
-                )
-            else:
-                cur.execute(
-                    "Select *from employee where eid=?", (self.var_emp_id.get(),)
-                )
-                row = cur.fetchone()
-                if row == None:
-                    messagebox.showerror(
-                        "Error", "Invalid employee id", parent=self.root
-                    )
-                else:
-                    cur.execute(
-                        "Update employee set name=?,email=?,dob=?,contact=?,utype=? where eid=?",
-                        (
-                            self.var_emp_name.get(),
-                            self.var_emp_email.get(),
-                            self.var_emp_date.get(),
-                            self.var_emp_contact.get(),
-                            self.var_emp_utype.get(),
-                            self.var_emp_id.get(),
-                        ),
-                    )
-                    con.commit()
-                    messagebox.showinfo(
-                        "Success", "Employee Updated Sucessfully", parent=self.root
-                    )
-                    self.show()
-        except Exception as ex:
-            messagebox.showerror("Error", f"Error due to : {str(ex)}", parent=self.root)
-
-    def reject(self):
-        con = sqlite3.connect(database=r"ims.db")
-        cur = con.cursor()
-        try:
-            if self.var_emp_id.get() == "":
-                messagebox.showerror(
-                    "Error", "Employee ID must be required", parent=self.root
-                )
-            else:
-                cur.execute(
-                    "Select *from employee where eid=?", (self.var_emp_id.get(),)
-                )
-                row = cur.fetchone()
-                if row == None:
-                    messagebox.showerror(
-                        "Error", "Invalid employee id", parent=self.root
-                    )
-                else:
-                    cur.execute(
-                        "Update employee set name=?,email=?,dob=?,contact=?,utype=? where eid=?",
-                        (
-                            self.var_emp_name.get(),
-                            self.var_emp_email.get(),
-                            self.var_emp_date.get(),
-                            self.var_emp_contact.get(),
-                            self.var_emp_utype.get(),
-                            #    self.txt_remark.get('1.0',END),
-                            self.var_emp_id.get(),
-                        ),
-                    )
-                    con.commit()
-                    messagebox.showinfo(
-                        "Success", "Employee Updated Sucessfully", parent=self.root
-                    )
-                    self.show()
-        except Exception as ex:
-            messagebox.showerror("Error", f"Error due to : {str(ex)}", parent=self.root)
-
 
 if __name__ == "__main__":
     root = customtkinter.CTk()
-    obj = Login_system(root)
+    obj = esalaryClass(root)
     root.mainloop()

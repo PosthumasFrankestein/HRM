@@ -4,14 +4,15 @@ from tkinter import *
 import sqlite3
 from tkinter import ttk,messagebox
 from logins import Login_system
+import customtkinter
 
 
 class employeeclass:
     def __init__(self,root):
        self.root=root
        self.root.geometry("1100x500+220+130")
-       self.root.title("Employee Management System")
-       self.root.config(bg="white")
+       customtkinter.set_appearance_mode("system")
+       
        #All Varialble
        self.var_searchby=StringVar()
        self.var_searchtxt=StringVar()
@@ -27,17 +28,9 @@ class employeeclass:
        self.var_emp_utype=StringVar()
        self.var_emp_salary=StringVar()   
        self.var_emp_address=StringVar()    
-
-       # SearchFrame=LabelFrame(self.root,text="Search Employee",font=("goudy old style",12,"bold"),bd=2,relief=RIDGE,bg="white")
-       # SearchFrame.place(x=250,y=20,width=600,height=70)
-
-       # cmb_search=ttk.Combobox(SearchFrame,textvariable=self.var_searchby,values=("Select","Email","Name","Contact"),state='readonly',justify=CENTER,font=("goudy old style",15))
-       # cmb_search.place(x=10,y=20,width=180)
-       # cmb_search.current(0)
-
-       # txt_search=Entry(SearchFrame,textvariable=self.var_searchtxt,font=("goudy old style",15),bg="lightyellow").place(x=200,y=10)
-       # btn_search=Button(SearchFrame,text="Search",command=self.search,font=("goudy old style",15),bg="#4caf50",fg="white",cursor="hand2").place(x=410,y=9,width=150,height=30)
-       #title
+       
+       
+    #title
 
        title=Label(self.root,text="Employee Details",font=("goudy old style",15),bg="#0f4d7d",fg="white").place(x=50,y=100,width=1000)
 
@@ -294,7 +287,8 @@ class employeeclass:
        except Exception as ex:
            messagebox.showerror("Error",f"Error due to : {str(ex)}",parent=self.root)
 if __name__=="__main__":      
-    root=Tk()
+#     root=Tk()
 #     obj=employeeclass(root)
+    root=customtkinter.CTk()
     obj=Login_system(root)
     root.mainloop()      

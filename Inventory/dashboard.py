@@ -1,80 +1,251 @@
+import tkinter
+from tkinter import messagebox
+import customtkinter
 from tkinter import *
 from employee import employeeclass
 from mngattendance import AttendanceMng
 import sqlite3
 import os  
 from logins import Login_system
+from salary import salaryClass
+from rating import Rating
 import datetime
+from mtask import Mngtask
 
-class EMS:
-    def __init__(self,root):
-       self.root=root
-       self.root.geometry("1350x700+0+0")
-       self.root.title("Logged as Admin")
-       self.root.config(bg="skyblue")
-       
-       #clock ko lagi      Time
-       self.lbl_clock=Label(self.root,text="Welcome to Desktop Application for Employee Management\t\t Date: DD-MM-YYYY\t\t Time: HH:MM:SS",font=("times new roman",15,"bold"),bg="green",fg="white") 
-       
-       self.lbl_clock.place(x=0,y=0,relwidth=1,height=30)
 
-       #left menu
-       LeftMenu=Frame(self.root,bd=2,relief=RIDGE,bg="white")
-       LeftMenu.place(x=0,y=102,width=200,height=565)
+customtkinter.set_appearance_mode("System")  # Modes: "System" (standard), "Dark", "Light"
+customtkinter.set_default_color_theme("dark-blue")  # Themes: "blue" (standard), "green", "dark-blue"
 
-       lbl_menu=Label(LeftMenu,text="Menu",font=("times new roman",20),bg="#009688").pack(side=TOP,fill=X)
-       btn_employee=Button(LeftMenu,text="Employee",command=self.employee,font=("times new roman",20,"bold"),bg="white",bd=3,cursor="hand2").pack(side=TOP,fill=X)
-       btn_supplier=Button(LeftMenu,text="Salary",command=self.Salary,font=("times new roman",20,"bold"),bg="white",bd=3,cursor="hand2").pack(side=TOP,fill=X)
-       btn_category=Button(LeftMenu,text="Task",command=self.Task,font=("times new roman",20,"bold"),bg="white",bd=3,cursor="hand2").pack(side=TOP,fill=X)
-       btn_product=Button(LeftMenu,text="Bonus",command=self.Bonus,font=("times new roman",20,"bold"),bg="white",bd=3,cursor="hand2").pack(side=TOP,fill=X)
-       btn_sales=Button(LeftMenu,text="Attendance",command=self.Attendance,font=("times new roman",20,"bold"),bg="white",bd=3,cursor="hand2").pack(side=TOP,fill=X)
-       btn_logout=Button(self.root,text="Logout",command=self.logout,font=("times new roman",15,"bold"),bg="red",cursor="hand2").place(x=1180,y=630,height=30,width=150)
-       
-           #content ko lagi     
-       self.lbl_employee=Label(self.root,text="Total Employee\n[ 0 ] ",bd=5,relief=RIDGE,bg="#33bbf9",fg="white",font=("goudy old style",20,"bold"))
-       self.lbl_employee.place(x=300,y=120,height=150,width=300)
+class App(customtkinter.CTk):
 
-       self.lbl_supplier=Label(self.root,text="Salary Info\n[ 0 ] ",bd=5,relief=RIDGE,bg="#ff5722",fg="white",font=("goudy old style",20,"bold"))
-       self.lbl_supplier.place(x=650,y=120,height=150,width=300)
+    WIDTH = 780
+    HEIGHT = 520
 
-       self.lbl_category=Label(self.root,text="Tasks \n[ 0 ] ",bd=5,relief=RIDGE,bg="#009688",fg="white",font=("goudy old style",20,"bold"))
-       self.lbl_category.place(x=1000,y=120,height=150,width=300)
+    def __init__(self,eid):
+        super().__init__()
+        self.geometry("1350x700+0+0")
+        self.title("Logged as Admin")
+        self.protocol("WM_DELETE_WINDOW", self.on_closing)
+        #    self.root.configure(bg="black")
 
-       self.lbl_product=Label(self.root,text="Employee present \n[ 0 ] ",bd=5,relief=RIDGE,bg="#607d8b",fg="white",font=("goudy old style",20,"bold"))
-       self.lbl_product.place(x=300,y=300,height=150,width=300)
+        # ============ create two frames ============
 
-       self.lbl_product=Label(self.root,text="Employee absent \n[ 0 ] ",bd=5,relief=RIDGE,bg="black",fg="white",font=("goudy old style",20,"bold"))
-       self.lbl_product.place(x=650,y=300,height=150,width=300)       
+        # configure grid layout (2x1)
+        self.grid_columnconfigure(1, weight=1)
+        self.grid_rowconfigure(0, weight=1)
 
-       self.lbl_sales=Label(self.root,text="Attendance info \n[ 0 ] ",bd=5,relief=RIDGE,bg="#ffc107",fg="white",font=("goudy old style",20,"bold"))
-       self.lbl_sales.place(x=1000,y=300,height=150,width=300)    
+        self.frame_left = customtkinter.CTkFrame(
+            master=self, width=180, corner_radius=0
+        )
+        self.frame_left.grid(row=0, column=0, sticky="nswe")
 
-       self.update_content()
-      
+        self.frame_right = customtkinter.CTkFrame(master=self)
+        self.frame_right.grid(row=0, column=1, sticky="nswe", padx=20, pady=20)
+
+        # ============ frame_left ============
+
+        # configure grid layout (1x11)
+        self.frame_left.grid_rowconfigure(7, weight=1)  # empty row as spacing
+
+        self.label_1 = customtkinter.CTkLabel(
+            master=self.frame_left, text="Menu", text_font=("Roboto Medium", -16)
+        )  # font name and size in px
+        self.label_1.grid(row=1, column=0, pady=10, padx=10)
+
+        self.button_1 = customtkinter.CTkButton(
+            master=self.frame_left, cursor="hand2",
+            text="Employee", command=self.employee
+        )
+        self.button_1.grid(row=2, column=0, pady=10, padx=20)
+
+        self.button_2 = customtkinter.CTkButton(
+            master=self.frame_left, cursor="hand2",
+            text="Salary", command=self.Salary
+        )
+        self.button_2.grid(row=3, column=0, pady=10, padx=20)
+
+        self.button_3 = customtkinter.CTkButton(
+            master=self.frame_left, cursor="hand2",
+            text="Task", command=lambda:self.Task(eid)
+        )
+        self.button_3.grid(row=4, column=0, pady=10, padx=20)
+
+        self.button_4 = customtkinter.CTkButton(
+            master=self.frame_left, cursor="hand2",
+            text="Rating", command=lambda:self.Rating(eid)
+        )
+        self.button_4.grid(row=5, column=0, pady=10, padx=20)
+
+        self.button_5 = customtkinter.CTkButton(
+            master=self.frame_left, cursor="hand2",
+            text="Attendance", command=self.Attendance
+        )
+        self.button_5.grid(row=6, column=0, pady=10, padx=20)
+
+        self.label_mode = customtkinter.CTkLabel(
+            master=self.frame_left, text="Appearance Mode:"
+        )
+        self.label_mode.grid(row=8, column=0, pady=0, padx=20, sticky="w")
+
+        self.optionmenu_1 = customtkinter.CTkOptionMenu(
+            master=self.frame_left,
+            values=["Light", "Dark", "System"],
+            command=self.change_appearance_mode,
+        )
+        self.optionmenu_1.grid(row=9, column=0, pady=10, padx=20, sticky="w")
+
+        self.button_6 = customtkinter.CTkButton(
+            master=self.frame_left,
+            text="Logout",
+            fg_color="red",
+            cursor="hand2",
+            height=30,
+            command=self.logout,
+        )
+        self.button_6.grid(row=10, column=0, pady=10, padx=20)
+
+        # ============ frame_right ============
+
+        # configure grid layout (3x7)
+        self.frame_right.rowconfigure(0, weight=1)
+        self.frame_right.rowconfigure(7, weight=10)
+        self.frame_right.columnconfigure(0, weight=1)
+        self.frame_right.columnconfigure(2, weight=0)
+
+        self.frame_info = customtkinter.CTkFrame(master=self.frame_right)
+        self.frame_info.grid(
+            row=0, column=0, columnspan=1, rowspan=1, pady=20, padx=20, sticky="nsew"
+        )
+
+        self.frame_list = customtkinter.CTkFrame(master=self.frame_right)
+        self.frame_list.grid(
+            row=1, column=0, columnspan=3, rowspan=2, pady=20, padx=20, sticky="nsew"
+        )
+
+        # ============ frame_info ============
+
+        # configure grid layout (1x1)
+        self.frame_info.rowconfigure(0, weight=1)
+        self.frame_info.columnconfigure(0, weight=1)
+
+        self.frame_list.rowconfigure((0,1), weight=1)
+        self.frame_list.columnconfigure((0,1,2), weight=1)
+
+        self.label_info_1 = customtkinter.CTkLabel(
+            master=self.frame_info,
+            text="Employee Management \t\t Date: DD-MM-YYYY \t\t Time: HH:MM:SS \t\t",
+            # height=40,
+            corner_radius=6,  # <- custom corner radius
+            fg_color=("white", "gray38"),  # <- custom tuple-color
+            justify=tkinter.LEFT,
+        )
+        self.label_info_1.grid(column=0, row=0, sticky="nwe", padx=15, pady=15)
+
+        self.lbl_employee = customtkinter.CTkLabel(
+            self.frame_list,
+            height=150,
+            fg_color=("white", "gray38"),
+            text="Total Employee\n[ 0 ] ",
+            text_font=("goudy old style", 20, "bold"),
+        )
+        self.lbl_employee.grid(column=0, row=0, sticky="nwe", padx=15, pady=15)
+
+        self.lbl_supplier = customtkinter.CTkLabel(
+            self.frame_list,
+            height=150,
+            fg_color=("white", "gray38"),
+            text="Salary Info\n[ 0 ] ",
+            bg="black",
+            fg="white",
+            text_font=("goudy old style", 20, "bold"),
+        )
+        self.lbl_supplier.grid(column=1, row=0, sticky="ew", padx=15, pady=15)
+
+        self.lbl_category = customtkinter.CTkLabel(
+            self.frame_list,
+            height=150,
+            fg_color=("white", "gray38"),
+            text="Tasks \n[ 0 ] ",
+            bg="black",
+            fg="white",
+            text_font=("goudy old style", 20, "bold"),
+        )
+        self.lbl_category.grid(column=2, row=0, sticky="ew", padx=15, pady=15)
+
+        self.lbl_product = customtkinter.CTkLabel(
+            self.frame_list,
+            height=150,
+            text="Employee present \n[ 0 ] ",
+            relief=RIDGE,
+            fg_color=("white", "gray38"),
+            bg="black",
+            fg="white",
+            text_font=("goudy old style", 20, "bold"),
+        )
+        self.lbl_product.grid(column=0, row=1, sticky="ew",padx=15, pady=15)
+
+        self.lbl_product = customtkinter.CTkLabel(
+            self.frame_list,
+            height=150,
+            text="Employee absent \n[ 0 ] ",
+            fg_color=("white", "gray38"),
+            relief=RIDGE,
+            bg="black",
+            fg="white",
+            text_font=("goudy old style", 20, "bold"),
+        )
+        self.lbl_product.grid(column=1, row=1, sticky="ew", padx=15, pady=15)
+
+        self.lbl_sales = customtkinter.CTkLabel(
+            self.frame_list,
+            height=150,
+            text="Attendance info \n[ 0 ] ",
+            fg_color=("white", "gray38"),
+            relief=RIDGE,
+            bg="black",
+            fg="white",
+            text_font=("goudy old style", 20, "bold"),
+        )
+        self.lbl_sales.grid(column=2, row=1, sticky="ew", padx=15, pady=15)
+
+        self.update_content()
+
+        # ============ frame_right ============
+
+        
+    def button_event(self):
+        print("Button pressed")
+
+    def change_appearance_mode(self, new_appearance_mode):
+        customtkinter.set_appearance_mode(new_appearance_mode)
+
+    def on_closing(self, event=0):
+        self.destroy()
+    
     def employee(self):
-        self.new_win=Toplevel(self.root)
+        self.new_win=Toplevel(self)
         self.new_obj=employeeclass(self.new_win)
 
     def Salary(self):
-        self.new_win=Toplevel(self.root)
+        self.new_win=Toplevel(self)
         self.new_obj=salaryClass(self.new_win)
 
-    def Task(self):
-        self.new_win=Toplevel(self.root)
-        self.new_obj=taskClass(self.new_win)
+    def Task(self,eid):
+        self.new_win=Toplevel(self)
+        self.new_obj=Mngtask(self.new_win,eid)
 
-    def Bonus(self):
-        self.new_win=Toplevel(self.root)
-        self.new_obj=bonusClass(self.new_win)
+    def Rating(self,eid):
+        self.new_win=Toplevel(self)
+        self.new_obj=Rating(self.new_win,eid)
 
     def Attendance(self):
-        self.new_win=Toplevel(self.root)
+        self.new_win=Toplevel(self)
         self.new_obj=AttendanceMng(self.new_win)   
 
     def logout(self):
-        self.lbl_clock.after_cancel(self.root.update)
-        self.root.destroy()
-        root=Tk()
+        self.label_info_1.after_cancel(self.update)
+        self.destroy()
+        root=customtkinter.CTk()
         obj=Login_system(root)
         root.mainloop()                       
 
@@ -85,22 +256,21 @@ class EMS:
         try:
            cur.execute("select * from employee")
            employee=cur.fetchall()
-           self.lbl_employee.config(text=f'Total employee\n[{str(len(employee))}]')
+           self.lbl_employee.configure(text=f'Total Employee\n[{str(len(employee))}]')
            attendence=len(os.listdir('Inventory/attendence'))
-           self.lbl_sales.config(text=f'Attendance info [{str(attendence)}]')
+           self.lbl_sales.configure(text=f'Attendance \n [{str(attendence)}]')
 
            now=datetime.datetime.now()
            
-           self.lbl_clock.config(text=f'Welcome to Employee Management System\t\t Time: {now.strftime("%I:%M:%S")} \t\t  Date: {now.strftime("%d-%m-%Y")}')
-           self.root.update=self.lbl_clock.after(200,self.update_content)
+           self.label_info_1.configure(text=f'Employee Management System \t Time: {now.strftime("%I:%M:%S")}  \t Date: {now.strftime("%d-%m-%Y")}')
+           self.update=self.label_info_1.after(200,self.update_content)
        
         except Exception as ex:
             print(ex)
-            messagebox.showerror("Error",f'Error due to : {str(ex)}',parent=self.root)
-            
- 
+            messagebox.showerror("Error",f'Error due to : {str(ex)}',parent=self)
 
-if __name__=="__main__":      
-    root=Tk()
+
+if __name__ == "__main__":
+    root=customtkinter.CTk()
     obj=Login_system(root)
     root.mainloop()

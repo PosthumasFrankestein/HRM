@@ -3,14 +3,18 @@ from tkinter import *
 # from PIL import Image,ImageTk
 import sqlite3
 from tkinter import ttk,messagebox
-
+from logins import Login_system
+import customtkinter
+customtkinter.set_appearance_mode("system")
 
 class AttendanceMng:
     def __init__(self,root):
        self.root=root
        self.root.geometry("1100x500+220+130")
-       self.root.title("Employee Management System")
-       self.root.config(bg="white")
+       self.root.title("Logged as Admin")
+       customtkinter.set_appearance_mode("system")
+       
+       
        #All Varialble
        self.var_searchby=StringVar()
        self.var_searchtxt=StringVar()
@@ -65,26 +69,26 @@ class AttendanceMng:
        scrolly=Scrollbar(emp_frame,orient=VERTICAL)
        scrollx=Scrollbar(emp_frame,orient=HORIZONTAL)
 
-       self.EmployeeTable=ttk.Treeview(emp_frame,columns=("eid","name","email","date","contact","utype","remark"),yscrollcommand=scrolly.set,xscrollcommand=scrollx.set)
+       self.EmployeeTable=ttk.Treeview(emp_frame,columns=("eid","name","email","contact","utype","date","remark"),yscrollcommand=scrolly.set,xscrollcommand=scrollx.set)
        scrollx.pack(side=BOTTOM,fill=X)
        scrolly.pack(side=RIGHT,fill=Y)
-       scrollx.config(command=self.EmployeeTable.xview)
-       scrolly.config(command=self.EmployeeTable.yview)
+       scrollx.configure(command=self.EmployeeTable.xview)
+       scrolly.configure(command=self.EmployeeTable.yview)
        self.EmployeeTable.heading("eid",text="EMP ID")
        self.EmployeeTable.heading("name",text="Name")
        self.EmployeeTable.heading("email",text="Email")
-       self.EmployeeTable.heading("date",text="Date")
        self.EmployeeTable.heading("contact",text="Contact")
        self.EmployeeTable.heading("utype",text="User Type")
+       self.EmployeeTable.heading("date",text="Date")
        self.EmployeeTable.heading("remark",text="Remark")
        self.EmployeeTable["show"]="headings"
 
        self.EmployeeTable.column("eid",width=90)
        self.EmployeeTable.column("name",width=100)
        self.EmployeeTable.column("email",width=100)
-       self.EmployeeTable.column("date",width=100)
        self.EmployeeTable.column("contact",width=100)
        self.EmployeeTable.column("utype",width=100)
+       self.EmployeeTable.column("date",width=100)
        self.EmployeeTable.column("remark",width=100)
 
 
@@ -99,15 +103,14 @@ class AttendanceMng:
        con=sqlite3.connect(database=r'ims.db')
        cur=con.cursor()
        try:
-              cur.execute("Select eid,name,email,dob,contact,utype from employee")
+              cur.execute("Select date,remark,eid from attendance where status!='approve'")
               # cur.execute("Select eid,name,email,dob,contact,utype from employee where eid=(Select eid from attendance where status='unapproved')")
               rows=cur.fetchall()
               self.EmployeeTable.delete(*self.EmployeeTable.get_children())
-              cur.execute("Select remark from attendance where eid=(Select eid from attendance where status='approve')")
-              i=0
-              rows1=cur.fetchall()
               for row in rows:
-                     value=row+rows1[i]
+                     cur.execute("Select eid,name,email,contact,utype from employee where eid=?",row[2])
+                     rows1=cur.fetchall()
+                     value=rows1[0]+row
                      self.EmployeeTable.insert('',END,values=value)
                      
 
@@ -118,14 +121,15 @@ class AttendanceMng:
        f=self.EmployeeTable.focus()
        content=(self.EmployeeTable.item(f))
        row=content['values']
-       self.var_emp_id.set(row[0]),
-       self.var_emp_name.set(row[1]),
-       self.var_emp_email.set(row[2]),
-       self.var_emp_date.set(row[3]),
-       self.var_emp_contact.set(row[4]),
-       self.var_emp_utype.set(row[5]),
-       self.txt_remark.delete('1.0',END)
-       self.txt_remark.insert(END,row[6]),
+       if len(row)!=0:
+              self.var_emp_id.set(row[0]),
+              self.var_emp_name.set(row[1]),
+              self.var_emp_email.set(row[2]),
+              self.var_emp_date.set(row[5]),
+              self.var_emp_contact.set(row[3]),
+              self.var_emp_utype.set(row[4]),
+              self.txt_remark.delete('1.0',END)
+              self.txt_remark.insert(END,row[6]),
 
     def approve(self):
        con=sqlite3.connect(database=r'ims.db')
@@ -139,11 +143,12 @@ class AttendanceMng:
                   if row==None:
                          messagebox.showerror("Error","Invalid employee id",parent=self.root)
                   else:
-                         cur.execute("Update attendance set status=?,remark=? where eid=?",(
+                         cur.execute("Update attendance set status=?,astatus=?,remark=? where eid=? and date=?",(
                                    "approve",
+                                   "present",
                                    self.txt_remark.get('1.0',END),
                                    self.var_emp_id.get(),
-                                   
+                                   self.var_emp_date.get(),                                   
                          ))       
                          con.commit()
                          messagebox.showinfo('Success',"Employee Updated Sucessfully",parent=self.root)
@@ -164,10 +169,12 @@ class AttendanceMng:
                   if row==None:
                          messagebox.showerror("Error","Invalid employee id",parent=self.root)
                   else:
-                         cur.execute("Update attendance set status=?,remark=? where eid=?",(
+                         cur.execute("Update attendance set status=?,astatus=?,remark=? where eid=? and date=?",(
                                    "reject",
+                                   "absent",
                                    self.txt_remark.get('1.0',END),
                                    self.var_emp_id.get(),
+                                   self.var_emp_date.get(),
                                    
                          ))       
                          con.commit()
@@ -196,8 +203,8 @@ class AttendanceMng:
 
        except Exception as ex:
            messagebox.showerror("Error",f"Error due to : {str(ex)}",parent=self.root)
-if __name__=="__main__":      
-    root=Tk()
-#     obj=employeeclass(root)
-    obj=AttendanceMng(root)
+if __name__=="__main__":     
+#     root=Tk() 
+    root=customtkinter.CTk()
+    obj=Login_system(root)
     root.mainloop()      
