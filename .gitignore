@@ -2,3 +2,5 @@
 /leaveDb.db
 /trial
 /.__pycache__
+/lms.db
+/.deepsource.toml
