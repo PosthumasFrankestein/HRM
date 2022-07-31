@@ -7,7 +7,7 @@ from mngattendance import AttendanceMng
 import sqlite3
 import os  
 from logins import Login_system
-from salary import salaryClass
+from esalary import esalaryClass
 import datetime
 from attendance import calender
 from erating import EmpRate
@@ -60,7 +60,7 @@ class App(customtkinter.CTk):
 
         self.button_2 = customtkinter.CTkButton(
             master=self.frame_left, cursor="hand2",
-            text="Salary", command=self.Salary
+            text="Salary", command=lambda:self.salary(eid)
         )
         self.button_2.grid(row=3, column=0, pady=10, padx=20)
 
@@ -227,9 +227,9 @@ class App(customtkinter.CTk):
         self.new_win=Toplevel(self)
         self.new_obj=employeeclass(self.new_win)
 
-    def Salary(self):
+    def salary(self,eid):
         self.new_win=Toplevel(self)
-        self.new_obj=salaryClass(self.new_win)
+        self.new_obj=esalaryClass(self.new_win,eid)
 
     def task(self,eid):
         self.new_win=Toplevel(self)

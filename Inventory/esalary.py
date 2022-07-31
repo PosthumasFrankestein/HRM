@@ -10,13 +10,13 @@ import customtkinter
 
 
 class esalaryClass:
-    def __init__(self, root):
+    def __init__(self, root,eid):
         self.root = root
         self.root.geometry("1100x400+220+130")
         self.root.resizable(True, True)
         self.root.title("Employee Management System")
         self.root.config(bg="black")
-        eid=2
+        eid=eid
         # All Varialble
     
         self.var_emp_id = StringVar()

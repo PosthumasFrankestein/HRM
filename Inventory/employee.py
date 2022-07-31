@@ -11,7 +11,7 @@ class employeeclass:
     def __init__(self,root):
        self.root=root
        self.root.geometry("1100x500+220+130")
-       customtkinter.set_appearance_mode("system")
+       self.root.config(bg="black")
        
        #All Varialble
        self.var_searchby=StringVar()
