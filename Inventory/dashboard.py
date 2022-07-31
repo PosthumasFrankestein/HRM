@@ -213,10 +213,12 @@ class App(customtkinter.CTk):
         # ============ frame_right ============
 
 
-    def button_event(self):
+    @staticmethod
+    def button_event():
         print("Button pressed")
 
-    def change_appearance_mode(self, new_appearance_mode):
+    @staticmethod
+    def change_appearance_mode(new_appearance_mode):
         customtkinter.set_appearance_mode(new_appearance_mode)
 
     def on_closing(self, event=0):
