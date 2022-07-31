@@ -13,8 +13,8 @@ class AttendanceMng:
        self.root.geometry("1100x500+220+130")
        self.root.title("Logged as Admin")
        customtkinter.set_appearance_mode("system")
-       
-       
+
+
        #All Varialble
        self.var_searchby=StringVar()
        self.var_searchtxt=StringVar()
@@ -54,10 +54,10 @@ class AttendanceMng:
 #row 3
       #====row4=======
        lbl_remark=Label(self.root,text="Remark",font=("goudy old style",15),bg="white").place(x=50,y=270)
-       
+
        self.txt_remark=Text(self.root,font=("goudy old style",15),bg="lightyellow")
        self.txt_remark.place(x=150,y=230,width=300,height=60)       
-       
+
       #button
        btn_approve=Button(self.root,text="Approve",command=self.approve,font=("goudy old style",15),bg="#4caf50",fg="white",cursor="hand2").place(x=50,y=305,width=110,height=28)
        btn_reject=Button(self.root,text="Reject",command=self.reject,font=("goudy old style",15),bg="red",fg="white",cursor="hand2").place(x=150,y=305,width=110,height=28)
@@ -112,7 +112,7 @@ class AttendanceMng:
                      rows1=cur.fetchall()
                      value=rows1[0]+row
                      self.EmployeeTable.insert('',END,values=value)
-                     
+
 
        except Exception as ex:
            messagebox.showerror("Error",f"Error due to : {str(ex)}",parent=self.root) 
@@ -175,7 +175,7 @@ class AttendanceMng:
                                    self.txt_remark.get('1.0',END),
                                    self.var_emp_id.get(),
                                    self.var_emp_date.get(),
-                                   
+
                          ))       
                          con.commit()
                          messagebox.showinfo('Success',"Employee Updated Sucessfully",parent=self.root)

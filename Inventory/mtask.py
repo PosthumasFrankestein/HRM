@@ -247,7 +247,7 @@ class Mngtask:
             rows = cur.fetchone()
             self.var_emp_name.set(rows[0])
             self.var_emp_id.set(choice)
-            
+
 
         except Exception as ex:
             messagebox.showerror("Error", f"Error due to : {str(ex)}", parent=self.root)

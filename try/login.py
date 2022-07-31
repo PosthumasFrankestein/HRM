@@ -15,7 +15,7 @@ class Login(customtkinter.CTk):
     HEIGHT = 520
     def __init__(self):
         super().__init__()
-        
+
         con = sqlite3.connect(database=r"ims.db")
         cur = con.cursor()
         try:
@@ -25,7 +25,7 @@ class Login(customtkinter.CTk):
             value=[]
             for row in rows:
                 value.append(str(row[0]))
-    
+
             print(value)
         except Exception as ex:
             print("Error", f"Error due to : {str(ex)}", parent=self.root)
@@ -38,8 +38,8 @@ class Login(customtkinter.CTk):
                                             values=value,
                                             command=combobox_callback)
         combobox.pack(padx=20, pady=10)
-        
-    
+
+
 
 if __name__ == "__main__":
     app = Login()

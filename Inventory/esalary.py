@@ -18,7 +18,7 @@ class esalaryClass:
         self.root.config(bg="black")
         eid=eid
         # All Varialble
-    
+
         self.var_emp_id = StringVar()
         self.var_emp_date = StringVar()
         self.var_emp_contact = StringVar()
@@ -35,7 +35,7 @@ class esalaryClass:
         self.var_emp_tsalary = StringVar()
 
 
-        
+
 
         title = Label(
             self.root,
@@ -122,7 +122,7 @@ class esalaryClass:
             font=("goudy old style", 11),
             bg="#211f1f",fg="white"
         ).place(x=850, y=190, width=180)
-       
+
         # row 3
         # ====row4=======
         lbl_present = Label(
@@ -166,7 +166,7 @@ class esalaryClass:
             font=("goudy old style", 11),
             bg="#211f1f",fg="white"
         ).place(x=850, y=230, width=180)
-        
+
         #row 4
         lbl_rating = Label(
             self.root,
@@ -229,12 +229,12 @@ class esalaryClass:
         cur = con.cursor()
         cur.execute("Select eid,name,email,dob,contact,utype,salary from employee where eid=?",str(eid))
         row = cur.fetchone()
-        
+
         try:
             cur.execute("Select count(*) from attendance where eid=? and astatus='present'",(str(row[0])))
             rows = cur.fetchone()
 
-            
+
 
         except Exception as ex:
             messagebox.showerror("Error", f"Error due to : {str(ex)}", parent=self.root)

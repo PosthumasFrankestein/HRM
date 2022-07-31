@@ -276,7 +276,7 @@ class Rating:
         fvalue=(value/20)*8
         dvalue=date.today().strftime("%m/%d/%y")
         try:
-            
+
             cur.execute("Select rdate from rating where eid=? and ratedby IS NOT NULL ORDER BY rid DESC",(str(self.var_eid.get())))
             row=cur.fetchone()
             print(dvalue,row)
