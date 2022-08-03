@@ -10,7 +10,7 @@ customtkinter.set_default_color_theme(
 
 
 class App(customtkinter.CTk):
-
+    """Create App """
     WIDTH = 780
     HEIGHT = 520
 
@@ -145,13 +145,16 @@ class App(customtkinter.CTk):
 
     @staticmethod
     def button_event():
+        """When button is pressed"""
         print("Button pressed")
 
     @staticmethod
     def change_appearance_mode(new_appearance_mode):
+        """Change windows appearance"""
         customtkinter.set_appearance_mode(new_appearance_mode)
 
     def on_closing(self, event=0):
+        """Close the window"""
         self.destroy()
 
 

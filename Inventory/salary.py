@@ -8,6 +8,7 @@ import customtkinter
 
 
 class salaryClass:
+    """Manage salary of employees"""
     def __init__(self, root):
         self.root = root
         self.root.geometry("1100x500+220+130")
@@ -278,6 +279,7 @@ class salaryClass:
         self.show()
 
     def show(self):
+        """Show data on table"""
         con = sqlite3.connect(database=r"ims.db")
         cur = con.cursor()
         try:
@@ -291,6 +293,7 @@ class salaryClass:
             messagebox.showerror("Error", f"Error due to : {str(ex)}", parent=self.root)
 
     def get_data(self, ev):
+        """Get data from table"""
         f = self.EmployeeTable.focus()
         content = self.EmployeeTable.item(f)
         row = content["values"]
@@ -320,6 +323,7 @@ class salaryClass:
         self.var_emp_present.set(rows[0])
 
     def approve(self):
+        """Approve salary"""
         con = sqlite3.connect(database=r"ims.db")
         cur = con.cursor()
         try:
@@ -357,6 +361,7 @@ class salaryClass:
             messagebox.showerror("Error", f"Error due to : {str(ex)}", parent=self.root)
 
     def reject(self):
+        """Reject salary"""
         con = sqlite3.connect(database=r"ims.db")
         cur = con.cursor()
         try:

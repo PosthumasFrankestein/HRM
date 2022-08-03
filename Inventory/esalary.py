@@ -7,6 +7,7 @@ import customtkinter
 
 
 class esalaryClass:
+    """Check salary"""
     def __init__(self, root, eid):
         self.root = root
         self.root.geometry("1100x400+220+130")
@@ -228,6 +229,7 @@ class esalaryClass:
         ).place(x=850, y=305, width=180, height=28)
 
     def get_data(self, eid):
+        """Get data from table"""
         today = date.today()
         num_days = monthrange(today.year, today.month)
         con = sqlite3.connect(database=r"ims.db")
