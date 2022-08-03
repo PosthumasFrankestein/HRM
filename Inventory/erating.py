@@ -223,11 +223,7 @@ class EmpRate:
                 (str(eid)),
             )
             row = cur.fetchone()
-<<<<<<< HEAD
-            if row == None or (row[0] != dvalue):
-=======
             if row is None or (row[0] != dvalue):
->>>>>>> 8c0e4a2e9db8339324478dce7ee6cef60bcd238d
                 cur.execute(
                     "Insert into rating (rdate,eid,rate) values(?,?,?)",
                     (dvalue, eid, fvalue),

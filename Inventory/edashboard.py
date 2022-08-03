@@ -224,12 +224,8 @@ class App(customtkinter.CTk):
 
         # ============ frame_right ============
 
-<<<<<<< HEAD
-    def button_event(self):
-=======
     @staticmethod
     def button_event():
->>>>>>> 8c0e4a2e9db8339324478dce7ee6cef60bcd238d
         print("Button pressed")
 
     @staticmethod

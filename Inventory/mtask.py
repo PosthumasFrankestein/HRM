@@ -354,11 +354,7 @@ class Mngtask:
                 op = messagebox.askyesno(
                     "Confirm", "Do you really want to Reassign?", parent=self.root
                 )
-<<<<<<< HEAD
-                if op == True:
-=======
                 if op is True:
->>>>>>> 8c0e4a2e9db8339324478dce7ee6cef60bcd238d
                     cal = Calendar()
                     dvalue = cal.get_date()
                     cur.execute(

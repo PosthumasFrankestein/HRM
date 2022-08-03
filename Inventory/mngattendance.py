@@ -1,9 +1,4 @@
 from tkinter import *
-<<<<<<< HEAD
-
-# from PIL import Image,ImageTk
-=======
->>>>>>> 8c0e4a2e9db8339324478dce7ee6cef60bcd238d
 import sqlite3
 from tkinter import ttk, messagebox
 from logins import Login_system
@@ -181,10 +176,6 @@ class AttendanceMng:
             cur.execute(
                 "Select date,remark,eid from attendance where status!='approve'"
             )
-<<<<<<< HEAD
-            # cur.execute("Select eid,name,email,dob,contact,utype from employee where eid=(Select eid from attendance where status='unapproved')")
-=======
->>>>>>> 8c0e4a2e9db8339324478dce7ee6cef60bcd238d
             rows = cur.fetchall()
             self.EmployeeTable.delete(*self.EmployeeTable.get_children())
             for row in rows:
@@ -226,11 +217,7 @@ class AttendanceMng:
                     "Select * from employee where eid=?", (self.var_emp_id.get(),)
                 )
                 row = cur.fetchone()
-<<<<<<< HEAD
-                if row == None:
-=======
                 if row is None:
->>>>>>> 8c0e4a2e9db8339324478dce7ee6cef60bcd238d
                     messagebox.showerror(
                         "Error", "Invalid employee id", parent=self.root
                     )
@@ -266,11 +253,7 @@ class AttendanceMng:
                     "Select * from employee where eid=?", (self.var_emp_id.get(),)
                 )
                 row = cur.fetchone()
-<<<<<<< HEAD
-                if row == None:
-=======
                 if row is None:
->>>>>>> 8c0e4a2e9db8339324478dce7ee6cef60bcd238d
                     messagebox.showerror(
                         "Error", "Invalid employee id", parent=self.root
                     )
@@ -327,10 +310,6 @@ class AttendanceMng:
 
 
 if __name__ == "__main__":
-<<<<<<< HEAD
-    #     root=Tk()
-=======
->>>>>>> 8c0e4a2e9db8339324478dce7ee6cef60bcd238d
     root = customtkinter.CTk()
     obj = Login_system(root)
     root.mainloop()

@@ -1,10 +1,6 @@
 from tkinter import *
 import sqlite3
 from tkinter import messagebox
-<<<<<<< HEAD
-import os
-=======
->>>>>>> 8c0e4a2e9db8339324478dce7ee6cef60bcd238d
 import customtkinter
 
 
@@ -79,11 +75,7 @@ class Login_system:
                     (self.eid.get(), self.password.get()),
                 )
                 user = cur.fetchone()
-<<<<<<< HEAD
-                if user == None:
-=======
                 if user is None:
->>>>>>> 8c0e4a2e9db8339324478dce7ee6cef60bcd238d
                     messagebox.showerror(
                         "Error", "Invalid username/password", parent=self.root
                     )
