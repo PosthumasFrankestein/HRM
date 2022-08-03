@@ -9,6 +9,7 @@ import customtkinter
 
 class salaryClass:
     """Manage salary of employees"""
+
     def __init__(self, root):
         self.root = root
         self.root.geometry("1100x500+220+130")

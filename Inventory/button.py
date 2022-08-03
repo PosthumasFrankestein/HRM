@@ -10,7 +10,8 @@ customtkinter.set_default_color_theme(
 
 
 class App(customtkinter.CTk):
-    """Create App """
+    """Create App"""
+
     WIDTH = 780
     HEIGHT = 520
 
