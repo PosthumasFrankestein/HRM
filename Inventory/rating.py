@@ -13,7 +13,6 @@ class Rating:
         self.root.geometry("1100x500+220+130")
         self.root.resizable(True, True)
         self.root.config(bg="black")
-        eid = eid
         # All Varialble
         self.var_searchby = StringVar()
         self.var_searchtxt = StringVar()

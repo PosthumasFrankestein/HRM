@@ -13,8 +13,6 @@ class EmpRate:
         self.root.geometry("1100x500+220+130")
         self.root.resizable(True, True)
         self.root.config(bg="black")
-        # All Varialble
-        eid = eid
         self.var_emp_id = StringVar()
         self.var_emp_date = StringVar()
         self.var_emp_contact = StringVar()
