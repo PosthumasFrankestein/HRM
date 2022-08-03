@@ -295,7 +295,6 @@ class salaryClass:
 
     def get_data(self, ev):
         """Get data from table"""
-
         f = self.EmployeeTable.focus()
         content = self.EmployeeTable.item(f)
         row = content["values"]
@@ -326,7 +325,6 @@ class salaryClass:
 
     def approve(self):
         """Approve salary"""
-
         con = sqlite3.connect(database=r"ims.db")
         cur = con.cursor()
         try:
@@ -365,7 +363,6 @@ class salaryClass:
 
     def reject(self):
         """Reject salary"""
-        
         con = sqlite3.connect(database=r"ims.db")
         cur = con.cursor()
         try:
