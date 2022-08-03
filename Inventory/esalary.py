@@ -4,6 +4,7 @@ from tkinter import messagebox
 from datetime import *
 from calendar import monthrange
 import customtkinter
+from logins import Login_system
 
 
 class esalaryClass:
@@ -15,7 +16,6 @@ class esalaryClass:
         self.root.resizable(True, True)
         self.root.title("Employee Management System")
         self.root.config(bg="black")
-        # All Varialble
 
         self.var_emp_id = StringVar()
         self.var_emp_date = StringVar()
@@ -263,5 +263,5 @@ class esalaryClass:
 
 if __name__ == "__main__":
     root = customtkinter.CTk()
-    obj = esalaryClass(root)
+    obj = Login_system(root)
     root.mainloop()
