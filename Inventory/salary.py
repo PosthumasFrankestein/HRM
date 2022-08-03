@@ -1,4 +1,3 @@
-from sqlite3.dbapi2 import connect
 from tkinter import *
 import sqlite3
 from tkinter import ttk, messagebox
@@ -333,7 +332,7 @@ class salaryClass:
                     "Select *from employee where eid=?", (self.var_emp_id.get(),)
                 )
                 row = cur.fetchone()
-                if row == None:
+                if row is None:
                     messagebox.showerror(
                         "Error", "Invalid employee id", parent=self.root
                     )
@@ -370,7 +369,7 @@ class salaryClass:
                     "Select *from employee where eid=?", (self.var_emp_id.get(),)
                 )
                 row = cur.fetchone()
-                if row == None:
+                if row is None:
                     messagebox.showerror(
                         "Error", "Invalid employee id", parent=self.root
                     )
@@ -383,7 +382,6 @@ class salaryClass:
                             self.var_emp_date.get(),
                             self.var_emp_contact.get(),
                             self.var_emp_utype.get(),
-                            #    self.txt_remark.get('1.0',END),
                             self.var_emp_id.get(),
                         ),
                     )

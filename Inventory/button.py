@@ -1,5 +1,4 @@
 import tkinter
-import tkinter.messagebox
 import customtkinter
 
 customtkinter.set_appearance_mode(
@@ -140,20 +139,16 @@ class App(customtkinter.CTk):
         # set default values
         self.optionmenu_1.set("Dark")
         self.button_3.configure(state="disabled", text="Disabled CTkButton")
-        # self.combobox_1.set("CTkCombobox")
-        # self.radio_button_1.select()
         self.slider_1.set(0.2)
         self.slider_2.set(0.7)
         self.progressbar.set(0.5)
-        # self.switch_2.select()
-        # self.radio_button_3.configure(state=tkinter.DISABLED)
-        # self.check_box_1.configure(state=tkinter.DISABLED, text="CheckBox disabled")
-        # self.check_box_2.select()
 
-    def button_event(self):
+    @staticmethod
+    def button_event():
         print("Button pressed")
 
-    def change_appearance_mode(self, new_appearance_mode):
+    @staticmethod
+    def change_appearance_mode(new_appearance_mode):
         customtkinter.set_appearance_mode(new_appearance_mode)
 
     def on_closing(self, event=0):

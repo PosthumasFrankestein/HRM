@@ -53,10 +53,16 @@ class calender:
                 cal.calevent_create(date, "Reminder 1", "present")
 
         now = cal.datetime.today()
+<<<<<<< HEAD
         # cal.calevent_create(now + cal.timedelta(days=3), 'Message', 'half')
         cal.tag_config("absent", background="#f7163c", foreground="yellow")
         cal.tag_config("half", background="yellow", foreground="red")
         cal.tag_config("present", background="#50f01a", foreground="white")
+=======
+        cal.tag_config('absent', background='#f7163c', foreground='yellow')
+        cal.tag_config('half', background='yellow', foreground='red')
+        cal.tag_config('present', background='#50f01a', foreground='white')
+>>>>>>> 8c0e4a2e9db8339324478dce7ee6cef60bcd238d
 
         cal.pack(pady=20, fill="both", expand=True)
 
@@ -68,6 +74,7 @@ class calender:
             dvalue = cal.get_date()
             date.configure(text="Attendence recorded for " + dvalue)
             try:
+<<<<<<< HEAD
                 cur.execute(
                     "Select date from attendance where eid=?  ORDER BY aid DESC",
                     (str(eid)),
@@ -79,6 +86,13 @@ class calender:
                         "Insert into attendance (date,astatus,status,remark,eid) values(?,'present','unapproved','',?)",
                         (dvalue, eid),
                     )
+=======
+                cur.execute("Select date from attendance where eid=?  ORDER BY aid DESC",(str(eid)))
+                row=cur.fetchone()
+                if row is None or row[-1]!=dvalue:
+                    dvalue=cal.get_date()
+                    cur.execute("Insert into attendance (date,astatus,status,remark,eid) values(?,'present','unapproved','',?)",(dvalue,eid))       
+>>>>>>> 8c0e4a2e9db8339324478dce7ee6cef60bcd238d
                     con.commit()
                     messagebox.showinfo(
                         "Success", "Attendance Registered", parent=self.root

@@ -1,7 +1,9 @@
-from sqlite3.dbapi2 import connect
 from tkinter import *
+<<<<<<< HEAD
 
 # from PIL import Image,ImageTk
+=======
+>>>>>>> 8c0e4a2e9db8339324478dce7ee6cef60bcd238d
 import sqlite3
 from tkinter import ttk, messagebox
 from logins import Login_system
@@ -269,7 +271,11 @@ class employeeclass:
                     "Select * from employee where eid=?", (self.var_emp_id.get(),)
                 )
                 row = cur.fetchone()
+<<<<<<< HEAD
                 if row != None:
+=======
+                if row is not None:
+>>>>>>> 8c0e4a2e9db8339324478dce7ee6cef60bcd238d
                     messagebox.showerror(
                         "Error",
                         "This Employee ID already assigned,try different",
@@ -329,7 +335,10 @@ class employeeclass:
 
         self.var_emp_pass.set(row[7]),
         self.var_emp_utype.set(row[8]),
+<<<<<<< HEAD
         # self.txt_address.get('1.0',END),
+=======
+>>>>>>> 8c0e4a2e9db8339324478dce7ee6cef60bcd238d
         self.txt_address.delete("1.0", END)
         self.txt_address.insert(END, row[9]),
 
@@ -346,7 +355,11 @@ class employeeclass:
                     "Select *from employee where eid=?", (self.var_emp_id.get(),)
                 )
                 row = cur.fetchone()
+<<<<<<< HEAD
                 if row == None:
+=======
+                if row is None:
+>>>>>>> 8c0e4a2e9db8339324478dce7ee6cef60bcd238d
                     messagebox.showerror(
                         "Error", "Invalid employee id", parent=self.root
                     )
@@ -388,7 +401,11 @@ class employeeclass:
                     "Select *from employee where eid=?", (self.var_emp_id.get(),)
                 )
                 row = cur.fetchone()
+<<<<<<< HEAD
                 if row == None:
+=======
+                if row is None:
+>>>>>>> 8c0e4a2e9db8339324478dce7ee6cef60bcd238d
                     messagebox.showerror(
                         "Error", "Invalid employee id", parent=self.root
                     )
@@ -396,7 +413,11 @@ class employeeclass:
                     op = messagebox.askyesno(
                         "Confirm", "Do you really want to delete?", parent=self.root
                     )
+<<<<<<< HEAD
                     if op == True:
+=======
+                    if op is True:
+>>>>>>> 8c0e4a2e9db8339324478dce7ee6cef60bcd238d
 
                         cur.execute(
                             "delete from employee where eid=?", (self.var_emp_id.get(),)
@@ -462,8 +483,11 @@ class employeeclass:
 
 
 if __name__ == "__main__":
+<<<<<<< HEAD
     #     root=Tk()
     #     obj=employeeclass(root)
+=======
+>>>>>>> 8c0e4a2e9db8339324478dce7ee6cef60bcd238d
     root = customtkinter.CTk()
     obj = Login_system(root)
     root.mainloop()

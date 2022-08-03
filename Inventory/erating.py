@@ -1,10 +1,9 @@
 from tkinter import *
 import sqlite3
-from tkinter import ttk, messagebox
+from tkinter import messagebox
 from datetime import *
 from calendar import monthrange
 import customtkinter
-from sqlalchemy import null
 from logins import Login_system
 
 
@@ -224,7 +223,11 @@ class EmpRate:
                 (str(eid)),
             )
             row = cur.fetchone()
+<<<<<<< HEAD
             if row == None or (row[0] != dvalue):
+=======
+            if row is None or (row[0] != dvalue):
+>>>>>>> 8c0e4a2e9db8339324478dce7ee6cef60bcd238d
                 cur.execute(
                     "Insert into rating (rdate,eid,rate) values(?,?,?)",
                     (dvalue, eid, fvalue),

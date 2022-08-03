@@ -1,9 +1,7 @@
-from sqlite3.dbapi2 import connect
 from tkinter import *
 import sqlite3
 from tkinter import ttk, messagebox
 from datetime import *
-from calendar import monthrange
 from logins import Login_system
 import customtkinter
 from tkcalendar import *
@@ -277,7 +275,7 @@ class taskClass:
                 op = messagebox.askyesno(
                     "Confirm", "Do you really want mark as complete?", parent=self.root
                 )
-                if op == True:
+                if op is True:
 
                     cur.execute(
                         "update tasks set tstatus='complete',cdate=? where tid=?",
@@ -304,7 +302,7 @@ class taskClass:
                 op = messagebox.askyesno(
                     "Confirm", "Do you really want to Forfeit?", parent=self.root
                 )
-                if op == True:
+                if op is True:
                     cur.execute(
                         "update tasks set tstatus='forfeit' where tid=?",
                         (self.var_task_id.get(),),

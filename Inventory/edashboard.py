@@ -3,7 +3,6 @@ from tkinter import messagebox
 import customtkinter
 from tkinter import *
 from employee import employeeclass
-from mngattendance import AttendanceMng
 import sqlite3
 import os
 from logins import Login_system
@@ -30,8 +29,6 @@ class App(customtkinter.CTk):
         super().__init__()
         self.geometry("1350x700+0+0")
         self.title("Logged as Employee")
-
-        #    self.root.config(bg="black")
 
         # ============ create two frames ============
 
@@ -149,7 +146,6 @@ class App(customtkinter.CTk):
         self.label_info_1 = customtkinter.CTkLabel(
             master=self.frame_info,
             text="Employee Management \t\t Date: DD-MM-YYYY \t\t Time: HH:MM:SS \t\t",
-            # height=40,
             corner_radius=6,  # <- custom corner radius
             fg_color=("white", "gray38"),  # <- custom tuple-color
             justify=tkinter.LEFT,
@@ -228,10 +224,16 @@ class App(customtkinter.CTk):
 
         # ============ frame_right ============
 
+<<<<<<< HEAD
     def button_event(self):
+=======
+    @staticmethod
+    def button_event():
+>>>>>>> 8c0e4a2e9db8339324478dce7ee6cef60bcd238d
         print("Button pressed")
 
-    def change_appearance_mode(self, new_appearance_mode):
+    @staticmethod
+    def change_appearance_mode(new_appearance_mode):
         customtkinter.set_appearance_mode(new_appearance_mode)
 
     def on_closing(self, event=0):

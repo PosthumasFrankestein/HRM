@@ -1,9 +1,7 @@
-from sqlite3.dbapi2 import connect
 from tkinter import *
 import sqlite3
 from tkinter import ttk, messagebox
 from datetime import *
-from calendar import monthrange
 from logins import Login_system
 import customtkinter
 from tkcalendar import *
@@ -330,7 +328,7 @@ class Mngtask:
                 op = messagebox.askyesno(
                     "Confirm", "Do you really want to Approve?", parent=self.root
                 )
-                if op == True:
+                if op is True:
 
                     cur.execute(
                         "update tasks set tstatus='approved' where tid=?",
@@ -356,7 +354,11 @@ class Mngtask:
                 op = messagebox.askyesno(
                     "Confirm", "Do you really want to Reassign?", parent=self.root
                 )
+<<<<<<< HEAD
                 if op == True:
+=======
+                if op is True:
+>>>>>>> 8c0e4a2e9db8339324478dce7ee6cef60bcd238d
                     cal = Calendar()
                     dvalue = cal.get_date()
                     cur.execute(
@@ -404,7 +406,7 @@ class Mngtask:
                     "Select *from employee where eid=?", (self.var_emp_id.get(),)
                 )
                 row = cur.fetchone()
-                if row == None:
+                if row is None:
                     messagebox.showerror(
                         "Error", "Invalid employee id", parent=self.root
                     )
@@ -417,7 +419,6 @@ class Mngtask:
                             self.var_emp_date.get(),
                             self.var_emp_contact.get(),
                             self.var_emp_utype.get(),
-                            #    self.txt_remark.get('1.0',END),
                             self.var_emp_id.get(),
                         ),
                     )
