@@ -9,7 +9,7 @@ from tkcalendar import *
 
 class taskClass:
     """Show assigned employee tasks"""
-    
+
     def __init__(self, root, eid):
         self.root = root
         eid = eid
@@ -329,7 +329,7 @@ class taskClass:
 
     def clear(self, eid):
         """Clear values"""
-        
+
         self.var_emp_id.set(""),
 
         self.var_emp_name.set(""),
