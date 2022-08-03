@@ -1,6 +1,6 @@
 /.vscode
 /leaveDb.db
 /trial
-/.__pycache__
+/__pycache__
 /lms.db
-/.deepsource.toml
+/deepsource.toml
