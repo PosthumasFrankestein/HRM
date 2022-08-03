@@ -8,6 +8,7 @@ import customtkinter
 
 class esalaryClass:
     """Check salary"""
+
     def __init__(self, root, eid):
         self.root = root
         self.root.geometry("1100x400+220+130")

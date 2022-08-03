@@ -365,7 +365,7 @@ class salaryClass:
 
     def reject(self):
         """Reject salary"""
-        
+
         con = sqlite3.connect(database=r"ims.db")
         cur = con.cursor()
         try:
