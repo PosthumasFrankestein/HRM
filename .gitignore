@@ -1,7 +1,8 @@
 /.vscode
 /leaveDb.db
 /trial
-/__pycache__
+/Inventory/__pycache__
+/Inventory/attendence
 /ims.db
 /deepsource.toml
 /try
