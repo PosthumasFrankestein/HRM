@@ -348,38 +348,6 @@ class Rating:
         self.var_emp_present.set(rows[0]),
         self.var_emp_rating.set(value),
 
-    def search(self):
-        con = sqlite3.connect(database=r"ims.db")
-        cur = con.cursor()
-        try:
-            if self.var_searchby.get() == "Select":
-                messagebox.showerror(
-                    "Error", "Select Search By  option", parent=self.root
-                )
-            elif self.var_searchtxt.get() == "":
-                messagebox.showerror(
-                    "Error", "Search input should be required", parent=self.root
-                )
-                cur.execute(
-                    "Select *from employee where "
-                    + self.var_searchby.get()
-                    + "LIKE '%"
-                    + self.var_searchtxt.get()
-                    + "%'"
-                )
-                rows = cur.fetchall()
-                if len(rows) != 0:
-                    self.EmployeeTable.delete(*self.EmployeeTable.get_children())
-                    for row in rows:
-                        self.EmployeeTable.insert("", END, values=row)
-                else:
-                    messagebox.showerror(
-                        "Error", "No record found!!!", parent=self.root
-                    )
-
-        except Exception as ex:
-            messagebox.showerror("Error", f"Error due to : {str(ex)}", parent=self.root)
-
 
 if __name__ == "__main__":
     root = customtkinter.CTk()
