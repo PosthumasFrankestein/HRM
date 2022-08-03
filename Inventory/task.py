@@ -12,7 +12,6 @@ class taskClass:
 
     def __init__(self, root, eid):
         self.root = root
-        eid = eid
         self.root.geometry("1100x500+220+130")
         self.root.resizable(True, True)
         self.root.config(bg="black")

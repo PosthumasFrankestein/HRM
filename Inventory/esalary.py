@@ -14,7 +14,6 @@ class esalaryClass:
         self.root.resizable(True, True)
         self.root.title("Employee Management System")
         self.root.config(bg="black")
-        eid = eid
         # All Varialble
 
         self.var_emp_id = StringVar()
