@@ -9,6 +9,7 @@ import customtkinter
 
 class salaryClass:
     """Manage salary of employees"""
+
     def __init__(self, root):
         self.root = root
         self.root.geometry("1100x500+220+130")
@@ -294,6 +295,7 @@ class salaryClass:
 
     def get_data(self, ev):
         """Get data from table"""
+
         f = self.EmployeeTable.focus()
         content = self.EmployeeTable.item(f)
         row = content["values"]
@@ -324,6 +326,7 @@ class salaryClass:
 
     def approve(self):
         """Approve salary"""
+
         con = sqlite3.connect(database=r"ims.db")
         cur = con.cursor()
         try:
@@ -362,6 +365,7 @@ class salaryClass:
 
     def reject(self):
         """Reject salary"""
+        
         con = sqlite3.connect(database=r"ims.db")
         cur = con.cursor()
         try:

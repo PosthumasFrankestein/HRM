@@ -9,6 +9,7 @@ from tkcalendar import *
 
 class taskClass:
     """Show assigned employee tasks"""
+    
     def __init__(self, root, eid):
         self.root = root
         eid = eid
@@ -232,6 +233,7 @@ class taskClass:
 
     def show(self, eid):
         """Show data on table"""
+
         con = sqlite3.connect(database=r"ims.db")
         cur = con.cursor()
         try:
@@ -252,6 +254,7 @@ class taskClass:
 
     def get_data(self, ev):
         """Get table from table"""
+
         f = self.EmployeeTable.focus()
         content = self.EmployeeTable.item(f)
         row = content["values"]
@@ -267,6 +270,7 @@ class taskClass:
 
     def complete(self, eid):
         """Mark task as Complete"""
+
         con = sqlite3.connect(database=r"ims.db")
         cur = con.cursor()
 
@@ -298,6 +302,7 @@ class taskClass:
 
     def forfeit(self, eid):
         """Mark task as forfeit"""
+
         con = sqlite3.connect(database=r"ims.db")
         cur = con.cursor()
         try:
@@ -324,6 +329,7 @@ class taskClass:
 
     def clear(self, eid):
         """Clear values"""
+        
         self.var_emp_id.set(""),
 
         self.var_emp_name.set(""),
