@@ -224,15 +224,8 @@ class App(customtkinter.CTk):
 
 
     @staticmethod
-    def button_event():
-        print("Button pressed")
-
-    @staticmethod
     def change_appearance_mode(new_appearance_mode):
         customtkinter.set_appearance_mode(new_appearance_mode)
-
-    def on_closing(self, event=0):
-        self.destroy()
 
     def employee(self):
         self.new_win = Toplevel(self)

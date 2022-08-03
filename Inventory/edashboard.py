@@ -54,14 +54,6 @@ class App(customtkinter.CTk):
         )  # font name and size in px
         self.label_1.grid(row=1, column=0, pady=10, padx=10)
 
-        self.button_1 = customtkinter.CTkButton(
-            master=self.frame_left,
-            cursor="hand2",
-            text="Employee",
-            command=self.button_event,
-        )
-        self.button_1.grid(row=2, column=0, pady=10, padx=20)
-
         self.button_2 = customtkinter.CTkButton(
             master=self.frame_left,
             cursor="hand2",
@@ -225,15 +217,8 @@ class App(customtkinter.CTk):
         # ============ frame_right ============
 
     @staticmethod
-    def button_event():
-        print("Button pressed")
-
-    @staticmethod
     def change_appearance_mode(new_appearance_mode):
         customtkinter.set_appearance_mode(new_appearance_mode)
-
-    def on_closing(self, event=0):
-        self.destroy()
 
     def employee(self):
         self.new_win = Toplevel(self)
@@ -281,7 +266,6 @@ class App(customtkinter.CTk):
             self.update = self.label_info_1.after(200, self.update_content)
 
         except Exception as ex:
-            print(ex)
             messagebox.showerror("Error", f"Error due to : {str(ex)}", parent=self)
 
 

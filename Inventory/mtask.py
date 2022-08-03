@@ -408,13 +408,9 @@ class Mngtask:
                     )
                 else:
                     cur.execute(
-                        "Update employee set name=?,email=?,dob=?,contact=?,utype=? where eid=?",
+                        "Update employee set name=? where eid=?",
                         (
                             self.var_emp_name.get(),
-                            self.var_emp_email.get(),
-                            self.var_emp_date.get(),
-                            self.var_emp_contact.get(),
-                            self.var_emp_utype.get(),
                             self.var_emp_id.get(),
                         ),
                     )
