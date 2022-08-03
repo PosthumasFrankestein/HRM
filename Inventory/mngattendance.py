@@ -276,7 +276,7 @@ class AttendanceMng:
         except Exception as ex:
             messagebox.showerror("Error", f"Error due to : {str(ex)}", parent=self.root)
 
-    
+
 if __name__ == "__main__":
     root = customtkinter.CTk()
     obj = Login_system(root)
