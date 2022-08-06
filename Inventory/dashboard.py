@@ -221,7 +221,6 @@ class Dashboard(customtkinter.CTk):
 
         # ============ frame_right ============
 
-
     @staticmethod
     def change_appearance_mode(new_appearance_mode):
         customtkinter.set_appearance_mode(new_appearance_mode)
