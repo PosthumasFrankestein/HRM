@@ -1,18 +1,20 @@
+from curses.textpad import Textbox
 from tkinter import *
 import sqlite3
 from tkinter import ttk, messagebox
 from datetime import *
 from calendar import monthrange
+
+from numpy import ScalarType
 from logins import Login_system
 import customtkinter
 
 
 class salaryClass:
     """Manage salary of employees"""
-
     def __init__(self, root):
         self.root = root
-        self.root.geometry("1100x500+220+130")
+        self.root.geometry("1100x550+220+80")
         self.root.resizable(True, True)
         self.root.title("Employee Management System")
         self.root.config(bg="black")
@@ -32,6 +34,7 @@ class salaryClass:
         self.var_emp_bonus = StringVar()
         self.var_emp_rating = StringVar()
         self.var_emp_tsalary = StringVar()
+        self.var_sremark=StringVar()
 
         style = ttk.Style()
         style.configure(
@@ -213,13 +216,12 @@ class salaryClass:
             bg="#211f1f",
             fg="white",
         ).place(x=150, y=270, width=180)
-        txt_bonus = Entry(
+        txt_bonus = Label(
             self.root,
             textvariable=self.var_emp_bonus,
             font=("goudy old style", 11),
             bg="#211f1f",
             fg="white",
-            insertbackground="white",
         ).place(x=500, y=270, width=180)
         txt_tsalary = Label(
             self.root,
@@ -230,20 +232,47 @@ class salaryClass:
             fg="white",
         ).place(x=850, y=270, width=180)
 
+        # row 5
+        lbl_remark = Label(
+            self.root,
+            text="Remark",
+            font=("goudy old style", 11),
+            bg="black",
+            fg="white",
+        ).place(x=50, y=310)
+        
+        self.var_sremark = Text(
+            self.root,
+            font=("goudy old style", 11),
+            bg="#211f1f",
+            fg="white",
+            insertbackground="white",
+        ).place(x=150, y=310, width=180,height=70)
+
         # button
-        btn_receipt = Button(
+        btn_calculate = Button(
+            self.root,
+            text="Calculate",
+            command=self.calculate,
+            font=("goudy old style", 11),
+            bg="skyblue",
+            fg="black",
+            cursor="hand2",
+        ).place(x=630, y=355, width=210, height=28)
+
+        btn_approve = Button(
             self.root,
             text="Approve",
             command=self.approve,
             font=("goudy old style", 11),
             bg="#4caf50",
-            fg="white",
+            fg="black",
             cursor="hand2",
-        ).place(x=850, y=305, width=210, height=28)
+        ).place(x=850, y=355, width=210, height=28)
 
         # Employee Details
         emp_frame = Frame(self.root, bd=3, relief=RIDGE)
-        emp_frame.place(x=0, y=350, relwidth=1, height=150)
+        emp_frame.place(x=0, y=400, relwidth=1, height=150)
 
         scrolly = Scrollbar(emp_frame, orient=VERTICAL)
         scrollx = Scrollbar(emp_frame, orient=HORIZONTAL)
@@ -284,7 +313,7 @@ class salaryClass:
         con = sqlite3.connect(database=r"ims.db")
         cur = con.cursor()
         try:
-            cur.execute("Select eid,name,email,dob,contact,utype,salary from employee")
+            cur.execute("Select eid,name,email,contact,utype,salary from employee where utype!='Admin'")
             rows = cur.fetchall()
             self.EmployeeTable.delete(*self.EmployeeTable.get_children())
             for row in rows:
@@ -295,6 +324,10 @@ class salaryClass:
 
     def get_data(self, ev):
         """Get data from table"""
+        self.var_emp_tsalary.set(" ")
+        self.var_emp_bonus.set(" ")
+
+        
         f = self.EmployeeTable.focus()
         content = self.EmployeeTable.item(f)
         row = content["values"]
@@ -309,19 +342,32 @@ class salaryClass:
                 (str(row[0])),
             )
             rows = cur.fetchone()
+            cur.execute(
+                "Select count(*),sum(rate) from rating where eid=? and ratedby IS NOT NULL",
+                (str(row[0])),
+            )
+            rows1 = cur.fetchone()
+            cur.execute(
+                "Select count(*),sum(rate) from rating where eid=? and ratedby IS NULL",
+                (str(row[0])),
+            )
+            rows2 = cur.fetchone()
+            value = (rows1[1] / rows1[0])
 
         except Exception as ex:
-            messagebox.showerror("Error", f"Error due to : {str(ex)}", parent=self.root)
+            value=0
+            messagebox.showerror("Error", f"Employee not rated", parent=self.root)
 
         self.var_emp_id.set(row[0]),
         self.var_emp_name.set(row[1]),
         self.var_emp_email.set(row[2]),
-        self.var_emp_date.set(row[3]),
-        self.var_emp_contact.set(row[4]),
-        self.var_emp_utype.set(row[5]),
-        self.var_emp_salary.set(row[6]),
+        self.var_emp_date.set(date.today().strftime("%m/%d/%y")),
+        self.var_emp_contact.set(row[3]),
+        self.var_emp_utype.set(row[4]),
+        self.var_emp_salary.set(row[5]),
         self.var_emp_absent.set(int(num_days[1]) - int(rows[0]))
         self.var_emp_present.set(rows[0])
+        self.var_emp_rating.set(value)
 
     def approve(self):
         """Approve salary"""
@@ -334,7 +380,7 @@ class salaryClass:
                 )
             else:
                 cur.execute(
-                    "Select *from employee where eid=?", (self.var_emp_id.get(),)
+                    "Select * from employee where eid=?", (self.var_emp_id.get(),)
                 )
                 row = cur.fetchone()
                 if row is None:
@@ -361,39 +407,29 @@ class salaryClass:
         except Exception as ex:
             messagebox.showerror("Error", f"Error due to : {str(ex)}", parent=self.root)
 
-    def reject(self):
-        """Reject salary"""
+    def calculate(self):
+        """Calculate salary"""
         con = sqlite3.connect(database=r"ims.db")
         cur = con.cursor()
         try:
             if self.var_emp_id.get() == "":
                 messagebox.showerror(
-                    "Error", "Employee ID must be required", parent=self.root
+                    "Error", "Select employee", parent=self.root
                 )
             else:
-                cur.execute(
-                    "Select *from employee where eid=?", (self.var_emp_id.get(),)
-                )
-                row = cur.fetchone()
-                if row is None:
+                if self.var_emp_holiday.get() == "":
                     messagebox.showerror(
-                        "Error", "Invalid employee id", parent=self.root
+                        "Error", "Enter no of holiday employee", parent=self.root
                     )
                 else:
-                    cur.execute(
-                        "Update employee set name=?,email=?,dob=?,contact=?,utype=? where eid=?",
-                        (
-                            self.var_emp_name.get(),
-                            self.var_emp_email.get(),
-                            self.var_emp_date.get(),
-                            self.var_emp_contact.get(),
-                            self.var_emp_utype.get(),
-                            self.var_emp_id.get(),
-                        ),
-                    )
-                    con.commit()
+                    today = date.today()
+                    num_days = monthrange(today.year, today.month)
+                    salary=(int(self.var_emp_salary.get())/num_days[1])*int(self.var_emp_present.get())
+                    bonus=float(self.var_emp_rating.get())*int(self.var_emp_salary.get())/100
+                    self.var_emp_tsalary.set(int(salary+bonus))
+                    self.var_emp_bonus.set(int(bonus))
                     messagebox.showinfo(
-                        "Success", "Employee Updated Sucessfully", parent=self.root
+                        "Success", "Salary Calculated", parent=self.root
                     )
                     self.show()
         except Exception as ex:
@@ -402,5 +438,5 @@ class salaryClass:
 
 if __name__ == "__main__":
     root = customtkinter.CTk()
-    obj = Login_system(root)
+    obj = salaryClass(root)
     root.mainloop()
