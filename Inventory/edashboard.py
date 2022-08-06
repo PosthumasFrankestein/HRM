@@ -20,7 +20,7 @@ customtkinter.set_default_color_theme(
 )  # Themes: "blue" (standard), "green", "dark-blue"
 
 
-class App(customtkinter.CTk):
+class eDashboard(customtkinter.CTk):
 
     WIDTH = 780
     HEIGHT = 520

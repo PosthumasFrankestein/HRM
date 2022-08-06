@@ -19,6 +19,9 @@ def create_db():
     cur.execute(
         "CREATE TABLE IF NOT EXISTS rtasks(trid INTEGER PRIMARY KEY AUTOINCREMENT,tid integer,trdate text,rejectby integer,eid integer,FOREIGN KEY(eid) REFERENCES employee(eid),FOREIGN KEY(tid) REFERENCES tasks(tid))"
     )
+    cur.execute(
+        "CREATE TABLE IF NOT EXISTS salary(sid INTEGER PRIMARY KEY AUTOINCREMENT,fsalary integer,sdate text,sstatus text,eid integer,holiday integer,bonus integer,sremark text,FOREIGN KEY(eid) REFERENCES employee(eid))"
+    )
     con.commit()
 
 

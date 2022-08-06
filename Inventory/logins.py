@@ -81,18 +81,19 @@ class Login_system:
                     )
                 elif user[0] == "Admin":
                     eid = user[1]
-                    from dashboard import App
+                    from dashboard import Dashboard
 
                     self.root.destroy()
-                    app = App(eid)
+                    app = Dashboard(eid)
                     app.mainloop()
                 else:
                     eid = user[1]
-                    from edashboard import App
+                    from edashboard import eDashboard
 
                     self.root.destroy()
-                    app = App(eid)
+                    app = eDashboard(eid)
                     app.mainloop()
+
         except Exception as ex:
             messagebox.showerror("Error", f"Error due to : {str(ex)}", parent=self.root)
 

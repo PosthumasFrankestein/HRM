@@ -21,7 +21,7 @@ customtkinter.set_default_color_theme(
 )  # Themes: "blue" (standard), "green", "dark-blue"
 
 
-class App(customtkinter.CTk):
+class Dashboard(customtkinter.CTk):
 
     WIDTH = 780
     HEIGHT = 520
@@ -30,7 +30,6 @@ class App(customtkinter.CTk):
         super().__init__()
         self.geometry("1350x700+0+0")
         self.title("Logged as Admin")
-        self.protocol("WM_DELETE_WINDOW", self.on_closing)
 
         # ============ create two frames ============
 
