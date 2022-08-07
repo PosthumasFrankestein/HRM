@@ -247,7 +247,8 @@ class salaryClass:
             bg="#211f1f",
             fg="white",
             insertbackground="white",
-        ).place(x=150, y=310, width=180,height=70)
+        )
+        self.var_sremark.place(x=150, y=310, width=180,height=70)
 
         # button
         btn_calculate = Button(
@@ -324,22 +325,21 @@ class salaryClass:
 
     def get_data(self, ev):
         """Get data from table"""
-        self.var_emp_tsalary.set(" ")
-        self.var_emp_bonus.set(" ")
-
         
+        self.clear()
         f = self.EmployeeTable.focus()
         content = self.EmployeeTable.item(f)
         row = content["values"]
         today = date.today()
+        dvalue=today.strftime("%m/%y")
         num_days = monthrange(today.year, today.month)
         con = sqlite3.connect(database=r"ims.db")
         cur = con.cursor()
 
         try:
             cur.execute(
-                "Select count(*) from attendance where eid=? and astatus='present'",
-                (str(row[0])),
+                "Select count(*) from attendance where eid=? and astatus='present' and date LIKE ?",
+                (str(row[0]),'%'+dvalue+'%')
             )
             rows = cur.fetchone()
             cur.execute(
@@ -361,7 +361,7 @@ class salaryClass:
         self.var_emp_id.set(row[0]),
         self.var_emp_name.set(row[1]),
         self.var_emp_email.set(row[2]),
-        self.var_emp_date.set(date.today().strftime("%m/%d/%y")),
+        self.var_emp_date.set(date.today().strftime("%d/%m/%y")),
         self.var_emp_contact.set(row[3]),
         self.var_emp_utype.set(row[4]),
         self.var_emp_salary.set(row[5]),
@@ -374,36 +374,27 @@ class salaryClass:
         con = sqlite3.connect(database=r"ims.db")
         cur = con.cursor()
         try:
-            if self.var_emp_id.get() == "":
+            if self.var_emp_tsalary.get() == "":
                 messagebox.showerror(
-                    "Error", "Employee ID must be required", parent=self.root
+                    "Error", "Calculate Salary First", parent=self.root
                 )
             else:
                 cur.execute(
-                    "Select * from employee where eid=?", (self.var_emp_id.get(),)
-                )
-                row = cur.fetchone()
-                if row is None:
-                    messagebox.showerror(
-                        "Error", "Invalid employee id", parent=self.root
-                    )
-                else:
-                    cur.execute(
-                        "Update employee set name=?,email=?,dob=?,contact=?,utype=? where eid=?",
+                        "Insert into salary (fsalary,sdate,sstatus,eid,holiday,bonus) values(?,?,?,?,?,?)",
                         (
-                            self.var_emp_name.get(),
-                            self.var_emp_email.get(),
+                            self.var_emp_tsalary.get(),
                             self.var_emp_date.get(),
-                            self.var_emp_contact.get(),
-                            self.var_emp_utype.get(),
+                            'pending',
                             self.var_emp_id.get(),
-                        ),
+                            self.var_emp_holiday.get(),
+                            self.var_emp_bonus.get()
+                        )
                     )
-                    con.commit()
-                    messagebox.showinfo(
-                        "Success", "Employee Updated Sucessfully", parent=self.root
-                    )
-                    self.show()
+                con.commit()
+                messagebox.showinfo(
+                    "Success", "Employee Updated Sucessfully", parent=self.root
+                )
+                self.show()
         except Exception as ex:
             messagebox.showerror("Error", f"Error due to : {str(ex)}", parent=self.root)
 
@@ -424,7 +415,7 @@ class salaryClass:
                 else:
                     today = date.today()
                     num_days = monthrange(today.year, today.month)
-                    salary=(int(self.var_emp_salary.get())/num_days[1])*int(self.var_emp_present.get())
+                    salary=(int(self.var_emp_salary.get())//num_days[1])*(int(self.var_emp_present.get())+int(self.var_emp_holiday.get()))
                     bonus=float(self.var_emp_rating.get())*int(self.var_emp_salary.get())/100
                     self.var_emp_tsalary.set(int(salary+bonus))
                     self.var_emp_bonus.set(int(bonus))
@@ -435,8 +426,14 @@ class salaryClass:
         except Exception as ex:
             messagebox.showerror("Error", f"Error due to : {str(ex)}", parent=self.root)
 
+    def clear(self):
+        """Clear Table"""
+        self.var_emp_holiday.set(""),
+        self.var_emp_bonus.set(""),
+        self.var_emp_tsalary.set(""),
+
 
 if __name__ == "__main__":
     root = customtkinter.CTk()
-    obj = salaryClass(root)
+    obj = Login_system(root)
     root.mainloop()

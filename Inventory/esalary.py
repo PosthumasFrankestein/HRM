@@ -12,7 +12,7 @@ class esalaryClass:
 
     def __init__(self, root, eid):
         self.root = root
-        self.root.geometry("1100x400+220+130")
+        self.root.geometry("1100x450+220+80")
         self.root.resizable(True, True)
         self.root.title("Employee Management System")
         self.root.config(bg="black")
@@ -24,7 +24,6 @@ class esalaryClass:
         self.var_emp_email = StringVar()
         self.var_emp_salary = StringVar()
         self.var_emp_utype = StringVar()
-        self.var_emp_remark = StringVar()
         self.var_emp_present = StringVar()
         self.var_emp_absent = StringVar()
         self.var_emp_holiday = StringVar()
@@ -162,10 +161,9 @@ class esalaryClass:
             bg="#211f1f",
             fg="white",
         ).place(x=500, y=230, width=180)
-        txt_holiday = Entry(
+        txt_holiday = Label(
             self.root,
             textvariable=self.var_emp_holiday,
-            insertbackground="white",
             font=("goudy old style", 11),
             bg="#211f1f",
             fg="white",
@@ -201,13 +199,12 @@ class esalaryClass:
             bg="#211f1f",
             fg="white",
         ).place(x=150, y=270, width=180)
-        txt_bonus = Entry(
+        txt_bonus = Label(
             self.root,
             textvariable=self.var_emp_bonus,
             font=("goudy old style", 11),
             bg="#211f1f",
             fg="white",
-            insertbackground="white",
         ).place(x=500, y=270, width=180)
         txt_tsalary = Label(
             self.root,
@@ -218,19 +215,50 @@ class esalaryClass:
             fg="white",
         ).place(x=850, y=270, width=180)
 
-        # button
-        btn_receipt = customtkinter.CTkButton(
+        # row 5
+        lbl_remark = Label(
             self.root,
-            text="Get Data",
-            command=lambda: self.get_data(eid),
+            text="Remark",
+            font=("goudy old style", 11),
+            bg="black",
+            fg="white",
+        ).place(x=50, y=310)
+        
+        self.var_sremark = Text(
+            self.root,
+            font=("goudy old style", 11),
+            bg="#211f1f",
+            fg="white",
+            insertbackground="white",
+        )
+        self.var_sremark.place(x=150, y=310, width=180,height=80)
+
+        # button
+        btn_approve = customtkinter.CTkButton(
+            self.root,
+            text="Approve",
+            command=lambda: self.approve(eid),
             text_font=("goudy old style", 11),
             fg_color="#4caf50",
             cursor="hand2",
-        ).place(x=850, y=305, width=180, height=28)
+        ).place(x=645, y=395, width=180, height=28)
+
+        btn_reappeal = customtkinter.CTkButton(
+            self.root,
+            text="Re-appeal",
+            command=lambda: self.reappeal(eid),
+            text_font=("goudy old style", 11),
+            fg_color="blue",
+            cursor="hand2",
+        ).place(x=850, y=395, width=180, height=28)
+
+        self.get_data(eid)
+
 
     def get_data(self, eid):
-        """Get data from table"""
+        """Get data """
         today = date.today()
+        dvalue=today.strftime("%m/%y")
         num_days = monthrange(today.year, today.month)
         con = sqlite3.connect(database=r"ims.db")
         cur = con.cursor()
@@ -240,28 +268,98 @@ class esalaryClass:
         )
         row = cur.fetchone()
 
+        cur.execute(
+            "Select holiday,bonus,fsalary,sremark,sstatus from salary where eid=? and sdate like ?",
+            (str(eid),'%'+dvalue+'%'),
+        )
+        row1 = cur.fetchone()
+        if row1 is None:
+            messagebox.showerror("Error", f"Salary for this month not released", parent=self.root)
+        elif row1[4]=='approved':
+            messagebox.showerror("Error", f"Salary for this month already approved", parent=self.root)
+        else:
+            try:
+                cur.execute(
+                    "Select count(*) from attendance where eid=? and astatus='present' and date LIKE ?",
+                    (str(row[0]),'%'+dvalue+'%'),
+                )
+                rows = cur.fetchone()
+                cur.execute(
+                "Select count(*),sum(rate) from rating where eid=? and ratedby IS NOT NULL",
+                (str(row[0])),
+                )
+                rows1 = cur.fetchone()
+                cur.execute(
+                    "Select count(*),sum(rate) from rating where eid=? and ratedby IS NULL",
+                    (str(row[0])),
+                )
+                rows2 = cur.fetchone()
+                if rows1[1] is None and rows2[1] is None:
+                    value=0
+                elif rows1[1] is None and rows2[1] is not None:
+                    value = (rows1[1] / rows1[0])
+                elif rows1[1] is None and rows2[1] is not None:
+                    value = (rows2[1] / rows2[0])
+                else:
+                    value = (rows1[1] / rows1[0])+(rows2[1] / rows2[0])
+
+                self.var_emp_id.set(row[0]),
+                self.var_emp_name.set(row[1]),
+                self.var_emp_email.set(row[2]),
+                self.var_emp_date.set(row[3]),
+                self.var_emp_contact.set(row[4]),
+                self.var_emp_utype.set(row[5]),
+                self.var_emp_salary.set(row[6]),
+                self.var_emp_absent.set(int(num_days[1]) - int(rows[0]))
+                self.var_emp_present.set(rows[0]),
+                self.var_emp_rating.set(value),
+                self.var_emp_holiday.set(row1[0]),
+                self.var_emp_bonus.set(row1[1]),
+                self.var_emp_tsalary.set(row1[2]),
+                if row1[3] is not None:
+                    self.var_sremark.insert(END,row1[3]),
+
+            except Exception as ex:
+                messagebox.showerror("Error", f"Error due to : {str(ex)}", parent=self.root)
+
+
+    def approve(self, eid):
+        """Approve salary"""
+        con = sqlite3.connect(database=r"ims.db")
+        cur = con.cursor()
         try:
             cur.execute(
-                "Select count(*) from attendance where eid=? and astatus='present'",
-                (str(row[0])),
-            )
-            rows = cur.fetchone()
+                "update salary set sstatus='approved' where eid=?",str(eid))
+            con.commit()
+            messagebox.showinfo(
+                        "Success", "Salary Approved", parent=self.root
+                    )
+            self.get_data(self, eid)
+
+        except Exception as ex:
+            messagebox.showerror("Error", f"Error due to : {str(ex)}", parent=self.root)
+    
+
+    def reappeal(self, eid):
+        """Reappeal for the salary"""
+        con = sqlite3.connect(database=r"ims.db")
+        cur = con.cursor()
+        try:
+            cur.execute(
+                "update salary set sstatus='pending',sremark=? where eid=?",
+                (self.var_sremark.get("1.0", END),str(eid)))
+            con.commit()
+            messagebox.showinfo(
+                        "Success", "Salary Reappealed", parent=self.root
+                    )
+            self.get_data(self, eid)
 
         except Exception as ex:
             messagebox.showerror("Error", f"Error due to : {str(ex)}", parent=self.root)
 
-        self.var_emp_id.set(row[0]),
-        self.var_emp_name.set(row[1]),
-        self.var_emp_email.set(row[2]),
-        self.var_emp_date.set(row[3]),
-        self.var_emp_contact.set(row[4]),
-        self.var_emp_utype.set(row[5]),
-        self.var_emp_salary.set(row[6]),
-        self.var_emp_absent.set(int(num_days[1]) - int(rows[0]))
-        self.var_emp_present.set(rows[0])
-
 
 if __name__ == "__main__":
     root = customtkinter.CTk()
-    obj = Login_system(root)
+    # obj = Login_system(root)
+    obj = esalaryClass(root,2)
     root.mainloop()

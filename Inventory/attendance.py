@@ -43,7 +43,7 @@ class calender:
         for day in days:
             from datetime import datetime
 
-            date = datetime.strptime(day[0], "%m/%d/%y").date()
+            date = datetime.strptime(day[0], "%d/%m/%y").date()
 
             if day[1] == "present" and day[2] == "approve":
                 cal.calevent_create(date, "Reminder 1", "present")
@@ -52,7 +52,7 @@ class calender:
             else:
                 cal.calevent_create(date, "Reminder 1", "present")
 
-        now = cal.datetime.today()
+        
         cal.tag_config('absent', background='#f7163c', foreground='yellow')
         cal.tag_config('half', background='yellow', foreground='red')
         cal.tag_config('present', background='#50f01a', foreground='white')
@@ -64,13 +64,14 @@ class calender:
         self.var_eid = eid
 
         def present():
-            dvalue = cal.get_date()
+            now = cal.date.today()
+            dvalue=now.strftime("%d/%m/%y")
             date.configure(text="Attendence recorded for " + dvalue)
             try:
-                cur.execute("Select date from attendance where eid=?  ORDER BY aid DESC",(str(eid)))
+                cur.execute("Select date from attendance where eid=? ORDER BY aid DESC",(str(eid)))
                 row=cur.fetchone()
                 if row is None or row[-1]!=dvalue:
-                    dvalue=cal.get_date()
+                    # dvalue=cal.get_date()
                     cur.execute("Insert into attendance (date,astatus,status,remark,eid) values(?,'present','unapproved','',?)",(dvalue,eid))       
                     con.commit()
                     messagebox.showinfo(
