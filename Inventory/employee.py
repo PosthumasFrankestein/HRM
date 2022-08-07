@@ -26,6 +26,16 @@ class employeeclass:
         self.var_emp_utype = StringVar()
         self.var_emp_salary = StringVar()
         self.var_emp_address = StringVar()
+        style = ttk.Style()
+        style.configure(
+            "mystyle.Treeview",
+            highlightthickness=0,
+            bd=0,
+            font=("Calibri", 11),
+            background="black",
+            fieldbackground="black",
+            foreground="white",
+        )
 
         # title
 
@@ -40,119 +50,130 @@ class employeeclass:
         # #contents
         # row 1
         lbl_empid = Label(
-            self.root, text="Emp ID", font=("goudy old style", 15), bg="white"
+            self.root, text="Emp ID", font=("goudy old style", 11), bg="black",
+            fg="white",
         ).place(x=50, y=150)
         lbl_gender = Label(
-            self.root, text="Gender", font=("goudy old style", 15), bg="white"
+            self.root, text="Gender", font=("goudy old style", 11), bg="black",
+            fg="white",
         ).place(x=350, y=150)
         lbl_contact = Label(
-            self.root, text="Contact", font=("goudy old style", 15), bg="white"
+            self.root, text="Contact", font=("goudy old style", 11), bg="black",
+            fg="white",
         ).place(x=750, y=150)
 
         txt_empid = Entry(
             self.root,
             textvariable=self.var_emp_id,
-            font=("goudy old style", 15),
-            bg="lightyellow",
+            font=("goudy old style", 11),
+            bg="#211f1f",
+            fg="white",
         ).place(x=150, y=150, width=180)
-        cmb_gender = ttk.Combobox(
+        txt_gender = customtkinter.CTkComboBox(
             self.root,
-            textvariable=self.var_emp_gender,
-            values=("Select", "Male", "Female", "Other"),
-            state="readonly",
-            justify=CENTER,
-            font=("goudy old style", 15),
-        )
-        cmb_gender.place(x=500, y=150, width=180)
-        cmb_gender.current(0)
+            values=("Male", "Female", "Other"),
+            variable=self.var_emp_gender,
+        ).place(x=500, y=150, width=180)
         txt_contact = Entry(
             self.root,
             textvariable=self.var_emp_contact,
-            font=("goudy old style", 15),
-            bg="lightyellow",
+            font=("goudy old style", 11),
+            bg="#211f1f",
+            fg="white",
         ).place(x=850, y=150, width=180)
 
         # row 2
         lbl_name = Label(
-            self.root, text="Name", font=("goudy old style", 15), bg="white"
+            self.root, text="Name", font=("goudy old style", 11), bg="black",
+            fg="white",
         ).place(x=50, y=190)
         lbl_dob = Label(
-            self.root, text="D.O.B", font=("goudy old style", 15), bg="white"
+            self.root, text="D.O.B", font=("goudy old style", 11), bg="black",
+            fg="white",
         ).place(x=350, y=190)
         lbl_doj = Label(
-            self.root, text="D.O.J", font=("goudy old style", 15), bg="white"
+            self.root, text="D.O.J", font=("goudy old style", 11), bg="black",
+            fg="white",
         ).place(x=750, y=190)
 
         txt_name = Entry(
             self.root,
             textvariable=self.var_emp_name,
-            font=("goudy old style", 15),
-            bg="lightyellow",
+            font=("goudy old style", 11),
+            bg="#211f1f",
+            fg="white",
         ).place(x=150, y=190, width=180)
         txt_dob = Entry(
             self.root,
             textvariable=self.var_emp_dob,
-            font=("goudy old style", 15),
-            bg="lightyellow",
+            font=("goudy old style", 11),
+            bg="#211f1f",
+            fg="white",
         ).place(x=500, y=190, width=180)
         txt_doj = Entry(
             self.root,
             textvariable=self.var_emp_doj,
-            font=("goudy old style", 15),
-            bg="lightyellow",
+            font=("goudy old style", 11),
+            bg="#211f1f",
+            fg="white",
         ).place(x=850, y=190, width=180)
 
         # row 3
         lbl_email = Label(
-            self.root, text="Email", font=("goudy old style", 15), bg="white"
+            self.root, text="Email", font=("goudy old style", 11), bg="black",
+            fg="white",
         ).place(x=50, y=230)
         lbl_pass = Label(
-            self.root, text="Password", font=("goudy old style", 15), bg="white"
+            self.root, text="Password", font=("goudy old style", 11), bg="black",
+            fg="white",
         ).place(x=350, y=230)
         lbl_utype = Label(
-            self.root, text="User Type", font=("goudy old style", 15), bg="white"
+            self.root, text="User Type", font=("goudy old style", 11), bg="black",
+            fg="white",
         ).place(x=750, y=230)
 
         txt_email = Entry(
             self.root,
             textvariable=self.var_emp_email,
-            font=("goudy old style", 15),
-            bg="lightyellow",
+            font=("goudy old style", 11),
+            bg="#211f1f",
+            fg="white",
         ).place(x=150, y=230, width=180)
         txt_pass = Entry(
             self.root,
             textvariable=self.var_emp_pass,
-            font=("goudy old style", 15),
-            bg="lightyellow",
+            font=("goudy old style", 11),
+            bg="#211f1f",
+            fg="white",
         ).place(x=500, y=230, width=180)
-        cmb_utype = ttk.Combobox(
+        
+        txt_utype = customtkinter.CTkComboBox(
             self.root,
-            textvariable=self.var_emp_utype,
             values=("Admin", "Employee"),
-            state="readonly",
-            justify=CENTER,
-            font=("goudy old style", 15),
-        )
-        cmb_utype.place(x=850, y=230, width=180)
-        cmb_utype.current(0)
+            variable=self.var_emp_utype,
+        ).place(x=850, y=230, width=180)
 
         # ====row4=======
         lbl_address = Label(
-            self.root, text="Address", font=("goudy old style", 15), bg="white"
+            self.root, text="Address", font=("goudy old style", 11), bg="black",
+            fg="white",
         ).place(x=50, y=270)
         lbl_salary = Label(
-            self.root, text="Salary", font=("goudy old style", 15), bg="white"
+            self.root, text="Salary", font=("goudy old style", 11), bg="black",
+            fg="white",
         ).place(x=500, y=270)
 
         self.txt_address = Text(
-            self.root, font=("goudy old style", 15), bg="lightyellow"
+            self.root, font=("goudy old style", 11), bg="black",
+            fg="white",
         )
         self.txt_address.place(x=150, y=270, width=300, height=60)
         txt_salary = Entry(
             self.root,
             textvariable=self.var_emp_salary,
-            font=("goudy old style", 15),
-            bg="lightyellow",
+            font=("goudy old style", 11),
+            bg="black",
+            fg="white",
         ).place(x=600, y=270, width=180)
 
         # button
@@ -160,7 +181,7 @@ class employeeclass:
             self.root,
             text="Save",
             command=self.add,
-            font=("goudy old style", 15),
+            font=("goudy old style", 11),
             bg="#2196f3",
             fg="white",
             cursor="hand2",
@@ -169,7 +190,7 @@ class employeeclass:
             self.root,
             text="Update",
             command=self.update,
-            font=("goudy old style", 15),
+            font=("goudy old style", 11),
             bg="#4caf50",
             fg="white",
             cursor="hand2",
@@ -178,7 +199,7 @@ class employeeclass:
             self.root,
             text="Delete",
             command=self.delete,
-            font=("goudy old style", 15),
+            font=("goudy old style", 11),
             bg="#f44336",
             fg="white",
             cursor="hand2",
@@ -187,7 +208,7 @@ class employeeclass:
             self.root,
             text="Clear",
             command=self.clear,
-            font=("goudy old style", 15),
+            font=("goudy old style", 11),
             bg="#607d8b",
             fg="white",
             cursor="hand2",
@@ -217,6 +238,7 @@ class employeeclass:
             ),
             yscrollcommand=scrolly.set,
             xscrollcommand=scrollx.set,
+            style="mystyle.Treeview",
         )
         scrollx.pack(side=BOTTOM, fill=X)
         scrolly.pack(side=RIGHT, fill=Y)
@@ -245,7 +267,7 @@ class employeeclass:
         self.EmployeeTable.column("pass", width=100)
         self.EmployeeTable.column("utype", width=100)
         self.EmployeeTable.column("address", width=100)
-        self.EmployeeTable.column("salary", width=200)
+        self.EmployeeTable.column("salary", width=100)
 
         self.EmployeeTable.pack(fill=BOTH, expand=1)
 

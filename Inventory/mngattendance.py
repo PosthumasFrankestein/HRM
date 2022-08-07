@@ -4,7 +4,6 @@ from tkinter import ttk, messagebox
 from logins import Login_system
 import customtkinter
 
-customtkinter.set_appearance_mode("system")
 
 
 class AttendanceMng:
@@ -12,7 +11,7 @@ class AttendanceMng:
         self.root = root
         self.root.geometry("1100x500+220+130")
         self.root.title("Logged as Admin")
-        customtkinter.set_appearance_mode("system")
+        self.root.config(bg="black")
 
         # All Varialble
         self.var_searchby = StringVar()
@@ -25,6 +24,16 @@ class AttendanceMng:
         self.var_emp_email = StringVar()
         self.var_emp_utype = StringVar()
         self.var_emp_remark = StringVar()
+        style = ttk.Style()
+        style.configure(
+            "mystyle.Treeview",
+            highlightthickness=0,
+            bd=0,
+            font=("Calibri", 11),
+            background="black",
+            fieldbackground="black",
+            foreground="white",
+        )
 
         title = Label(
             self.root,
@@ -37,98 +46,109 @@ class AttendanceMng:
         # #contents
         # row 1
         lbl_empid = Label(
-            self.root, text="Emp ID", font=("goudy old style", 15), bg="white"
+            self.root, text="Emp ID", font=("goudy old style", 11), bg="black",
+            fg="white",
         ).place(x=50, y=150)
         lbl_date = Label(
-            self.root, text="Date", font=("goudy old style", 15), bg="white"
+            self.root, text="Date", font=("goudy old style", 11), bg="black",
+            fg="white",
         ).place(x=350, y=150)
         lbl_contact = Label(
-            self.root, text="Contact", font=("goudy old style", 15), bg="white"
+            self.root, text="Contact", font=("goudy old style", 11), bg="black",
+            fg="white",
         ).place(x=750, y=150)
 
         txt_empid = Label(
             self.root,
             textvariable=self.var_emp_id,
-            font=("goudy old style", 15),
-            bg="lightyellow",
+            font=("goudy old style", 11),
+            bg="#211f1f",
+            fg="white",
         ).place(x=150, y=150, width=180)
         txt_date = Label(
             self.root,
             textvariable=self.var_emp_date,
-            font=("goudy old style", 15),
-            bg="lightyellow",
+            font=("goudy old style", 11),
+            bg="#211f1f",
+            fg="white",
         ).place(x=500, y=150, width=180)
         txt_contact = Label(
             self.root,
             textvariable=self.var_emp_contact,
-            font=("goudy old style", 15),
-            bg="lightyellow",
+            font=("goudy old style", 11),
+            bg="#211f1f",
+            fg="white",
         ).place(x=850, y=150, width=180)
 
         # row 2
         lbl_name = Label(
-            self.root, text="Name", font=("goudy old style", 15), bg="white"
+            self.root, text="Name", font=("goudy old style", 11), bg="black",
+            fg="white",
         ).place(x=50, y=190)
         lbl_email = Label(
-            self.root, text="Email", font=("goudy old style", 15), bg="white"
+            self.root, text="Email", font=("goudy old style", 11), bg="black",
+            fg="white",
         ).place(x=350, y=190)
         lbl_doj = Label(
-            self.root, text="User Type", font=("goudy old style", 15), bg="white"
+            self.root, text="User Type", font=("goudy old style", 11), bg="black",
+            fg="white",
         ).place(x=750, y=190)
 
         txt_name = Label(
             self.root,
             textvariable=self.var_emp_name,
-            font=("goudy old style", 15),
-            bg="lightyellow",
+            font=("goudy old style", 11),
+            bg="#211f1f",
+            fg="white",
         ).place(x=150, y=190, width=180)
         txt_email = Label(
             self.root,
             textvariable=self.var_emp_email,
-            font=("goudy old style", 15),
-            bg="lightyellow",
+            font=("goudy old style", 11),
+            bg="#211f1f",
+            fg="white",
         ).place(x=500, y=190, width=180)
-        cmb_utype = ttk.Combobox(
+        cmb_utype = Label(
             self.root,
             textvariable=self.var_emp_utype,
-            values=("Admin", "Employee"),
-            state="readonly",
-            justify=CENTER,
-            font=("goudy old style", 15),
+            font=("goudy old style", 11),
+            bg="#211f1f",
+            fg="white",
         )
         cmb_utype.place(x=850, y=190, width=180)
-        cmb_utype.current(0)
+        
 
         # row 3
         # ====row4=======
         lbl_remark = Label(
-            self.root, text="Remark", font=("goudy old style", 15), bg="white"
+            self.root, text="Remark", font=("goudy old style", 11), bg="black",
+            fg="white",
         ).place(x=50, y=270)
 
         self.txt_remark = Text(
-            self.root, font=("goudy old style", 15), bg="lightyellow"
+            self.root, font=("goudy old style", 11),
+            bg="#211f1f",
+            fg="white",
         )
         self.txt_remark.place(x=150, y=230, width=300, height=60)
 
         # button
-        btn_approve = Button(
+        btn_approve = customtkinter.CTkButton(
             self.root,
             text="Approve",
             command=self.approve,
-            font=("goudy old style", 15),
-            bg="#4caf50",
-            fg="white",
+            text_font=("goudy old style", 11),
+            fg_color="blue",
             cursor="hand2",
         ).place(x=50, y=305, width=110, height=28)
-        btn_reject = Button(
+        btn_reject = customtkinter.CTkButton(
             self.root,
             text="Reject",
             command=self.reject,
-            font=("goudy old style", 15),
-            bg="red",
-            fg="white",
+            text_font=("goudy old style", 11),
+            fg_color="red",
             cursor="hand2",
-        ).place(x=150, y=305, width=110, height=28)
+        ).place(x=170, y=305, width=110, height=28)
 
         # Employee Details
         emp_frame = Frame(self.root, bd=3, relief=RIDGE)
@@ -142,6 +162,7 @@ class AttendanceMng:
             columns=("eid", "name", "email", "contact", "utype", "date", "remark"),
             yscrollcommand=scrolly.set,
             xscrollcommand=scrollx.set,
+            style="mystyle.Treeview",
         )
         scrollx.pack(side=BOTTOM, fill=X)
         scrolly.pack(side=RIGHT, fill=Y)

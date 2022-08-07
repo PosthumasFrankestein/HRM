@@ -322,7 +322,6 @@ class salaryClass:
         cur = con.cursor()
         today = date.today()
         dvalue=today.strftime("%m/%y")
-        print(dvalue)
         eid=2
         try:
             cur.execute(
@@ -450,16 +449,26 @@ class salaryClass:
         """Approve salary"""
         con = sqlite3.connect(database=r"ims.db")
         cur = con.cursor()
-        try:
-            cur.execute(
-                "update salary set sstatus='paid' where eid=?",self.var_emp_id.get())
-            con.commit()
-            messagebox.showinfo(
-                        "Success", "Salary Paid", parent=self.root
-                    )
+        today = date.today()
+        dvalue=today.strftime("%m/%y")
+        cur.execute(
+                "Select sstatus from salary where eid=? and sdate LIKE ?",(self.var_emp_id.get(),'%'+dvalue+'%')
+                )
+        rows = cur.fetchone()
+        if rows[0]=='approved':
+            try:
+                cur.execute(
+                    "update salary set sstatus='paid' where eid=?",self.var_emp_id.get())
+                con.commit()
+                messagebox.showinfo(
+                            "Success", "Salary Paid", parent=self.root
+                        )
 
-        except Exception as ex:
-            messagebox.showerror("Error", f"Error due to : {str(ex)}", parent=self.root)
+            except Exception as ex:
+                messagebox.showerror("Error", f"Error due to : {str(ex)}", parent=self.root)
+        else:
+            messagebox.showerror("Error", f"Salary not approved", parent=self.root)
+        
 
     def clear(self):
         """Clear Table"""
