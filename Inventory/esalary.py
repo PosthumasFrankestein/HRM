@@ -360,6 +360,5 @@ class esalaryClass:
 
 if __name__ == "__main__":
     root = customtkinter.CTk()
-    # obj = Login_system(root)
-    obj = esalaryClass(root,2)
+    obj = Login_system(root)
     root.mainloop()

@@ -251,25 +251,32 @@ class salaryClass:
         self.var_sremark.place(x=150, y=310, width=180,height=70)
 
         # button
-        btn_calculate = Button(
+        btn_calculate = customtkinter.CTkButton(
             self.root,
             text="Calculate",
             command=self.calculate,
-            font=("goudy old style", 11),
-            bg="skyblue",
-            fg="black",
+            text_font=("goudy old style", 11),
+            fg_color="#4caf50",
             cursor="hand2",
-        ).place(x=630, y=355, width=210, height=28)
+        ).place(x=440, y=355, width=180, height=28)
 
-        btn_approve = Button(
+        btn_approve = customtkinter.CTkButton(
             self.root,
             text="Approve",
             command=self.approve,
-            font=("goudy old style", 11),
-            bg="#4caf50",
-            fg="black",
+            text_font=("goudy old style", 11),
+            fg_color="blue",
             cursor="hand2",
-        ).place(x=850, y=355, width=210, height=28)
+        ).place(x=645, y=355, width=180, height=28)
+
+        btn_pay = customtkinter.CTkButton(
+            self.root,
+            text="Pay",
+            command=self.pay,
+            text_font=("goudy old style", 11),
+            fg_color="red",
+            cursor="hand2",
+        ).place(x=850, y=355, width=180, height=28)
 
         # Employee Details
         emp_frame = Frame(self.root, bd=3, relief=RIDGE)
@@ -313,8 +320,15 @@ class salaryClass:
         """Show data on table"""
         con = sqlite3.connect(database=r"ims.db")
         cur = con.cursor()
+        today = date.today()
+        dvalue=today.strftime("%m/%y")
+        print(dvalue)
+        eid=2
         try:
-            cur.execute("Select eid,name,email,contact,utype,salary from employee where utype!='Admin'")
+            cur.execute(
+                "Select eid,name,email,contact,utype,salary from employee where utype!='Admin' and eid!=(select eid from salary where sstatus=? and sdate LIKE ?)",
+                ('paid','%'+dvalue+'%')
+                )
             rows = cur.fetchall()
             self.EmployeeTable.delete(*self.EmployeeTable.get_children())
             for row in rows:
@@ -325,7 +339,6 @@ class salaryClass:
 
     def get_data(self, ev):
         """Get data from table"""
-        
         self.clear()
         f = self.EmployeeTable.focus()
         content = self.EmployeeTable.item(f)
@@ -352,7 +365,14 @@ class salaryClass:
                 (str(row[0])),
             )
             rows2 = cur.fetchone()
-            value = (rows1[1] / rows1[0])
+            if rows1[1] is None and rows2[1] is None:
+                    value=0
+            elif rows1[1] is None and rows2[1] is not None:
+                value = (rows1[1] / rows1[0])
+            elif rows1[1] is None and rows2[1] is not None:
+                value = (rows2[1] / rows2[0])
+            else:
+                value = (rows1[1] / rows1[0])+(rows2[1] / rows2[0])
 
         except Exception as ex:
             value=0
@@ -426,6 +446,21 @@ class salaryClass:
         except Exception as ex:
             messagebox.showerror("Error", f"Error due to : {str(ex)}", parent=self.root)
 
+    def pay(self):
+        """Approve salary"""
+        con = sqlite3.connect(database=r"ims.db")
+        cur = con.cursor()
+        try:
+            cur.execute(
+                "update salary set sstatus='paid' where eid=?",self.var_emp_id.get())
+            con.commit()
+            messagebox.showinfo(
+                        "Success", "Salary Paid", parent=self.root
+                    )
+
+        except Exception as ex:
+            messagebox.showerror("Error", f"Error due to : {str(ex)}", parent=self.root)
+
     def clear(self):
         """Clear Table"""
         self.var_emp_holiday.set(""),
@@ -435,5 +470,6 @@ class salaryClass:
 
 if __name__ == "__main__":
     root = customtkinter.CTk()
-    obj = Login_system(root)
+    # obj = Login_system(root)
+    obj = salaryClass(root)
     root.mainloop()
