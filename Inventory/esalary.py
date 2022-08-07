@@ -223,7 +223,7 @@ class esalaryClass:
             bg="black",
             fg="white",
         ).place(x=50, y=310)
-        
+
         self.var_sremark = Text(
             self.root,
             font=("goudy old style", 11),
@@ -231,7 +231,7 @@ class esalaryClass:
             fg="white",
             insertbackground="white",
         )
-        self.var_sremark.place(x=150, y=310, width=180,height=80)
+        self.var_sremark.place(x=150, y=310, width=180, height=80)
 
         # button
         btn_approve = customtkinter.CTkButton(
@@ -254,11 +254,10 @@ class esalaryClass:
 
         self.get_data(eid)
 
-
     def get_data(self, eid):
-        """Get data """
+        """Get data"""
         today = date.today()
-        dvalue=today.strftime("%m/%y")
+        dvalue = today.strftime("%m/%y")
         num_days = monthrange(today.year, today.month)
         con = sqlite3.connect(database=r"ims.db")
         cur = con.cursor()
@@ -270,23 +269,27 @@ class esalaryClass:
 
         cur.execute(
             "Select holiday,bonus,fsalary,sremark,sstatus from salary where eid=? and sdate like ?",
-            (str(eid),'%'+dvalue+'%'),
+            (str(eid), "%" + dvalue + "%"),
         )
         row1 = cur.fetchone()
         if row1 is None:
-            messagebox.showerror("Error", f"Salary for this month not released", parent=self.root)
-        elif row1[4]=='approved':
-            messagebox.showerror("Error", f"Salary for this month already approved", parent=self.root)
+            messagebox.showerror(
+                "Error", f"Salary for this month not released", parent=self.root
+            )
+        elif row1[4] == "approved":
+            messagebox.showerror(
+                "Error", f"Salary for this month already approved", parent=self.root
+            )
         else:
             try:
                 cur.execute(
                     "Select count(*) from attendance where eid=? and astatus='present' and date LIKE ?",
-                    (str(row[0]),'%'+dvalue+'%'),
+                    (str(row[0]), "%" + dvalue + "%"),
                 )
                 rows = cur.fetchone()
                 cur.execute(
-                "Select count(*),sum(rate) from rating where eid=? and ratedby IS NOT NULL",
-                (str(row[0])),
+                    "Select count(*),sum(rate) from rating where eid=? and ratedby IS NOT NULL",
+                    (str(row[0])),
                 )
                 rows1 = cur.fetchone()
                 cur.execute(
@@ -295,13 +298,13 @@ class esalaryClass:
                 )
                 rows2 = cur.fetchone()
                 if rows1[1] is None and rows2[1] is None:
-                    value=0
+                    value = 0
                 elif rows1[1] is None and rows2[1] is not None:
-                    value = (rows1[1] / rows1[0])
+                    value = rows1[1] / rows1[0]
                 elif rows1[1] is None and rows2[1] is not None:
-                    value = (rows2[1] / rows2[0])
+                    value = rows2[1] / rows2[0]
                 else:
-                    value = (rows1[1] / rows1[0])+(rows2[1] / rows2[0])
+                    value = (rows1[1] / rows1[0]) + (rows2[1] / rows2[0])
 
                 self.var_emp_id.set(row[0]),
                 self.var_emp_name.set(row[1]),
@@ -317,28 +320,25 @@ class esalaryClass:
                 self.var_emp_bonus.set(row1[1]),
                 self.var_emp_tsalary.set(row1[2]),
                 if row1[3] is not None:
-                    self.var_sremark.insert(END,row1[3]),
+                    self.var_sremark.insert(END, row1[3]),
 
             except Exception as ex:
-                messagebox.showerror("Error", f"Error due to : {str(ex)}", parent=self.root)
-
+                messagebox.showerror(
+                    "Error", f"Error due to : {str(ex)}", parent=self.root
+                )
 
     def approve(self, eid):
         """Approve salary"""
         con = sqlite3.connect(database=r"ims.db")
         cur = con.cursor()
         try:
-            cur.execute(
-                "update salary set sstatus='approved' where eid=?",str(eid))
+            cur.execute("update salary set sstatus='approved' where eid=?", str(eid))
             con.commit()
-            messagebox.showinfo(
-                        "Success", "Salary Approved", parent=self.root
-                    )
+            messagebox.showinfo("Success", "Salary Approved", parent=self.root)
             self.get_data(self, eid)
 
         except Exception as ex:
             messagebox.showerror("Error", f"Error due to : {str(ex)}", parent=self.root)
-    
 
     def reappeal(self, eid):
         """Reappeal for the salary"""
@@ -347,11 +347,10 @@ class esalaryClass:
         try:
             cur.execute(
                 "update salary set sstatus='pending',sremark=? where eid=?",
-                (self.var_sremark.get("1.0", END),str(eid)))
+                (self.var_sremark.get("1.0", END), str(eid)),
+            )
             con.commit()
-            messagebox.showinfo(
-                        "Success", "Salary Reappealed", parent=self.root
-                    )
+            messagebox.showinfo("Success", "Salary Reappealed", parent=self.root)
             self.get_data(self, eid)
 
         except Exception as ex:
@@ -361,5 +360,5 @@ class esalaryClass:
 if __name__ == "__main__":
     root = customtkinter.CTk()
     # obj = Login_system(root)
-    obj = esalaryClass(root,2)
+    obj = esalaryClass(root, 2)
     root.mainloop()

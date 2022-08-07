@@ -12,6 +12,7 @@ import customtkinter
 
 class salaryClass:
     """Manage salary of employees"""
+
     def __init__(self, root):
         self.root = root
         self.root.geometry("1100x550+220+80")
@@ -34,7 +35,7 @@ class salaryClass:
         self.var_emp_bonus = StringVar()
         self.var_emp_rating = StringVar()
         self.var_emp_tsalary = StringVar()
-        self.var_sremark=StringVar()
+        self.var_sremark = StringVar()
 
         style = ttk.Style()
         style.configure(
@@ -240,7 +241,7 @@ class salaryClass:
             bg="black",
             fg="white",
         ).place(x=50, y=310)
-        
+
         self.var_sremark = Text(
             self.root,
             font=("goudy old style", 11),
@@ -248,7 +249,7 @@ class salaryClass:
             fg="white",
             insertbackground="white",
         )
-        self.var_sremark.place(x=150, y=310, width=180,height=70)
+        self.var_sremark.place(x=150, y=310, width=180, height=70)
 
         # button
         btn_calculate = Button(
@@ -314,7 +315,9 @@ class salaryClass:
         con = sqlite3.connect(database=r"ims.db")
         cur = con.cursor()
         try:
-            cur.execute("Select eid,name,email,contact,utype,salary from employee where utype!='Admin'")
+            cur.execute(
+                "Select eid,name,email,contact,utype,salary from employee where utype!='Admin'"
+            )
             rows = cur.fetchall()
             self.EmployeeTable.delete(*self.EmployeeTable.get_children())
             for row in rows:
@@ -325,13 +328,13 @@ class salaryClass:
 
     def get_data(self, ev):
         """Get data from table"""
-        
+
         self.clear()
         f = self.EmployeeTable.focus()
         content = self.EmployeeTable.item(f)
         row = content["values"]
         today = date.today()
-        dvalue=today.strftime("%m/%y")
+        dvalue = today.strftime("%m/%y")
         num_days = monthrange(today.year, today.month)
         con = sqlite3.connect(database=r"ims.db")
         cur = con.cursor()
@@ -339,7 +342,7 @@ class salaryClass:
         try:
             cur.execute(
                 "Select count(*) from attendance where eid=? and astatus='present' and date LIKE ?",
-                (str(row[0]),'%'+dvalue+'%')
+                (str(row[0]), "%" + dvalue + "%"),
             )
             rows = cur.fetchone()
             cur.execute(
@@ -352,10 +355,10 @@ class salaryClass:
                 (str(row[0])),
             )
             rows2 = cur.fetchone()
-            value = (rows1[1] / rows1[0])
+            value = rows1[1] / rows1[0]
 
         except Exception as ex:
-            value=0
+            value = 0
             messagebox.showerror("Error", f"Employee not rated", parent=self.root)
 
         self.var_emp_id.set(row[0]),
@@ -380,16 +383,16 @@ class salaryClass:
                 )
             else:
                 cur.execute(
-                        "Insert into salary (fsalary,sdate,sstatus,eid,holiday,bonus) values(?,?,?,?,?,?)",
-                        (
-                            self.var_emp_tsalary.get(),
-                            self.var_emp_date.get(),
-                            'pending',
-                            self.var_emp_id.get(),
-                            self.var_emp_holiday.get(),
-                            self.var_emp_bonus.get()
-                        )
-                    )
+                    "Insert into salary (fsalary,sdate,sstatus,eid,holiday,bonus) values(?,?,?,?,?,?)",
+                    (
+                        self.var_emp_tsalary.get(),
+                        self.var_emp_date.get(),
+                        "pending",
+                        self.var_emp_id.get(),
+                        self.var_emp_holiday.get(),
+                        self.var_emp_bonus.get(),
+                    ),
+                )
                 con.commit()
                 messagebox.showinfo(
                     "Success", "Employee Updated Sucessfully", parent=self.root
@@ -404,9 +407,7 @@ class salaryClass:
         cur = con.cursor()
         try:
             if self.var_emp_id.get() == "":
-                messagebox.showerror(
-                    "Error", "Select employee", parent=self.root
-                )
+                messagebox.showerror("Error", "Select employee", parent=self.root)
             else:
                 if self.var_emp_holiday.get() == "":
                     messagebox.showerror(
@@ -415,9 +416,16 @@ class salaryClass:
                 else:
                     today = date.today()
                     num_days = monthrange(today.year, today.month)
-                    salary=(int(self.var_emp_salary.get())//num_days[1])*(int(self.var_emp_present.get())+int(self.var_emp_holiday.get()))
-                    bonus=float(self.var_emp_rating.get())*int(self.var_emp_salary.get())/100
-                    self.var_emp_tsalary.set(int(salary+bonus))
+                    salary = (int(self.var_emp_salary.get()) // num_days[1]) * (
+                        int(self.var_emp_present.get())
+                        + int(self.var_emp_holiday.get())
+                    )
+                    bonus = (
+                        float(self.var_emp_rating.get())
+                        * int(self.var_emp_salary.get())
+                        / 100
+                    )
+                    self.var_emp_tsalary.set(int(salary + bonus))
                     self.var_emp_bonus.set(int(bonus))
                     messagebox.showinfo(
                         "Success", "Salary Calculated", parent=self.root
