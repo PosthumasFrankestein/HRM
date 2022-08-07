@@ -50,15 +50,24 @@ class employeeclass:
         # #contents
         # row 1
         lbl_empid = Label(
-            self.root, text="Emp ID", font=("goudy old style", 11), bg="black",
+            self.root,
+            text="Emp ID",
+            font=("goudy old style", 11),
+            bg="black",
             fg="white",
         ).place(x=50, y=150)
         lbl_gender = Label(
-            self.root, text="Gender", font=("goudy old style", 11), bg="black",
+            self.root,
+            text="Gender",
+            font=("goudy old style", 11),
+            bg="black",
             fg="white",
         ).place(x=350, y=150)
         lbl_contact = Label(
-            self.root, text="Contact", font=("goudy old style", 11), bg="black",
+            self.root,
+            text="Contact",
+            font=("goudy old style", 11),
+            bg="black",
             fg="white",
         ).place(x=750, y=150)
 
@@ -84,15 +93,24 @@ class employeeclass:
 
         # row 2
         lbl_name = Label(
-            self.root, text="Name", font=("goudy old style", 11), bg="black",
+            self.root,
+            text="Name",
+            font=("goudy old style", 11),
+            bg="black",
             fg="white",
         ).place(x=50, y=190)
         lbl_dob = Label(
-            self.root, text="D.O.B", font=("goudy old style", 11), bg="black",
+            self.root,
+            text="D.O.B",
+            font=("goudy old style", 11),
+            bg="black",
             fg="white",
         ).place(x=350, y=190)
         lbl_doj = Label(
-            self.root, text="D.O.J", font=("goudy old style", 11), bg="black",
+            self.root,
+            text="D.O.J",
+            font=("goudy old style", 11),
+            bg="black",
             fg="white",
         ).place(x=750, y=190)
 
@@ -120,15 +138,24 @@ class employeeclass:
 
         # row 3
         lbl_email = Label(
-            self.root, text="Email", font=("goudy old style", 11), bg="black",
+            self.root,
+            text="Email",
+            font=("goudy old style", 11),
+            bg="black",
             fg="white",
         ).place(x=50, y=230)
         lbl_pass = Label(
-            self.root, text="Password", font=("goudy old style", 11), bg="black",
+            self.root,
+            text="Password",
+            font=("goudy old style", 11),
+            bg="black",
             fg="white",
         ).place(x=350, y=230)
         lbl_utype = Label(
-            self.root, text="User Type", font=("goudy old style", 11), bg="black",
+            self.root,
+            text="User Type",
+            font=("goudy old style", 11),
+            bg="black",
             fg="white",
         ).place(x=750, y=230)
 
@@ -146,7 +173,7 @@ class employeeclass:
             bg="#211f1f",
             fg="white",
         ).place(x=500, y=230, width=180)
-        
+
         txt_utype = customtkinter.CTkComboBox(
             self.root,
             values=("Admin", "Employee"),
@@ -155,16 +182,24 @@ class employeeclass:
 
         # ====row4=======
         lbl_address = Label(
-            self.root, text="Address", font=("goudy old style", 11), bg="black",
+            self.root,
+            text="Address",
+            font=("goudy old style", 11),
+            bg="black",
             fg="white",
         ).place(x=50, y=270)
         lbl_salary = Label(
-            self.root, text="Salary", font=("goudy old style", 11), bg="black",
+            self.root,
+            text="Salary",
+            font=("goudy old style", 11),
+            bg="black",
             fg="white",
         ).place(x=500, y=270)
 
         self.txt_address = Text(
-            self.root, font=("goudy old style", 11), bg="black",
+            self.root,
+            font=("goudy old style", 11),
+            bg="black",
             fg="white",
         )
         self.txt_address.place(x=150, y=270, width=300, height=60)

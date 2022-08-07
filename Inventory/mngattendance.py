@@ -5,7 +5,6 @@ from logins import Login_system
 import customtkinter
 
 
-
 class AttendanceMng:
     def __init__(self, root):
         self.root = root
@@ -46,15 +45,24 @@ class AttendanceMng:
         # #contents
         # row 1
         lbl_empid = Label(
-            self.root, text="Emp ID", font=("goudy old style", 11), bg="black",
+            self.root,
+            text="Emp ID",
+            font=("goudy old style", 11),
+            bg="black",
             fg="white",
         ).place(x=50, y=150)
         lbl_date = Label(
-            self.root, text="Date", font=("goudy old style", 11), bg="black",
+            self.root,
+            text="Date",
+            font=("goudy old style", 11),
+            bg="black",
             fg="white",
         ).place(x=350, y=150)
         lbl_contact = Label(
-            self.root, text="Contact", font=("goudy old style", 11), bg="black",
+            self.root,
+            text="Contact",
+            font=("goudy old style", 11),
+            bg="black",
             fg="white",
         ).place(x=750, y=150)
 
@@ -82,15 +90,24 @@ class AttendanceMng:
 
         # row 2
         lbl_name = Label(
-            self.root, text="Name", font=("goudy old style", 11), bg="black",
+            self.root,
+            text="Name",
+            font=("goudy old style", 11),
+            bg="black",
             fg="white",
         ).place(x=50, y=190)
         lbl_email = Label(
-            self.root, text="Email", font=("goudy old style", 11), bg="black",
+            self.root,
+            text="Email",
+            font=("goudy old style", 11),
+            bg="black",
             fg="white",
         ).place(x=350, y=190)
         lbl_doj = Label(
-            self.root, text="User Type", font=("goudy old style", 11), bg="black",
+            self.root,
+            text="User Type",
+            font=("goudy old style", 11),
+            bg="black",
             fg="white",
         ).place(x=750, y=190)
 
@@ -116,17 +133,20 @@ class AttendanceMng:
             fg="white",
         )
         cmb_utype.place(x=850, y=190, width=180)
-        
 
         # row 3
         # ====row4=======
         lbl_remark = Label(
-            self.root, text="Remark", font=("goudy old style", 11), bg="black",
+            self.root,
+            text="Remark",
+            font=("goudy old style", 11),
+            bg="black",
             fg="white",
         ).place(x=50, y=270)
 
         self.txt_remark = Text(
-            self.root, font=("goudy old style", 11),
+            self.root,
+            font=("goudy old style", 11),
             bg="#211f1f",
             fg="white",
         )
