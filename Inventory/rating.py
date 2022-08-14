@@ -49,7 +49,7 @@ class Rating:
             font=("goudy old style", 11),
             background="#211f1f",
             foreground="white",
-            anchor=CENTER
+            anchor=CENTER,
         )
 
         title = Label(
@@ -62,73 +62,51 @@ class Rating:
 
         # #contents
         # row 1
-        lbl_empid = ttk.Label(
-            self.root,
-            text="Emp ID",
-            style="mystyle1.TLabel"
-        ).place(x=50, y=150)
-        lbl_name = ttk.Label(
-            self.root, text="Name", style="mystyle1.TLabel"
-        ).place(x=350, y=150)
+        lbl_empid = ttk.Label(self.root, text="Emp ID", style="mystyle1.TLabel").place(
+            x=50, y=150
+        )
+        lbl_name = ttk.Label(self.root, text="Name", style="mystyle1.TLabel").place(
+            x=350, y=150
+        )
         lbl_utype = ttk.Label(
-            self.root,
-            text="User Type",
-            style="mystyle1.TLabel"
+            self.root, text="User Type", style="mystyle1.TLabel"
         ).place(x=750, y=150)
 
         txt_empid = ttk.Label(
-            self.root,
-            textvariable=self.var_eid,
-            style="mystyle1.TLabel"
+            self.root, textvariable=self.var_eid, style="mystyle1.TLabel"
         ).place(x=150, y=150, width=180)
         txt_name = ttk.Label(
-            self.root,
-            textvariable=self.var_emp_name,
-            style="mystyle1.TLabel"
+            self.root, textvariable=self.var_emp_name, style="mystyle1.TLabel"
         ).place(x=500, y=150, width=180)
         txt_utype = ttk.Label(
-            self.root,
-            textvariable=self.var_emp_utype,
-            style="mystyle1.TLabel"
+            self.root, textvariable=self.var_emp_utype, style="mystyle1.TLabel"
         ).place(x=850, y=150, width=180)
 
         # row 2
-        lbl_date = ttk.Label(
-            self.root, text="Date", style="mystyle1.TLabel"
-        ).place(x=50, y=190)
-        lbl_salary = ttk.Label(
-            self.root,
-            text="Salary",
-            style="mystyle1.TLabel"
-        ).place(x=350, y=190)
+        lbl_date = ttk.Label(self.root, text="Date", style="mystyle1.TLabel").place(
+            x=50, y=190
+        )
+        lbl_salary = ttk.Label(self.root, text="Salary", style="mystyle1.TLabel").place(
+            x=350, y=190
+        )
         lbl_rating = ttk.Label(
-            self.root,
-            text="Avg Rating",
-            style="mystyle1.TLabel"
+            self.root, text="Avg Rating", style="mystyle1.TLabel"
         ).place(x=750, y=190)
 
         txt_name = ttk.Label(
-            self.root,
-            textvariable=self.var_emp_date,
-            style="mystyle1.TLabel"
+            self.root, textvariable=self.var_emp_date, style="mystyle1.TLabel"
         ).place(x=150, y=190, width=180)
         txt_salary = ttk.Label(
-            self.root,
-            textvariable=self.var_emp_salary,
-            style="mystyle1.TLabel"
+            self.root, textvariable=self.var_emp_salary, style="mystyle1.TLabel"
         ).place(x=500, y=190, width=180)
         txt_rating = ttk.Label(
-            self.root,
-            textvariable=self.var_emp_rating,
-            style="mystyle1.TLabel"
+            self.root, textvariable=self.var_emp_rating, style="mystyle1.TLabel"
         ).place(x=850, y=190, width=180)
 
         # row 3
         # ====row4=======
         label = ttk.Label(
-            self.root,
-            text="Collaboration",
-            style="mystyle1.TLabel"
+            self.root, text="Collaboration", style="mystyle1.TLabel"
         ).place(x=50, y=240)
 
         slider1 = customtkinter.CTkSlider(
@@ -141,9 +119,7 @@ class Rating:
         ).place(x=190, y=245)
 
         label = ttk.Label(
-            master=self.root,
-            text="Problem Solving",
-            style="mystyle1.TLabel"
+            master=self.root, text="Problem Solving", style="mystyle1.TLabel"
         )
         label.place(x=560, y=240)
 
@@ -157,9 +133,7 @@ class Rating:
         ).place(x=720, y=245)
 
         label = ttk.Label(
-            master=self.root,
-            text="Knowledge/Skills",
-            style="mystyle1.TLabel"
+            master=self.root, text="Knowledge/Skills", style="mystyle1.TLabel"
         )
         label.place(x=50, y=280)
 
@@ -173,9 +147,7 @@ class Rating:
         ).place(x=190, y=285)
 
         label = ttk.Label(
-            master=self.root,
-            text="Customer service",
-            style="mystyle1.TLabel"
+            master=self.root, text="Customer service", style="mystyle1.TLabel"
         )
         label.place(x=560, y=280)
 

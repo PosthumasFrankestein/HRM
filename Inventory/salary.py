@@ -12,6 +12,7 @@ import customtkinter
 
 class salaryClass:
     """Manage salary of employees"""
+
     def __init__(self, root):
         self.root = root
         self.root.geometry("1100x550+220+80")
@@ -34,7 +35,7 @@ class salaryClass:
         self.var_emp_bonus = StringVar()
         self.var_emp_rating = StringVar()
         self.var_emp_tsalary = StringVar()
-        self.var_sremark=StringVar()
+        self.var_sremark = StringVar()
 
         style = ttk.Style()
         style.configure(
@@ -51,7 +52,7 @@ class salaryClass:
             font=("goudy old style", 11),
             background="#211f1f",
             foreground="white",
-            anchor=CENTER
+            anchor=CENTER,
         )
 
         title = Label(
@@ -64,97 +65,67 @@ class salaryClass:
 
         # #contents
         # row 1
-        lbl_empid = ttk.Label(
-            self.root,
-            text="Emp ID",
-            style="mystyle1.TLabel"
-        ).place(x=50, y=150)
-        lbl_name = ttk.Label(
-            self.root, text="Name",style="mystyle1.TLabel"
-
-        ).place(x=350, y=150)
-        lbl_email = ttk.Label(
-            self.root,
-            text="Email",
-            style="mystyle1.TLabel"
-        ).place(x=750, y=150)
+        lbl_empid = ttk.Label(self.root, text="Emp ID", style="mystyle1.TLabel").place(
+            x=50, y=150
+        )
+        lbl_name = ttk.Label(self.root, text="Name", style="mystyle1.TLabel").place(
+            x=350, y=150
+        )
+        lbl_email = ttk.Label(self.root, text="Email", style="mystyle1.TLabel").place(
+            x=750, y=150
+        )
 
         txt_empid = ttk.Label(
-            self.root,
-            textvariable=self.var_emp_id,
-            style="mystyle1.TLabel"
+            self.root, textvariable=self.var_emp_id, style="mystyle1.TLabel"
         ).place(x=150, y=150, width=180)
         txt_name = ttk.Label(
-            self.root,
-            textvariable=self.var_emp_name,
-            style="mystyle1.TLabel"
+            self.root, textvariable=self.var_emp_name, style="mystyle1.TLabel"
         ).place(x=500, y=150, width=180)
         txt_email = ttk.Label(
-            self.root,
-            textvariable=self.var_emp_email,
-            style="mystyle1.TLabel"
+            self.root, textvariable=self.var_emp_email, style="mystyle1.TLabel"
         ).place(x=850, y=150, width=180)
 
         # row 2
-        lbl_date = ttk.Label(
-            self.root, text="Date",style="mystyle1.TLabel"
-
-        ).place(x=50, y=190)
-        lbl_salary = ttk.Label(
-            self.root,
-            text="Salary",
-            style="mystyle1.TLabel"
-        ).place(x=350, y=190)
+        lbl_date = ttk.Label(self.root, text="Date", style="mystyle1.TLabel").place(
+            x=50, y=190
+        )
+        lbl_salary = ttk.Label(self.root, text="Salary", style="mystyle1.TLabel").place(
+            x=350, y=190
+        )
         lbl_utype = ttk.Label(
-            self.root,
-            text="User Type",
-            style="mystyle1.TLabel"
+            self.root, text="User Type", style="mystyle1.TLabel"
         ).place(x=750, y=190)
 
         txt_name = ttk.Label(
-            self.root,
-            textvariable=self.var_emp_date,
-            style="mystyle1.TLabel"
+            self.root, textvariable=self.var_emp_date, style="mystyle1.TLabel"
         ).place(x=150, y=190, width=180)
         txt_salary = ttk.Label(
-            self.root,
-            textvariable=self.var_emp_salary,
-            style="mystyle1.TLabel"
+            self.root, textvariable=self.var_emp_salary, style="mystyle1.TLabel"
         ).place(x=500, y=190, width=180)
         txt_utype = ttk.Label(
             self.root,
             textvariable=self.var_emp_utype,
             justify=CENTER,
-            style="mystyle1.TLabel"
+            style="mystyle1.TLabel",
         ).place(x=850, y=190, width=180)
 
         # row 3
         # ====row4=======
         lbl_present = ttk.Label(
-            self.root,
-            text="Present Days",
-            style="mystyle1.TLabel"
+            self.root, text="Present Days", style="mystyle1.TLabel"
         ).place(x=50, y=230)
         lbl_absent = ttk.Label(
-            self.root,
-            text="Absent Days",
-            style="mystyle1.TLabel"
+            self.root, text="Absent Days", style="mystyle1.TLabel"
         ).place(x=350, y=230)
         lbl_holiday = ttk.Label(
-            self.root,
-            text="Holiday",
-            style="mystyle1.TLabel"
+            self.root, text="Holiday", style="mystyle1.TLabel"
         ).place(x=750, y=230)
 
         txt_present = ttk.Label(
-            self.root,
-            textvariable=self.var_emp_present,
-            style="mystyle1.TLabel"
+            self.root, textvariable=self.var_emp_present, style="mystyle1.TLabel"
         ).place(x=150, y=230, width=180)
         txt_absent = ttk.Label(
-            self.root,
-            textvariable=self.var_emp_absent,
-            style="mystyle1.TLabel"
+            self.root, textvariable=self.var_emp_absent, style="mystyle1.TLabel"
         ).place(x=500, y=230, width=180)
         txt_holiday = Entry(
             self.root,
@@ -162,50 +133,38 @@ class salaryClass:
             insertbackground="white",
             font=("goudy old style", 11),
             background="#211f1f",
-            foreground="white"
+            foreground="white",
         ).place(x=850, y=230, width=180)
 
         # row 4
-        lbl_rating = ttk.Label(
-            self.root,
-            text="Rating",
-            style="mystyle1.TLabel"
-        ).place(x=50, y=270)
-        lbl_bonus = ttk.Label(
-            self.root,
-            text="Bonus",
-            style="mystyle1.TLabel"
-        ).place(x=350, y=270)
+        lbl_rating = ttk.Label(self.root, text="Rating", style="mystyle1.TLabel").place(
+            x=50, y=270
+        )
+        lbl_bonus = ttk.Label(self.root, text="Bonus", style="mystyle1.TLabel").place(
+            x=350, y=270
+        )
         lbl_tsalary = ttk.Label(
-            self.root,
-            text="Total Salary",
-            style="mystyle1.TLabel"
+            self.root, text="Total Salary", style="mystyle1.TLabel"
         ).place(x=750, y=270)
 
         txt_rating = ttk.Label(
-            self.root,
-            textvariable=self.var_emp_rating,
-            style="mystyle1.TLabel"
+            self.root, textvariable=self.var_emp_rating, style="mystyle1.TLabel"
         ).place(x=150, y=270, width=180)
         txt_bonus = ttk.Label(
-            self.root,
-            textvariable=self.var_emp_bonus,
-            style="mystyle1.TLabel"
+            self.root, textvariable=self.var_emp_bonus, style="mystyle1.TLabel"
         ).place(x=500, y=270, width=180)
         txt_tsalary = ttk.Label(
             self.root,
             textvariable=self.var_emp_tsalary,
             justify=CENTER,
-            style="mystyle1.TLabel"
+            style="mystyle1.TLabel",
         ).place(x=850, y=270, width=180)
 
         # row 5
-        lbl_remark = ttk.Label(
-            self.root,
-            text="Remark",
-            style="mystyle1.TLabel"
-        ).place(x=50, y=310)
-        
+        lbl_remark = ttk.Label(self.root, text="Remark", style="mystyle1.TLabel").place(
+            x=50, y=310
+        )
+
         self.var_sremark = Text(
             self.root,
             font=("goudy old style", 11),
@@ -213,7 +172,7 @@ class salaryClass:
             fg="white",
             insertbackground="white",
         )
-        self.var_sremark.place(x=150, y=310, width=180,height=70)
+        self.var_sremark.place(x=150, y=310, width=180, height=70)
 
         # button
         btn_calculate = customtkinter.CTkButton(
@@ -286,13 +245,13 @@ class salaryClass:
         con = sqlite3.connect(database=r"ims.db")
         cur = con.cursor()
         today = date.today()
-        dvalue=today.strftime("%m/%y")
-        eid=2
+        dvalue = today.strftime("%m/%y")
+        eid = 2
         try:
             cur.execute(
                 "Select eid,name,email,contact,utype,salary from employee where utype!='Admin' and eid!=(select eid from salary where sstatus=? and sdate LIKE ?)",
-                ('paid','%'+dvalue+'%')
-                )
+                ("paid", "%" + dvalue + "%"),
+            )
             rows = cur.fetchall()
             self.EmployeeTable.delete(*self.EmployeeTable.get_children())
             for row in rows:
@@ -308,7 +267,7 @@ class salaryClass:
         content = self.EmployeeTable.item(f)
         row = content["values"]
         today = date.today()
-        dvalue=today.strftime("%m/%y")
+        dvalue = today.strftime("%m/%y")
         num_days = monthrange(today.year, today.month)
         con = sqlite3.connect(database=r"ims.db")
         cur = con.cursor()
@@ -316,7 +275,7 @@ class salaryClass:
         try:
             cur.execute(
                 "Select count(*) from attendance where eid=? and astatus='present' and date LIKE ?",
-                (str(row[0]),'%'+dvalue+'%')
+                (str(row[0]), "%" + dvalue + "%"),
             )
             rows = cur.fetchone()
             cur.execute(
@@ -330,16 +289,16 @@ class salaryClass:
             )
             rows2 = cur.fetchone()
             if rows1[1] is None and rows2[1] is None:
-                    value=0
+                value = 0
             elif rows1[1] is None and rows2[1] is not None:
-                value = (rows1[1] / rows1[0])
+                value = rows1[1] / rows1[0]
             elif rows1[1] is None and rows2[1] is not None:
-                value = (rows2[1] / rows2[0])
+                value = rows2[1] / rows2[0]
             else:
-                value = (rows1[1] / rows1[0])+(rows2[1] / rows2[0])
+                value = (rows1[1] / rows1[0]) + (rows2[1] / rows2[0])
 
         except Exception as ex:
-            value=0
+            value = 0
             messagebox.showerror("Error", f"Employee not rated", parent=self.root)
 
         self.var_emp_id.set(row[0]),
@@ -364,16 +323,16 @@ class salaryClass:
                 )
             else:
                 cur.execute(
-                        "Insert into salary (fsalary,sdate,sstatus,eid,holiday,bonus) values(?,?,?,?,?,?)",
-                        (
-                            self.var_emp_tsalary.get(),
-                            self.var_emp_date.get(),
-                            'pending',
-                            self.var_emp_id.get(),
-                            self.var_emp_holiday.get(),
-                            self.var_emp_bonus.get()
-                        )
-                    )
+                    "Insert into salary (fsalary,sdate,sstatus,eid,holiday,bonus) values(?,?,?,?,?,?)",
+                    (
+                        self.var_emp_tsalary.get(),
+                        self.var_emp_date.get(),
+                        "pending",
+                        self.var_emp_id.get(),
+                        self.var_emp_holiday.get(),
+                        self.var_emp_bonus.get(),
+                    ),
+                )
                 con.commit()
                 messagebox.showinfo(
                     "Success", "Employee Updated Sucessfully", parent=self.root
@@ -388,9 +347,7 @@ class salaryClass:
         cur = con.cursor()
         try:
             if self.var_emp_id.get() == "":
-                messagebox.showerror(
-                    "Error", "Select employee", parent=self.root
-                )
+                messagebox.showerror("Error", "Select employee", parent=self.root)
             else:
                 if self.var_emp_holiday.get() == "":
                     messagebox.showerror(
@@ -399,9 +356,16 @@ class salaryClass:
                 else:
                     today = date.today()
                     num_days = monthrange(today.year, today.month)
-                    salary=(int(self.var_emp_salary.get())//num_days[1])*(int(self.var_emp_present.get())+int(self.var_emp_holiday.get()))
-                    bonus=float(self.var_emp_rating.get())*int(self.var_emp_salary.get())/100
-                    self.var_emp_tsalary.set(int(salary+bonus))
+                    salary = (int(self.var_emp_salary.get()) // num_days[1]) * (
+                        int(self.var_emp_present.get())
+                        + int(self.var_emp_holiday.get())
+                    )
+                    bonus = (
+                        float(self.var_emp_rating.get())
+                        * int(self.var_emp_salary.get())
+                        / 100
+                    )
+                    self.var_emp_tsalary.set(int(salary + bonus))
                     self.var_emp_bonus.set(int(bonus))
                     messagebox.showinfo(
                         "Success", "Salary Calculated", parent=self.root
@@ -415,25 +379,27 @@ class salaryClass:
         con = sqlite3.connect(database=r"ims.db")
         cur = con.cursor()
         today = date.today()
-        dvalue=today.strftime("%m/%y")
+        dvalue = today.strftime("%m/%y")
         cur.execute(
-                "Select sstatus from salary where eid=? and sdate LIKE ?",(self.var_emp_id.get(),'%'+dvalue+'%')
-                )
+            "Select sstatus from salary where eid=? and sdate LIKE ?",
+            (self.var_emp_id.get(), "%" + dvalue + "%"),
+        )
         rows = cur.fetchone()
-        if rows[0]=='approved':
+        if rows[0] == "approved":
             try:
                 cur.execute(
-                    "update salary set sstatus='paid' where eid=?",self.var_emp_id.get())
+                    "update salary set sstatus='paid' where eid=?",
+                    self.var_emp_id.get(),
+                )
                 con.commit()
-                messagebox.showinfo(
-                            "Success", "Salary Paid", parent=self.root
-                        )
+                messagebox.showinfo("Success", "Salary Paid", parent=self.root)
 
             except Exception as ex:
-                messagebox.showerror("Error", f"Error due to : {str(ex)}", parent=self.root)
+                messagebox.showerror(
+                    "Error", f"Error due to : {str(ex)}", parent=self.root
+                )
         else:
             messagebox.showerror("Error", f"Salary not approved", parent=self.root)
-        
 
     def clear(self):
         """Clear Table"""

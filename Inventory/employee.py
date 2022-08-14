@@ -41,7 +41,7 @@ class employeeclass:
             font=("goudy old style", 11),
             background="#211f1f",
             foreground="white",
-            anchor=CENTER
+            anchor=CENTER,
         )
 
         # title
@@ -56,12 +56,12 @@ class employeeclass:
 
         # #contents
         # row 1
-        lbl_empid = ttk.Label(
-            self.root, text="Emp ID", style="mystyle1.TLabel"
-        ).place(x=50, y=150)
-        lbl_gender = ttk.Label(
-            self.root, text="Gender", style="mystyle1.TLabel"
-        ).place(x=350, y=150)
+        lbl_empid = ttk.Label(self.root, text="Emp ID", style="mystyle1.TLabel").place(
+            x=50, y=150
+        )
+        lbl_gender = ttk.Label(self.root, text="Gender", style="mystyle1.TLabel").place(
+            x=350, y=150
+        )
         lbl_contact = ttk.Label(
             self.root, text="Contact", style="mystyle1.TLabel"
         ).place(x=750, y=150)
@@ -87,15 +87,15 @@ class employeeclass:
         ).place(x=850, y=150, width=180)
 
         # row 2
-        lbl_name = ttk.Label(
-            self.root, text="Name", style="mystyle1.TLabel"
-        ).place(x=50, y=190)
-        lbl_dob = ttk.Label(
-            self.root, text="D.O.B", style="mystyle1.TLabel"
-        ).place(x=350, y=190)
-        lbl_doj = ttk.Label(
-            self.root, text="D.O.J", style="mystyle1.TLabel"
-        ).place(x=750, y=190)
+        lbl_name = ttk.Label(self.root, text="Name", style="mystyle1.TLabel").place(
+            x=50, y=190
+        )
+        lbl_dob = ttk.Label(self.root, text="D.O.B", style="mystyle1.TLabel").place(
+            x=350, y=190
+        )
+        lbl_doj = ttk.Label(self.root, text="D.O.J", style="mystyle1.TLabel").place(
+            x=750, y=190
+        )
 
         txt_name = Entry(
             self.root,
@@ -120,12 +120,12 @@ class employeeclass:
         ).place(x=850, y=190, width=180)
 
         # row 3
-        lbl_email = ttk.Label(
-            self.root, text="Email", style="mystyle1.TLabel"
-        ).place(x=50, y=230)
-        lbl_pass = ttk.Label(
-            self.root, text="Password", style="mystyle1.TLabel"
-        ).place(x=350, y=230)
+        lbl_email = ttk.Label(self.root, text="Email", style="mystyle1.TLabel").place(
+            x=50, y=230
+        )
+        lbl_pass = ttk.Label(self.root, text="Password", style="mystyle1.TLabel").place(
+            x=350, y=230
+        )
         lbl_utype = ttk.Label(
             self.root, text="User Type", style="mystyle1.TLabel"
         ).place(x=750, y=230)
@@ -144,7 +144,7 @@ class employeeclass:
             bg="#211f1f",
             fg="white",
         ).place(x=500, y=230, width=180)
-        
+
         txt_utype = customtkinter.CTkComboBox(
             self.root,
             values=("Admin", "Employee"),
@@ -155,17 +155,18 @@ class employeeclass:
         lbl_address = ttk.Label(
             self.root, text="Address", style="mystyle1.TLabel"
         ).place(x=50, y=270)
-        lbl_salary = ttk.Label(
-            self.root, text="Salary", style="mystyle1.TLabel"
-        ).place(x=500, y=270)
+        lbl_salary = ttk.Label(self.root, text="Salary", style="mystyle1.TLabel").place(
+            x=500, y=270
+        )
 
         self.txt_address = Text(
-            self.root, font=("goudy old style", 11),
+            self.root,
+            font=("goudy old style", 11),
             bg="#211f1f",
             fg="white",
         )
         self.txt_address.place(x=150, y=270, width=300, height=60)
-        
+
         txt_salary = Entry(
             self.root,
             textvariable=self.var_emp_salary,
