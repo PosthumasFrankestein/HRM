@@ -38,8 +38,8 @@ class esalaryClass:
             foreground="white",
             anchor=CENTER,
         )
-        
-        title = Label(
+
+        self.title = Label(
             self.root,
             text="Salary Details",
             font=("goudy old style", 15),
@@ -49,14 +49,14 @@ class esalaryClass:
 
         # #contents
         # row 1
-        ttk.Label(
+        self.lbl_empid = ttk.Label(
             self.root,
             text="Emp ID",
             style="mystyle1.TLabel"
         ).place(x=50, y=150)
-        ttk.Label(
+        self.lbl_name = ttk.Label(
             self.root, text="Name", style="mystyle1.TLabel").place(x=350, y=150)
-        ttk.Label(
+        self.lbl_email = ttk.Label(
             self.root,
             text="Email",
             style="mystyle1.TLabel"
@@ -103,25 +103,24 @@ class esalaryClass:
             textvariable=self.var_emp_salary,
             style="mystyle1.TLabel"
         ).place(x=500, y=190, width=180)
-        ttk.Label(
+        self.txt_utype = ttk.Label(
             self.root,
             textvariable=self.var_emp_utype,
-            style="mystyle1.TLabel"
-        ).place(x=850, y=190, width=180)
-
+            style="mystyle1.TLabel")
+        
         # row 3
         # ====row4=======
-        ttk.Label(
+        self.lbl_present = ttk.Label(
             self.root,
             text="Present Days",
             style="mystyle1.TLabel"
         ).place(x=50, y=230)
-        ttk.Label(
+        self.lbl_absent = ttk.Label(
             self.root,
             text="Absent Days",
             style="mystyle1.TLabel"
         ).place(x=350, y=230)
-        ttk.Label(
+        self.lbl_holiday = ttk.Label(
             self.root,
             text="Holiday",
             style="mystyle1.TLabel"
@@ -177,7 +176,7 @@ class esalaryClass:
         ).place(x=850, y=270, width=180)
 
         # row 5
-        ttk.Label(
+        self.lbl_remark = ttk.Label(
             self.root,
             text="Remark",
             style="mystyle1.TLabel"

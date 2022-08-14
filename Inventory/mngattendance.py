@@ -51,13 +51,13 @@ class AttendanceMng:
 
         # #contents
         # row 1
-        lbl_empid = ttk.Label(
+        self.lbl_empid = ttk.Label(
             self.root, text="Emp ID", style="mystyle1.TLabel"
         ).place(x=50, y=150)
-        lbl_date = ttk.Label(
+        self.lbl_date = ttk.Label(
             self.root, text="Date", style="mystyle1.TLabel"
         ).place(x=350, y=150)
-        lbl_contact = ttk.Label(
+        self.lbl_contact = ttk.Label(
             self.root, text="Contact", style="mystyle1.TLabel"
         ).place(x=750, y=150)
 
@@ -108,7 +108,7 @@ class AttendanceMng:
 
         # row 3
         # ====row4=======
-        lbl_remark = Label(
+        self.lbl_remark = Label(
             self.root, text="Remark", font=("goudy old style", 11), bg="black",
             fg="white",
         ).place(x=50, y=270)

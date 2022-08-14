@@ -65,7 +65,6 @@ class salaryClass:
 
         # #contents
         # row 1
-<<<<<<< HEAD
         self.lbl_empid = ttk.Label(
             self.root,
             text="Emp ID",
@@ -122,44 +121,6 @@ class salaryClass:
             self.root,
             textvariable=self.var_emp_salary,
             style="mystyle1.TLabel"
-=======
-        lbl_empid = ttk.Label(self.root, text="Emp ID", style="mystyle1.TLabel").place(
-            x=50, y=150
-        )
-        lbl_name = ttk.Label(self.root, text="Name", style="mystyle1.TLabel").place(
-            x=350, y=150
-        )
-        lbl_email = ttk.Label(self.root, text="Email", style="mystyle1.TLabel").place(
-            x=750, y=150
-        )
-
-        txt_empid = ttk.Label(
-            self.root, textvariable=self.var_emp_id, style="mystyle1.TLabel"
-        ).place(x=150, y=150, width=180)
-        txt_name = ttk.Label(
-            self.root, textvariable=self.var_emp_name, style="mystyle1.TLabel"
-        ).place(x=500, y=150, width=180)
-        txt_email = ttk.Label(
-            self.root, textvariable=self.var_emp_email, style="mystyle1.TLabel"
-        ).place(x=850, y=150, width=180)
-
-        # row 2
-        lbl_date = ttk.Label(self.root, text="Date", style="mystyle1.TLabel").place(
-            x=50, y=190
-        )
-        lbl_salary = ttk.Label(self.root, text="Salary", style="mystyle1.TLabel").place(
-            x=350, y=190
-        )
-        lbl_utype = ttk.Label(
-            self.root, text="User Type", style="mystyle1.TLabel"
-        ).place(x=750, y=190)
-
-        txt_name = ttk.Label(
-            self.root, textvariable=self.var_emp_date, style="mystyle1.TLabel"
-        ).place(x=150, y=190, width=180)
-        txt_salary = ttk.Label(
-            self.root, textvariable=self.var_emp_salary, style="mystyle1.TLabel"
->>>>>>> b707e97b366ec3f49e8d6e0efd90c3e9f87e28b9
         ).place(x=500, y=190, width=180)
         self.txt_utype = ttk.Label(
             self.root,
@@ -170,7 +131,6 @@ class salaryClass:
 
         # row 3
         # ====row4=======
-<<<<<<< HEAD
         self.lbl_present = ttk.Label(
             self.root,
             text="Present Days",
@@ -196,23 +156,6 @@ class salaryClass:
             self.root,
             textvariable=self.var_emp_absent,
             style="mystyle1.TLabel"
-=======
-        lbl_present = ttk.Label(
-            self.root, text="Present Days", style="mystyle1.TLabel"
-        ).place(x=50, y=230)
-        lbl_absent = ttk.Label(
-            self.root, text="Absent Days", style="mystyle1.TLabel"
-        ).place(x=350, y=230)
-        lbl_holiday = ttk.Label(
-            self.root, text="Holiday", style="mystyle1.TLabel"
-        ).place(x=750, y=230)
-
-        txt_present = ttk.Label(
-            self.root, textvariable=self.var_emp_present, style="mystyle1.TLabel"
-        ).place(x=150, y=230, width=180)
-        txt_absent = ttk.Label(
-            self.root, textvariable=self.var_emp_absent, style="mystyle1.TLabel"
->>>>>>> b707e97b366ec3f49e8d6e0efd90c3e9f87e28b9
         ).place(x=500, y=230, width=180)
         self.txt_holiday = Entry(
             self.root,
@@ -224,7 +167,6 @@ class salaryClass:
         ).place(x=850, y=230, width=180)
 
         # row 4
-<<<<<<< HEAD
         self.lbl_rating = ttk.Label(
             self.root,
             text="Rating",
@@ -250,23 +192,6 @@ class salaryClass:
             self.root,
             textvariable=self.var_emp_bonus,
             style="mystyle1.TLabel"
-=======
-        lbl_rating = ttk.Label(self.root, text="Rating", style="mystyle1.TLabel").place(
-            x=50, y=270
-        )
-        lbl_bonus = ttk.Label(self.root, text="Bonus", style="mystyle1.TLabel").place(
-            x=350, y=270
-        )
-        lbl_tsalary = ttk.Label(
-            self.root, text="Total Salary", style="mystyle1.TLabel"
-        ).place(x=750, y=270)
-
-        txt_rating = ttk.Label(
-            self.root, textvariable=self.var_emp_rating, style="mystyle1.TLabel"
-        ).place(x=150, y=270, width=180)
-        txt_bonus = ttk.Label(
-            self.root, textvariable=self.var_emp_bonus, style="mystyle1.TLabel"
->>>>>>> b707e97b366ec3f49e8d6e0efd90c3e9f87e28b9
         ).place(x=500, y=270, width=180)
         self.txt_tsalary = ttk.Label(
             self.root,
@@ -276,19 +201,12 @@ class salaryClass:
         ).place(x=850, y=270, width=180)
 
         # row 5
-<<<<<<< HEAD
         self.lbl_remark = ttk.Label(
             self.root,
             text="Remark",
             style="mystyle1.TLabel"
         ).place(x=50, y=310)
         
-=======
-        lbl_remark = ttk.Label(self.root, text="Remark", style="mystyle1.TLabel").place(
-            x=50, y=310
-        )
-
->>>>>>> b707e97b366ec3f49e8d6e0efd90c3e9f87e28b9
         self.var_sremark = Text(
             self.root,
             font=("goudy old style", 11),
@@ -369,12 +287,7 @@ class salaryClass:
         con = sqlite3.connect(database=r"ims.db")
         cur = con.cursor()
         today = date.today()
-<<<<<<< HEAD
-        dvalue=today.strftime("%m/%y")
-=======
         dvalue = today.strftime("%m/%y")
-        eid = 2
->>>>>>> b707e97b366ec3f49e8d6e0efd90c3e9f87e28b9
         try:
             cur.execute(
                 "Select eid,name,email,contact,utype,salary from employee where utype!='Admin' and eid!=(select eid from salary where sstatus=? and sdate LIKE ?)",
