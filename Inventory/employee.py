@@ -41,7 +41,7 @@ class employeeclass:
             font=("goudy old style", 11),
             background="#211f1f",
             foreground="white",
-            anchor=CENTER
+            anchor=CENTER,
         )
 
         # title
@@ -160,7 +160,8 @@ class employeeclass:
         ).place(x=500, y=270)
 
         self.txt_address = Text(
-            self.root, font=("goudy old style", 11),
+            self.root,
+            font=("goudy old style", 11),
             bg="#211f1f",
             fg="white",
         )

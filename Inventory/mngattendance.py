@@ -5,7 +5,6 @@ from logins import Login_system
 import customtkinter
 
 
-
 class AttendanceMng:
     def __init__(self, root):
         self.root = root
@@ -39,7 +38,7 @@ class AttendanceMng:
             font=("goudy old style", 11),
             background="#211f1f",
             foreground="white",
-            anchor=CENTER
+            anchor=CENTER,
         )
 
         title = Label(
@@ -52,70 +51,61 @@ class AttendanceMng:
 
         # #contents
         # row 1
-        lbl_empid = ttk.Label(
-            self.root, text="Emp ID", style="mystyle1.TLabel"
-        ).place(x=50, y=150)
-        lbl_date = ttk.Label(
-            self.root, text="Date", style="mystyle1.TLabel"
-        ).place(x=350, y=150)
+        lbl_empid = ttk.Label(self.root, text="Emp ID", style="mystyle1.TLabel").place(
+            x=50, y=150
+        )
+        lbl_date = ttk.Label(self.root, text="Date", style="mystyle1.TLabel").place(
+            x=350, y=150
+        )
         lbl_contact = ttk.Label(
             self.root, text="Contact", style="mystyle1.TLabel"
         ).place(x=750, y=150)
 
         txt_empid = ttk.Label(
-            self.root,
-            textvariable=self.var_emp_id,
-            style="mystyle1.TLabel"
+            self.root, textvariable=self.var_emp_id, style="mystyle1.TLabel"
         ).place(x=150, y=150, width=180)
         txt_date = ttk.Label(
-            self.root,
-            textvariable=self.var_emp_date,
-            style="mystyle1.TLabel"
+            self.root, textvariable=self.var_emp_date, style="mystyle1.TLabel"
         ).place(x=500, y=150, width=180)
         txt_contact = ttk.Label(
-            self.root,
-            textvariable=self.var_emp_contact,
-            style="mystyle1.TLabel"
+            self.root, textvariable=self.var_emp_contact, style="mystyle1.TLabel"
         ).place(x=850, y=150, width=180)
 
         # row 2
-        lbl_name = ttk.Label(
-            self.root, text="Name", style="mystyle1.TLabel"
-        ).place(x=50, y=190)
-        lbl_email = ttk.Label(
-            self.root, text="Email", style="mystyle1.TLabel"
-        ).place(x=350, y=190)
-        lbl_doj = ttk.Label(
-            self.root, text="User Type", style="mystyle1.TLabel"
-        ).place(x=750, y=190)
+        lbl_name = ttk.Label(self.root, text="Name", style="mystyle1.TLabel").place(
+            x=50, y=190
+        )
+        lbl_email = ttk.Label(self.root, text="Email", style="mystyle1.TLabel").place(
+            x=350, y=190
+        )
+        lbl_doj = ttk.Label(self.root, text="User Type", style="mystyle1.TLabel").place(
+            x=750, y=190
+        )
 
         txt_name = ttk.Label(
-            self.root,
-            textvariable=self.var_emp_name,
-            style="mystyle1.TLabel"
+            self.root, textvariable=self.var_emp_name, style="mystyle1.TLabel"
         ).place(x=150, y=190, width=180)
         txt_email = ttk.Label(
-            self.root,
-            textvariable=self.var_emp_email,
-            style="mystyle1.TLabel"
+            self.root, textvariable=self.var_emp_email, style="mystyle1.TLabel"
         ).place(x=500, y=190, width=180)
         cmb_utype = ttk.Label(
-            self.root,
-            textvariable=self.var_emp_utype,
-            style="mystyle1.TLabel"
+            self.root, textvariable=self.var_emp_utype, style="mystyle1.TLabel"
         )
         cmb_utype.place(x=850, y=190, width=180)
-
 
         # row 3
         # ====row4=======
         lbl_remark = Label(
-            self.root, text="Remark", font=("goudy old style", 11), bg="black",
+            self.root,
+            text="Remark",
+            font=("goudy old style", 11),
+            bg="black",
             fg="white",
         ).place(x=50, y=270)
 
         self.txt_remark = Text(
-            self.root, font=("goudy old style", 11),
+            self.root,
+            font=("goudy old style", 11),
             bg="#211f1f",
             fg="white",
         )
