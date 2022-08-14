@@ -205,7 +205,7 @@ class salaryClass:
             text="Remark",
             style="mystyle1.TLabel"
         ).place(x=50, y=310)
-        
+
         self.var_sremark = Text(
             self.root,
             font=("goudy old style", 11),
@@ -433,7 +433,7 @@ class salaryClass:
                 messagebox.showerror("Error", f"Error due to : {str(ex)}", parent=self.root)
         else:
             messagebox.showerror("Error", f"Salary not approved", parent=self.root)
-        
+
 
     def clear(self):
         """Clear Table"""

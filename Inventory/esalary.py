@@ -38,7 +38,7 @@ class esalaryClass:
             foreground="white",
             anchor=CENTER
         )
-        
+
         title = Label(
             self.root,
             text="Salary Details",
@@ -182,7 +182,7 @@ class esalaryClass:
             text="Remark",
             style="mystyle1.TLabel"
         ).place(x=50, y=310)
-        
+
         self.var_sremark = Text(
             self.root,
             font=("goudy old style", 11),
@@ -297,7 +297,7 @@ class esalaryClass:
 
         except Exception as ex:
             messagebox.showerror("Error", f"Error due to : {str(ex)}", parent=self.root)
-    
+
 
     def reappeal(self, eid):
         """Reappeal for the salary"""

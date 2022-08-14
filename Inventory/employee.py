@@ -144,7 +144,7 @@ class employeeclass:
             bg="#211f1f",
             fg="white",
         ).place(x=500, y=230, width=180)
-        
+
         self.txt_utype = customtkinter.CTkComboBox(
             self.root,
             values=("Admin", "Employee"),
@@ -165,7 +165,7 @@ class employeeclass:
             fg="white",
         )
         self.txt_address.place(x=150, y=270, width=300, height=60)
-        
+
         self.txt_salary = Entry(
             self.root,
             textvariable=self.var_emp_salary,

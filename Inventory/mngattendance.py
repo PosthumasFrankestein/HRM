@@ -105,7 +105,7 @@ class AttendanceMng:
             style="mystyle1.TLabel"
         )
         cmb_utype.place(x=850, y=190, width=180)
-        
+
 
         # row 3
         # ====row4=======

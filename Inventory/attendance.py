@@ -52,7 +52,7 @@ class calender:
             else:
                 cal.calevent_create(date, "Reminder 1", "present")
 
-        
+
         cal.tag_config('absent', background='#f7163c', foreground='yellow')
         cal.tag_config('half', background='yellow', foreground='red')
         cal.tag_config('present', background='#50f01a', foreground='white')
