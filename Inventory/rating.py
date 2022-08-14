@@ -17,18 +17,10 @@ class Rating:
         # All Varialble
         self.var_eid = StringVar()
         self.var_emp_date = StringVar()
-        self.var_emp_contact = StringVar()
         self.var_emp_name = StringVar()
-        self.var_emp_email = StringVar()
         self.var_emp_salary = StringVar()
         self.var_emp_utype = StringVar()
-        self.var_emp_remark = StringVar()
-        self.var_emp_present = StringVar()
-        self.var_emp_absent = StringVar()
-        self.var_emp_holiday = StringVar()
-        self.var_emp_bonus = StringVar()
         self.var_emp_rating = StringVar()
-        self.var_emp_tsalary = StringVar()
         self.value1 = IntVar()
         self.value2 = IntVar()
         self.value3 = IntVar()
@@ -326,5 +318,5 @@ class Rating:
 
 if __name__ == "__main__":
     root = customtkinter.CTk()
-    obj = Login_system(root)
+    obj = Rating(root,2)
     root.mainloop()
