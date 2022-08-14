@@ -73,7 +73,6 @@ class calender:
                 )
                 row = cur.fetchone()
                 if row is None or row[-1] != dvalue:
-                    # dvalue=cal.get_date()
                     cur.execute(
                         "Insert into attendance (date,astatus,status,remark,eid) values(?,'present','unapproved','',?)",
                         (dvalue, eid),
