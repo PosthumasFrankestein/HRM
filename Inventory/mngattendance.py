@@ -5,7 +5,6 @@ from logins import Login_system
 import customtkinter
 
 
-
 class AttendanceMng:
     def __init__(self, root):
         self.root = root
@@ -39,7 +38,7 @@ class AttendanceMng:
             font=("goudy old style", 11),
             background="#211f1f",
             foreground="white",
-            anchor=CENTER
+            anchor=CENTER,
         )
 
         self.title = Label(
@@ -52,13 +51,13 @@ class AttendanceMng:
 
         # #contents
         # row 1
-        self.lbl_empid = ttk.Label(
+        lbl_empid = ttk.Label(
             self.root, text="Emp ID", style="mystyle1.TLabel"
         ).place(x=50, y=150)
-        self.lbl_date = ttk.Label(
+        lbl_date = ttk.Label(
             self.root, text="Date", style="mystyle1.TLabel"
         ).place(x=350, y=150)
-        self.lbl_contact = ttk.Label(
+        lbl_contact = ttk.Label(
             self.root, text="Contact", style="mystyle1.TLabel"
         ).place(x=750, y=150)
 
@@ -109,13 +108,14 @@ class AttendanceMng:
 
         # row 3
         # ====row4=======
-        self.lbl_remark = Label(
+        lbl_remark = Label(
             self.root, text="Remark", font=("goudy old style", 11), bg="black",
             fg="white",
         ).place(x=50, y=270)
 
         self.txt_remark = Text(
-            self.root, font=("goudy old style", 11),
+            self.root,
+            font=("goudy old style", 11),
             bg="#211f1f",
             fg="white",
         )
