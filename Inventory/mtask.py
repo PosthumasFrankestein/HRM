@@ -14,12 +14,13 @@ class Mngtask:
         self.root.geometry("1100x500+220+130")
         self.root.resizable(True, True)
         self.root.config(bg="black")
-        # All Varialble
+        cal = Calendar()
 
+
+        # All Varialble
         self.var_task_id = StringVar()
         self.var_emp_id = StringVar()
         self.var_emp_name = StringVar()
-        cal = Calendar()
         self.var_adate = StringVar()
         self.var_adate.set(cal.get_date())
         self.var_cdate = StringVar()
@@ -43,6 +44,13 @@ class Mngtask:
             fieldbackground="black",
             foreground="white",
         )
+        style.configure(
+            "mystyle1.TLabel",
+            font=("goudy old style", 11),
+            background="#211f1f",
+            foreground="white",
+            anchor=CENTER
+        )
 
         title = customtkinter.CTkLabel(
             self.root,
@@ -53,34 +61,26 @@ class Mngtask:
 
         # #contents
         # row 1
-        lbl_tid = Label(
+        lbl_tid = ttk.Label(
             self.root,
             text="Task ID",
-            font=("goudy old style", 11),
-            bg="black",
-            fg="white",
+            style="mystyle1.TLabel"
         ).place(x=50, y=150)
-        lbl_eid = Label(
+        lbl_eid = ttk.Label(
             self.root,
             text="Emp Id",
-            font=("goudy old style", 11),
-            bg="black",
-            fg="white",
+            style="mystyle1.TLabel"
         ).place(x=350, y=150)
-        lbl_name = Label(
+        lbl_name = ttk.Label(
             self.root,
             text="Name",
-            font=("goudy old style", 11),
-            bg="black",
-            fg="white",
+            style="mystyle1.TLabel"
         ).place(x=750, y=150)
 
-        txt_tid = Label(
+        txt_tid = ttk.Label(
             self.root,
             textvariable=self.var_task_id,
-            font=("goudy old style", 11),
-            bg="#211f1f",
-            fg="white",
+            style="mystyle1.TLabel"
         ).place(x=160, y=150, width=180)
         txt_eid = customtkinter.CTkComboBox(
             self.root,
@@ -88,58 +88,46 @@ class Mngtask:
             variable=self.var_emp_id,
             command=self.fetchName,
         ).place(x=500, y=150, width=180)
-        txt_name = Label(
+        txt_name = ttk.Label(
             self.root,
             textvariable=self.var_emp_name,
-            font=("goudy old style", 11),
-            bg="#211f1f",
-            fg="white",
+            style="mystyle1.TLabel"
         ).place(x=850, y=150, width=180)
 
         # row 2
-        lbl_date_assigned = Label(
+        lbl_date_assigned = ttk.Label(
             self.root,
             text="Date Assigned",
-            font=("goudy old style", 11),
-            bg="black",
-            fg="white",
+            style="mystyle1.TLabel"
         ).place(x=50, y=190)
-        lbl_date_completed = Label(
+        lbl_date_completed = ttk.Label(
             self.root,
             text="Date completed",
-            font=("goudy old style", 11),
-            bg="black",
-            fg="white",
+            style="mystyle1.TLabel"
         ).place(x=350, y=190)
-        lbl_task = Label(
+        lbl_task = ttk.Label(
             self.root,
             text="Task",
-            font=("goudy old style", 11),
-            bg="black",
-            fg="white",
+            style="mystyle1.TLabel"
         ).place(x=750, y=190)
 
-        txt_date_assigned = Label(
+        txt_date_assigned = ttk.Label(
             self.root,
             textvariable=self.var_adate,
-            font=("goudy old style", 11),
-            bg="#211f1f",
-            fg="white",
+            style="mystyle1.TLabel"
         ).place(x=160, y=190, width=180)
-        txt_date_completed = Label(
+        txt_date_completed = ttk.Label(
             self.root,
             textvariable=self.var_cdate,
-            font=("goudy old style", 11),
-            bg="#211f1f",
-            fg="white",
+            style="mystyle1.TLabel"
         ).place(x=500, y=190, width=180)
         txt_task = Entry(
             self.root,
             textvariable=self.var_task,
             font=("goudy old style", 11),
-            insertbackground="white",
             bg="#211f1f",
             fg="white",
+            insertbackground="white"
         ).place(x=850, y=190, width=180)
 
         # row 3

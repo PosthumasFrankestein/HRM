@@ -34,6 +34,13 @@ class AttendanceMng:
             fieldbackground="black",
             foreground="white",
         )
+        style.configure(
+            "mystyle1.TLabel",
+            font=("goudy old style", 11),
+            background="#211f1f",
+            foreground="white",
+            anchor=CENTER
+        )
 
         title = Label(
             self.root,
@@ -45,75 +52,57 @@ class AttendanceMng:
 
         # #contents
         # row 1
-        lbl_empid = Label(
-            self.root, text="Emp ID", font=("goudy old style", 11), bg="black",
-            fg="white",
+        lbl_empid = ttk.Label(
+            self.root, text="Emp ID", style="mystyle1.TLabel"
         ).place(x=50, y=150)
-        lbl_date = Label(
-            self.root, text="Date", font=("goudy old style", 11), bg="black",
-            fg="white",
+        lbl_date = ttk.Label(
+            self.root, text="Date", style="mystyle1.TLabel"
         ).place(x=350, y=150)
-        lbl_contact = Label(
-            self.root, text="Contact", font=("goudy old style", 11), bg="black",
-            fg="white",
+        lbl_contact = ttk.Label(
+            self.root, text="Contact", style="mystyle1.TLabel"
         ).place(x=750, y=150)
 
-        txt_empid = Label(
+        txt_empid = ttk.Label(
             self.root,
             textvariable=self.var_emp_id,
-            font=("goudy old style", 11),
-            bg="#211f1f",
-            fg="white",
+            style="mystyle1.TLabel"
         ).place(x=150, y=150, width=180)
-        txt_date = Label(
+        txt_date = ttk.Label(
             self.root,
             textvariable=self.var_emp_date,
-            font=("goudy old style", 11),
-            bg="#211f1f",
-            fg="white",
+            style="mystyle1.TLabel"
         ).place(x=500, y=150, width=180)
-        txt_contact = Label(
+        txt_contact = ttk.Label(
             self.root,
             textvariable=self.var_emp_contact,
-            font=("goudy old style", 11),
-            bg="#211f1f",
-            fg="white",
+            style="mystyle1.TLabel"
         ).place(x=850, y=150, width=180)
 
         # row 2
-        lbl_name = Label(
-            self.root, text="Name", font=("goudy old style", 11), bg="black",
-            fg="white",
+        lbl_name = ttk.Label(
+            self.root, text="Name", style="mystyle1.TLabel"
         ).place(x=50, y=190)
-        lbl_email = Label(
-            self.root, text="Email", font=("goudy old style", 11), bg="black",
-            fg="white",
+        lbl_email = ttk.Label(
+            self.root, text="Email", style="mystyle1.TLabel"
         ).place(x=350, y=190)
-        lbl_doj = Label(
-            self.root, text="User Type", font=("goudy old style", 11), bg="black",
-            fg="white",
+        lbl_doj = ttk.Label(
+            self.root, text="User Type", style="mystyle1.TLabel"
         ).place(x=750, y=190)
 
-        txt_name = Label(
+        txt_name = ttk.Label(
             self.root,
             textvariable=self.var_emp_name,
-            font=("goudy old style", 11),
-            bg="#211f1f",
-            fg="white",
+            style="mystyle1.TLabel"
         ).place(x=150, y=190, width=180)
-        txt_email = Label(
+        txt_email = ttk.Label(
             self.root,
             textvariable=self.var_emp_email,
-            font=("goudy old style", 11),
-            bg="#211f1f",
-            fg="white",
+            style="mystyle1.TLabel"
         ).place(x=500, y=190, width=180)
-        cmb_utype = Label(
+        cmb_utype = ttk.Label(
             self.root,
             textvariable=self.var_emp_utype,
-            font=("goudy old style", 11),
-            bg="#211f1f",
-            fg="white",
+            style="mystyle1.TLabel"
         )
         cmb_utype.place(x=850, y=190, width=180)
         

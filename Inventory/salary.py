@@ -46,6 +46,13 @@ class salaryClass:
             fieldbackground="black",
             foreground="white",
         )
+        style.configure(
+            "mystyle1.TLabel",
+            font=("goudy old style", 11),
+            background="#211f1f",
+            foreground="white",
+            anchor=CENTER
+        )
 
         title = Label(
             self.root,
@@ -57,188 +64,146 @@ class salaryClass:
 
         # #contents
         # row 1
-        lbl_empid = Label(
+        lbl_empid = ttk.Label(
             self.root,
             text="Emp ID",
-            font=("goudy old style", 11),
-            bg="black",
-            fg="white",
+            style="mystyle1.TLabel"
         ).place(x=50, y=150)
-        lbl_name = Label(
-            self.root, text="Name", font=("goudy old style", 11), bg="black", fg="white"
+        lbl_name = ttk.Label(
+            self.root, text="Name",style="mystyle1.TLabel"
+
         ).place(x=350, y=150)
-        lbl_email = Label(
+        lbl_email = ttk.Label(
             self.root,
             text="Email",
-            font=("goudy old style", 11),
-            bg="black",
-            fg="white",
+            style="mystyle1.TLabel"
         ).place(x=750, y=150)
 
-        txt_empid = Label(
+        txt_empid = ttk.Label(
             self.root,
             textvariable=self.var_emp_id,
-            font=("goudy old style", 11),
-            bg="#211f1f",
-            fg="white",
+            style="mystyle1.TLabel"
         ).place(x=150, y=150, width=180)
-        txt_name = Label(
+        txt_name = ttk.Label(
             self.root,
             textvariable=self.var_emp_name,
-            font=("goudy old style", 11),
-            bg="#211f1f",
-            fg="white",
+            style="mystyle1.TLabel"
         ).place(x=500, y=150, width=180)
-        txt_email = Label(
+        txt_email = ttk.Label(
             self.root,
             textvariable=self.var_emp_email,
-            font=("goudy old style", 11),
-            bg="#211f1f",
-            fg="white",
+            style="mystyle1.TLabel"
         ).place(x=850, y=150, width=180)
 
         # row 2
-        lbl_date = Label(
-            self.root, text="Date", font=("goudy old style", 11), bg="black", fg="white"
+        lbl_date = ttk.Label(
+            self.root, text="Date",style="mystyle1.TLabel"
+
         ).place(x=50, y=190)
-        lbl_salary = Label(
+        lbl_salary = ttk.Label(
             self.root,
             text="Salary",
-            font=("goudy old style", 11),
-            bg="black",
-            fg="white",
+            style="mystyle1.TLabel"
         ).place(x=350, y=190)
-        lbl_utype = Label(
+        lbl_utype = ttk.Label(
             self.root,
             text="User Type",
-            font=("goudy old style", 11),
-            bg="black",
-            fg="white",
+            style="mystyle1.TLabel"
         ).place(x=750, y=190)
 
-        txt_name = Label(
+        txt_name = ttk.Label(
             self.root,
             textvariable=self.var_emp_date,
-            font=("goudy old style", 11),
-            bg="#211f1f",
-            fg="white",
+            style="mystyle1.TLabel"
         ).place(x=150, y=190, width=180)
-        txt_salary = Label(
+        txt_salary = ttk.Label(
             self.root,
             textvariable=self.var_emp_salary,
-            font=("goudy old style", 11),
-            bg="#211f1f",
-            fg="white",
+            style="mystyle1.TLabel"
         ).place(x=500, y=190, width=180)
-        txt_utype = Label(
+        txt_utype = ttk.Label(
             self.root,
             textvariable=self.var_emp_utype,
             justify=CENTER,
-            font=("goudy old style", 11),
-            bg="#211f1f",
-            fg="white",
+            style="mystyle1.TLabel"
         ).place(x=850, y=190, width=180)
 
         # row 3
         # ====row4=======
-        lbl_present = Label(
+        lbl_present = ttk.Label(
             self.root,
             text="Present Days",
-            font=("goudy old style", 11),
-            bg="black",
-            fg="white",
+            style="mystyle1.TLabel"
         ).place(x=50, y=230)
-        lbl_absent = Label(
+        lbl_absent = ttk.Label(
             self.root,
             text="Absent Days",
-            font=("goudy old style", 11),
-            bg="black",
-            fg="white",
+            style="mystyle1.TLabel"
         ).place(x=350, y=230)
-        lbl_holiday = Label(
+        lbl_holiday = ttk.Label(
             self.root,
             text="Holiday",
-            font=("goudy old style", 11),
-            bg="black",
-            fg="white",
+            style="mystyle1.TLabel"
         ).place(x=750, y=230)
 
-        txt_present = Label(
+        txt_present = ttk.Label(
             self.root,
             textvariable=self.var_emp_present,
-            font=("goudy old style", 11),
-            bg="#211f1f",
-            fg="white",
+            style="mystyle1.TLabel"
         ).place(x=150, y=230, width=180)
-        txt_absent = Label(
+        txt_absent = ttk.Label(
             self.root,
             textvariable=self.var_emp_absent,
-            font=("goudy old style", 11),
-            bg="#211f1f",
-            fg="white",
+            style="mystyle1.TLabel"
         ).place(x=500, y=230, width=180)
         txt_holiday = Entry(
             self.root,
             textvariable=self.var_emp_holiday,
             insertbackground="white",
             font=("goudy old style", 11),
-            bg="#211f1f",
-            fg="white",
+            background="#211f1f",
+            foreground="white"
         ).place(x=850, y=230, width=180)
 
         # row 4
-        lbl_rating = Label(
+        lbl_rating = ttk.Label(
             self.root,
             text="Rating",
-            font=("goudy old style", 11),
-            bg="black",
-            fg="white",
+            style="mystyle1.TLabel"
         ).place(x=50, y=270)
-        lbl_bonus = Label(
+        lbl_bonus = ttk.Label(
             self.root,
             text="Bonus",
-            font=("goudy old style", 11),
-            bg="black",
-            fg="white",
+            style="mystyle1.TLabel"
         ).place(x=350, y=270)
-        lbl_tsalary = Label(
+        lbl_tsalary = ttk.Label(
             self.root,
             text="Total Salary",
-            font=("goudy old style", 11),
-            bg="black",
-            fg="white",
+            style="mystyle1.TLabel"
         ).place(x=750, y=270)
 
-        txt_rating = Label(
+        txt_rating = ttk.Label(
             self.root,
             textvariable=self.var_emp_rating,
-            font=("goudy old style", 11),
-            bg="#211f1f",
-            fg="white",
+            style="mystyle1.TLabel"
         ).place(x=150, y=270, width=180)
-        txt_bonus = Label(
+        txt_bonus = ttk.Label(
             self.root,
             textvariable=self.var_emp_bonus,
-            font=("goudy old style", 11),
-            bg="#211f1f",
-            fg="white",
+            style="mystyle1.TLabel"
         ).place(x=500, y=270, width=180)
-        txt_tsalary = Label(
+        txt_tsalary = ttk.Label(
             self.root,
             textvariable=self.var_emp_tsalary,
             justify=CENTER,
-            font=("goudy old style", 11),
-            bg="#211f1f",
-            fg="white",
+            style="mystyle1.TLabel"
         ).place(x=850, y=270, width=180)
 
         # row 5
-        lbl_remark = Label(
+        lbl_remark = ttk.Label(
             self.root,
             text="Remark",
-            font=("goudy old style", 11),
-            bg="black",
-            fg="white",
+            style="mystyle1.TLabel"
         ).place(x=50, y=310)
         
         self.var_sremark = Text(
@@ -479,6 +444,5 @@ class salaryClass:
 
 if __name__ == "__main__":
     root = customtkinter.CTk()
-    # obj = Login_system(root)
-    obj = salaryClass(root)
+    obj = Login_system(root)
     root.mainloop()

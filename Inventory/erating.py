@@ -1,6 +1,6 @@
 from tkinter import *
 import sqlite3
-from tkinter import messagebox
+from tkinter import messagebox,ttk
 from datetime import *
 from calendar import monthrange
 import customtkinter
@@ -26,6 +26,14 @@ class EmpRate:
         self.value2 = IntVar()
         self.value3 = IntVar()
         self.value4 = IntVar()
+        style = ttk.Style()
+        style.configure(
+            "mystyle1.TLabel",
+            font=("goudy old style", 11),
+            background="#211f1f",
+            foreground="white",
+            anchor=CENTER
+        )
 
         title = Label(
             self.root,
@@ -37,96 +45,76 @@ class EmpRate:
 
         # #contents
         # row 1
-        lbl_empid = Label(
+        lbl_empid = ttk.Label(
             self.root,
             text="Emp ID",
-            font=("goudy old style", 11),
-            bg="black",
-            fg="white",
+            style="mystyle1.TLabel"
+
         ).place(x=50, y=150)
-        lbl_name = Label(
-            self.root, text="Name", font=("goudy old style", 11), bg="black", fg="white"
+
+        lbl_name = ttk.Label(
+            self.root, text="Name", style="mystyle1.TLabel"
         ).place(x=350, y=150)
-        lbl_utype = Label(
+
+        lbl_utype = ttk.Label(
             self.root,
             text="User Type",
-            font=("goudy old style", 11),
-            bg="black",
-            fg="white",
+            style="mystyle1.TLabel"
         ).place(x=750, y=150)
 
-        txt_empid = Label(
+        txt_empid = ttk.Label(
             self.root,
             textvariable=self.var_emp_id,
-            font=("goudy old style", 11),
-            bg="#211f1f",
-            fg="white",
+            style="mystyle1.TLabel"
         ).place(x=150, y=150, width=180)
-        txt_name = Label(
+        txt_name = ttk.Label(
             self.root,
             textvariable=self.var_emp_name,
-            font=("goudy old style", 11),
-            bg="#211f1f",
-            fg="white",
+            style="mystyle1.TLabel"
         ).place(x=500, y=150, width=180)
-        txt_utype = Label(
+        txt_utype = ttk.Label(
             self.root,
             textvariable=self.var_emp_utype,
-            font=("goudy old style", 11),
-            bg="#211f1f",
-            fg="white",
+            style="mystyle1.TLabel"
         ).place(x=850, y=150, width=180)
 
         # row 2
-        lbl_date = Label(
-            self.root, text="Date", font=("goudy old style", 11), bg="black", fg="white"
+        lbl_date = ttk.Label(
+            self.root, text="Date", style="mystyle1.TLabel"
         ).place(x=50, y=190)
-        lbl_salary = Label(
+        lbl_salary = ttk.Label(
             self.root,
             text="Salary",
-            font=("goudy old style", 11),
-            bg="black",
-            fg="white",
+            style="mystyle1.TLabel"
         ).place(x=350, y=190)
-        lbl_rating = Label(
+        lbl_rating = ttk.Label(
             self.root,
             text="Avg Rating",
-            font=("goudy old style", 11),
-            bg="black",
-            fg="white",
+            style="mystyle1.TLabel"
         ).place(x=750, y=190)
 
-        txt_name = Label(
+        txt_name = ttk.Label(
             self.root,
             textvariable=self.var_emp_date,
-            font=("goudy old style", 11),
-            bg="#211f1f",
-            fg="white",
+            style="mystyle1.TLabel"
         ).place(x=150, y=190, width=180)
-        txt_salary = Label(
+        txt_salary = ttk.Label(
             self.root,
             textvariable=self.var_emp_salary,
-            font=("goudy old style", 11),
-            bg="#211f1f",
-            fg="white",
+            style="mystyle1.TLabel"
         ).place(x=500, y=190, width=180)
-        txt_rating = Label(
+        txt_rating = ttk.Label(
             self.root,
             textvariable=self.var_emp_utype,
-            justify=CENTER,
-            font=("goudy old style", 11),
-            bg="#211f1f",
-            fg="white",
+            style="mystyle1.TLabel"
         ).place(x=850, y=190, width=180)
 
         # row 3
         # ====row4=======
-        label = Label(
+        label = ttk.Label(
             self.root,
             text="Collaboration",
-            font=("goudy old style", 11),
-            bg="black",
-            fg="white",
+            style="mystyle1.TLabel"
         ).place(x=50, y=240)
 
         slider1 = customtkinter.CTkSlider(
@@ -138,12 +126,10 @@ class EmpRate:
             variable=self.value1,
         ).place(x=190, y=245)
 
-        label = Label(
+        label = ttk.Label(
             master=self.root,
             text="Problem Solving",
-            font=("goudy old style", 11),
-            bg="black",
-            fg="white",
+            style="mystyle1.TLabel"
         )
         label.place(x=560, y=240)
 
@@ -156,12 +142,10 @@ class EmpRate:
             variable=self.value2,
         ).place(x=720, y=245)
 
-        label = Label(
+        label = ttk.Label(
             master=self.root,
             text="Knowledge/Skills",
-            font=("goudy old style", 11),
-            bg="black",
-            fg="white",
+            style="mystyle1.TLabel"
         )
         label.place(x=50, y=280)
 
@@ -174,12 +158,10 @@ class EmpRate:
             variable=self.value3,
         ).place(x=190, y=285)
 
-        label = Label(
+        label = ttk.Label(
             master=self.root,
             text="Customer service",
-            font=("goudy old style", 11),
-            bg="black",
-            fg="white",
+            style="mystyle1.TLabel"
         )
         label.place(x=560, y=280)
 

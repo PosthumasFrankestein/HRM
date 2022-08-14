@@ -36,6 +36,13 @@ class employeeclass:
             fieldbackground="black",
             foreground="white",
         )
+        style.configure(
+            "mystyle1.TLabel",
+            font=("goudy old style", 11),
+            background="#211f1f",
+            foreground="white",
+            anchor=CENTER
+        )
 
         # title
 
@@ -49,17 +56,14 @@ class employeeclass:
 
         # #contents
         # row 1
-        lbl_empid = Label(
-            self.root, text="Emp ID", font=("goudy old style", 11), bg="black",
-            fg="white",
+        lbl_empid = ttk.Label(
+            self.root, text="Emp ID", style="mystyle1.TLabel"
         ).place(x=50, y=150)
-        lbl_gender = Label(
-            self.root, text="Gender", font=("goudy old style", 11), bg="black",
-            fg="white",
+        lbl_gender = ttk.Label(
+            self.root, text="Gender", style="mystyle1.TLabel"
         ).place(x=350, y=150)
-        lbl_contact = Label(
-            self.root, text="Contact", font=("goudy old style", 11), bg="black",
-            fg="white",
+        lbl_contact = ttk.Label(
+            self.root, text="Contact", style="mystyle1.TLabel"
         ).place(x=750, y=150)
 
         txt_empid = Entry(
@@ -83,17 +87,14 @@ class employeeclass:
         ).place(x=850, y=150, width=180)
 
         # row 2
-        lbl_name = Label(
-            self.root, text="Name", font=("goudy old style", 11), bg="black",
-            fg="white",
+        lbl_name = ttk.Label(
+            self.root, text="Name", style="mystyle1.TLabel"
         ).place(x=50, y=190)
-        lbl_dob = Label(
-            self.root, text="D.O.B", font=("goudy old style", 11), bg="black",
-            fg="white",
+        lbl_dob = ttk.Label(
+            self.root, text="D.O.B", style="mystyle1.TLabel"
         ).place(x=350, y=190)
-        lbl_doj = Label(
-            self.root, text="D.O.J", font=("goudy old style", 11), bg="black",
-            fg="white",
+        lbl_doj = ttk.Label(
+            self.root, text="D.O.J", style="mystyle1.TLabel"
         ).place(x=750, y=190)
 
         txt_name = Entry(
@@ -119,17 +120,14 @@ class employeeclass:
         ).place(x=850, y=190, width=180)
 
         # row 3
-        lbl_email = Label(
-            self.root, text="Email", font=("goudy old style", 11), bg="black",
-            fg="white",
+        lbl_email = ttk.Label(
+            self.root, text="Email", style="mystyle1.TLabel"
         ).place(x=50, y=230)
-        lbl_pass = Label(
-            self.root, text="Password", font=("goudy old style", 11), bg="black",
-            fg="white",
+        lbl_pass = ttk.Label(
+            self.root, text="Password", style="mystyle1.TLabel"
         ).place(x=350, y=230)
-        lbl_utype = Label(
-            self.root, text="User Type", font=("goudy old style", 11), bg="black",
-            fg="white",
+        lbl_utype = ttk.Label(
+            self.root, text="User Type", style="mystyle1.TLabel"
         ).place(x=750, y=230)
 
         txt_email = Entry(
@@ -154,20 +152,20 @@ class employeeclass:
         ).place(x=850, y=230, width=180)
 
         # ====row4=======
-        lbl_address = Label(
-            self.root, text="Address", font=("goudy old style", 11), bg="black",
-            fg="white",
+        lbl_address = ttk.Label(
+            self.root, text="Address", style="mystyle1.TLabel"
         ).place(x=50, y=270)
-        lbl_salary = Label(
-            self.root, text="Salary", font=("goudy old style", 11), bg="black",
-            fg="white",
+        lbl_salary = ttk.Label(
+            self.root, text="Salary", style="mystyle1.TLabel"
         ).place(x=500, y=270)
 
         self.txt_address = Text(
-            self.root, font=("goudy old style", 11), bg="black",
+            self.root, font=("goudy old style", 11),
+            bg="#211f1f",
             fg="white",
         )
         self.txt_address.place(x=150, y=270, width=300, height=60)
+        
         txt_salary = Entry(
             self.root,
             textvariable=self.var_emp_salary,
