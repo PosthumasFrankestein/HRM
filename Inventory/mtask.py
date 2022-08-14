@@ -16,7 +16,6 @@ class Mngtask:
         self.root.config(bg="black")
         cal = Calendar()
 
-
         # All Varialble
         self.var_task_id = StringVar()
         self.var_emp_id = StringVar()
@@ -49,7 +48,7 @@ class Mngtask:
             font=("goudy old style", 11),
             background="#211f1f",
             foreground="white",
-            anchor=CENTER
+            anchor=CENTER,
         )
 
         self.title = customtkinter.CTkLabel(
@@ -62,25 +61,17 @@ class Mngtask:
         # #contents
         # row 1
         self.lbl_tid = ttk.Label(
-            self.root,
-            text="Task ID",
-            style="mystyle1.TLabel"
+            self.root, text="Task ID", style="mystyle1.TLabel"
         ).place(x=50, y=150)
         self.lbl_eid = ttk.Label(
-            self.root,
-            text="Emp Id",
-            style="mystyle1.TLabel"
+            self.root, text="Emp Id", style="mystyle1.TLabel"
         ).place(x=350, y=150)
         self.lbl_name = ttk.Label(
-            self.root,
-            text="Name",
-            style="mystyle1.TLabel"
+            self.root, text="Name", style="mystyle1.TLabel"
         ).place(x=750, y=150)
 
         self.txt_tid = ttk.Label(
-            self.root,
-            textvariable=self.var_task_id,
-            style="mystyle1.TLabel"
+            self.root, textvariable=self.var_task_id, style="mystyle1.TLabel"
         ).place(x=160, y=150, width=180)
         self.txt_eid = customtkinter.CTkComboBox(
             self.root,
@@ -89,37 +80,25 @@ class Mngtask:
             command=self.fetchName,
         ).place(x=500, y=150, width=180)
         self.txt_name = ttk.Label(
-            self.root,
-            textvariable=self.var_emp_name,
-            style="mystyle1.TLabel"
+            self.root, textvariable=self.var_emp_name, style="mystyle1.TLabel"
         ).place(x=850, y=150, width=180)
 
         # row 2
         self.lbl_date_assigned = ttk.Label(
-            self.root,
-            text="Date Assigned",
-            style="mystyle1.TLabel"
+            self.root, text="Date Assigned", style="mystyle1.TLabel"
         ).place(x=50, y=190)
         self.lbl_date_completed = ttk.Label(
-            self.root,
-            text="Date completed",
-            style="mystyle1.TLabel"
+            self.root, text="Date completed", style="mystyle1.TLabel"
         ).place(x=350, y=190)
         self.lbl_task = ttk.Label(
-            self.root,
-            text="Task",
-            style="mystyle1.TLabel"
+            self.root, text="Task", style="mystyle1.TLabel"
         ).place(x=750, y=190)
 
         self.txt_date_assigned = ttk.Label(
-            self.root,
-            textvariable=self.var_adate,
-            style="mystyle1.TLabel"
+            self.root, textvariable=self.var_adate, style="mystyle1.TLabel"
         ).place(x=160, y=190, width=180)
         self.txt_date_completed = ttk.Label(
-            self.root,
-            textvariable=self.var_cdate,
-            style="mystyle1.TLabel"
+            self.root, textvariable=self.var_cdate, style="mystyle1.TLabel"
         ).place(x=500, y=190, width=180)
         self.txt_task = Entry(
             self.root,
@@ -127,7 +106,7 @@ class Mngtask:
             font=("goudy old style", 11),
             bg="#211f1f",
             fg="white",
-            insertbackground="white"
+            insertbackground="white",
         ).place(x=850, y=190, width=180)
 
         # row 3

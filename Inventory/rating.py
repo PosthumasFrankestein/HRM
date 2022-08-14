@@ -290,5 +290,5 @@ class Rating:
 
 if __name__ == "__main__":
     root = customtkinter.CTk()
-    obj = Rating(root, 2)
+    obj = Login_system(root)
     root.mainloop()

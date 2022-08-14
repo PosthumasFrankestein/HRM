@@ -62,19 +62,13 @@ class AttendanceMng:
         ).place(x=750, y=150)
 
         self.txt_empid = ttk.Label(
-            self.root,
-            textvariable=self.var_emp_id,
-            style="mystyle1.TLabel"
+            self.root, textvariable=self.var_emp_id, style="mystyle1.TLabel"
         ).place(x=150, y=150, width=180)
         self.txt_date = ttk.Label(
-            self.root,
-            textvariable=self.var_emp_date,
-            style="mystyle1.TLabel"
+            self.root, textvariable=self.var_emp_date, style="mystyle1.TLabel"
         ).place(x=500, y=150, width=180)
         self.txt_contact = ttk.Label(
-            self.root,
-            textvariable=self.var_emp_contact,
-            style="mystyle1.TLabel"
+            self.root, textvariable=self.var_emp_contact, style="mystyle1.TLabel"
         ).place(x=850, y=150, width=180)
 
         # row 2
@@ -89,27 +83,23 @@ class AttendanceMng:
         ).place(x=750, y=190)
 
         self.txt_name = ttk.Label(
-            self.root,
-            textvariable=self.var_emp_name,
-            style="mystyle1.TLabel"
+            self.root, textvariable=self.var_emp_name, style="mystyle1.TLabel"
         ).place(x=150, y=190, width=180)
         self.txt_email = ttk.Label(
-            self.root,
-            textvariable=self.var_emp_email,
-            style="mystyle1.TLabel"
+            self.root, textvariable=self.var_emp_email, style="mystyle1.TLabel"
         ).place(x=500, y=190, width=180)
         self.cmb_utype = ttk.Label(
-            self.root,
-            textvariable=self.var_emp_utype,
-            style="mystyle1.TLabel"
+            self.root, textvariable=self.var_emp_utype, style="mystyle1.TLabel"
         )
         self.cmb_utype.place(x=850, y=190, width=180)
-        
 
         # row 3
         # ====row4=======
         self.lbl_remark = Label(
-            self.root, text="Remark", font=("goudy old style", 11), bg="black",
+            self.root,
+            text="Remark",
+            font=("goudy old style", 11),
+            bg="black",
             fg="white",
         ).place(x=50, y=270)
 
