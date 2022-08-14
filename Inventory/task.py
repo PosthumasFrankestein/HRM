@@ -166,14 +166,14 @@ class taskClass:
         ).place(x=860, y=305, width=110, height=28)
 
         # Employee Details
-        self.emp_frame = Frame(self.root, bd=3, relief=RIDGE)
-        self.emp_frame.place(x=0, y=350, relwidth=1, height=150)
+        emp_frame = Frame(self.root, bd=3, relief=RIDGE)
+        emp_frame.place(x=0, y=350, relwidth=1, height=150)
 
-        scrolly = Scrollbar(self.emp_frame, orient=VERTICAL)
-        scrollx = Scrollbar(self.emp_frame, orient=HORIZONTAL)
+        scrolly = Scrollbar(emp_frame, orient=VERTICAL)
+        scrollx = Scrollbar(emp_frame, orient=HORIZONTAL)
 
         self.EmployeeTable = ttk.Treeview(
-            self.emp_frame,
+            emp_frame,
             columns=(
                 "tid",
                 "task",
