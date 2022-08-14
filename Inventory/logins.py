@@ -22,7 +22,10 @@ class Login_system:
         self.login_frame.place(x=520, y=90, width=350, height=460)
 
         self.title = Label(
-            self.login_frame, text="Login System", font=("Elephant", 30, "bold"), bg="white"
+            self.login_frame,
+            text="Login System",
+            font=("Elephant", 30, "bold"),
+            bg="white",
         ).place(x=0, y=30, relwidth=1)
 
         self.lbl_user = Label(
@@ -39,7 +42,11 @@ class Login_system:
             bg="#ECECEC",
         ).place(x=50, y=140, width=250)
         self.lbl_pass = Label(
-            self.login_frame, text="Password", font=("Andalus", 15), bg="white", fg="#767171"
+            self.login_frame,
+            text="Password",
+            font=("Andalus", 15),
+            bg="white",
+            fg="#767171",
         ).place(x=50, y=200)
         self.txt_pass = Entry(
             self.login_frame,

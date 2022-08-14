@@ -1,6 +1,6 @@
 from tkinter import *
 import sqlite3
-from tkinter import messagebox,ttk
+from tkinter import messagebox, ttk
 from datetime import *
 from calendar import monthrange
 import customtkinter
@@ -32,7 +32,7 @@ class EmpRate:
             font=("goudy old style", 11),
             background="#211f1f",
             foreground="white",
-            anchor=CENTER
+            anchor=CENTER,
         )
 
         self.title = Label(
@@ -46,10 +46,7 @@ class EmpRate:
         # #contents
         # row 1
         self.lbl_empid = ttk.Label(
-            self.root,
-            text="Emp ID",
-            style="mystyle1.TLabel"
-
+            self.root, text="Emp ID", style="mystyle1.TLabel"
         ).place(x=50, y=150)
 
         self.lbl_name = ttk.Label(
@@ -57,25 +54,17 @@ class EmpRate:
         ).place(x=350, y=150)
 
         self.lbl_utype = ttk.Label(
-            self.root,
-            text="User Type",
-            style="mystyle1.TLabel"
+            self.root, text="User Type", style="mystyle1.TLabel"
         ).place(x=750, y=150)
 
         self.txt_empid = ttk.Label(
-            self.root,
-            textvariable=self.var_emp_id,
-            style="mystyle1.TLabel"
+            self.root, textvariable=self.var_emp_id, style="mystyle1.TLabel"
         ).place(x=150, y=150, width=180)
         self.txt_name = ttk.Label(
-            self.root,
-            textvariable=self.var_emp_name,
-            style="mystyle1.TLabel"
+            self.root, textvariable=self.var_emp_name, style="mystyle1.TLabel"
         ).place(x=500, y=150, width=180)
         self.txt_utype = ttk.Label(
-            self.root,
-            textvariable=self.var_emp_utype,
-            style="mystyle1.TLabel"
+            self.root, textvariable=self.var_emp_utype, style="mystyle1.TLabel"
         ).place(x=850, y=150, width=180)
 
         # row 2
@@ -83,38 +72,26 @@ class EmpRate:
             self.root, text="Date", style="mystyle1.TLabel"
         ).place(x=50, y=190)
         self.lbl_salary = ttk.Label(
-            self.root,
-            text="Salary",
-            style="mystyle1.TLabel"
+            self.root, text="Salary", style="mystyle1.TLabel"
         ).place(x=350, y=190)
         self.lbl_rating = ttk.Label(
-            self.root,
-            text="Avg Rating",
-            style="mystyle1.TLabel"
+            self.root, text="Avg Rating", style="mystyle1.TLabel"
         ).place(x=750, y=190)
 
         self.txt_name = ttk.Label(
-            self.root,
-            textvariable=self.var_emp_date,
-            style="mystyle1.TLabel"
+            self.root, textvariable=self.var_emp_date, style="mystyle1.TLabel"
         ).place(x=150, y=190, width=180)
         self.txt_salary = ttk.Label(
-            self.root,
-            textvariable=self.var_emp_salary,
-            style="mystyle1.TLabel"
+            self.root, textvariable=self.var_emp_salary, style="mystyle1.TLabel"
         ).place(x=500, y=190, width=180)
         self.txt_rating = ttk.Label(
-            self.root,
-            textvariable=self.var_emp_rating,
-            style="mystyle1.TLabel"
+            self.root, textvariable=self.var_emp_rating, style="mystyle1.TLabel"
         ).place(x=850, y=190, width=180)
 
         # row 3
         # ====row4=======
         self.collab_label = ttk.Label(
-            self.root,
-            text="Collaboration",
-            style="mystyle1.TLabel"
+            self.root, text="Collaboration", style="mystyle1.TLabel"
         ).place(x=50, y=240)
 
         self.slider1 = customtkinter.CTkSlider(
@@ -127,9 +104,7 @@ class EmpRate:
         ).place(x=190, y=245)
 
         self.prob_label = ttk.Label(
-            master=self.root,
-            text="Problem Solving",
-            style="mystyle1.TLabel"
+            master=self.root, text="Problem Solving", style="mystyle1.TLabel"
         ).place(x=560, y=240)
 
         self.slider2 = customtkinter.CTkSlider(
@@ -142,9 +117,7 @@ class EmpRate:
         ).place(x=720, y=245)
 
         self.Know_label = ttk.Label(
-            master=self.root,
-            text="Knowledge/Skills",
-            style="mystyle1.TLabel"
+            master=self.root, text="Knowledge/Skills", style="mystyle1.TLabel"
         ).place(x=50, y=280)
 
         self.slider3 = customtkinter.CTkSlider(
@@ -157,9 +130,7 @@ class EmpRate:
         ).place(x=190, y=285)
 
         self.CS_label = ttk.Label(
-            master=self.root,
-            text="Customer service",
-            style="mystyle1.TLabel"
+            master=self.root, text="Customer service", style="mystyle1.TLabel"
         ).place(x=560, y=280)
 
         self.slider4 = customtkinter.CTkSlider(
@@ -238,14 +209,13 @@ class EmpRate:
             )
             rows2 = cur.fetchone()
             if rows1[1] is None and rows2[1] is None:
-                value=0
+                value = 0
             elif rows1[1] is None and rows2[1] is not None:
-                value = (rows1[1] / rows1[0])
+                value = rows1[1] / rows1[0]
             elif rows1[1] is None and rows2[1] is not None:
-                value = (rows2[1] / rows2[0])
+                value = rows2[1] / rows2[0]
             else:
-                value = (rows1[1] / rows1[0])+(rows2[1] / rows2[0])
-
+                value = (rows1[1] / rows1[0]) + (rows2[1] / rows2[0])
 
             self.var_emp_id.set(row[0]),
             self.var_emp_name.set(row[1]),
