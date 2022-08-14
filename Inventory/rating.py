@@ -52,7 +52,7 @@ class Rating:
             anchor=CENTER
         )
 
-        title = Label(
+        self.title = Label(
             self.root,
             text="Rating System",
             font=("goudy old style", 11),
@@ -62,62 +62,62 @@ class Rating:
 
         # #contents
         # row 1
-        lbl_empid = ttk.Label(
+        self.lbl_empid = ttk.Label(
             self.root,
             text="Emp ID",
             style="mystyle1.TLabel"
         ).place(x=50, y=150)
-        lbl_name = ttk.Label(
+        self.lbl_name = ttk.Label(
             self.root, text="Name", style="mystyle1.TLabel"
         ).place(x=350, y=150)
-        lbl_utype = ttk.Label(
+        self.lbl_utype = ttk.Label(
             self.root,
             text="User Type",
             style="mystyle1.TLabel"
         ).place(x=750, y=150)
 
-        txt_empid = ttk.Label(
+        self.txt_empid = ttk.Label(
             self.root,
             textvariable=self.var_eid,
             style="mystyle1.TLabel"
         ).place(x=150, y=150, width=180)
-        txt_name = ttk.Label(
+        self.txt_name = ttk.Label(
             self.root,
             textvariable=self.var_emp_name,
             style="mystyle1.TLabel"
         ).place(x=500, y=150, width=180)
-        txt_utype = ttk.Label(
+        self.txt_utype = ttk.Label(
             self.root,
             textvariable=self.var_emp_utype,
             style="mystyle1.TLabel"
         ).place(x=850, y=150, width=180)
 
         # row 2
-        lbl_date = ttk.Label(
+        self.lbl_date = ttk.Label(
             self.root, text="Date", style="mystyle1.TLabel"
         ).place(x=50, y=190)
-        lbl_salary = ttk.Label(
+        self.lbl_salary = ttk.Label(
             self.root,
             text="Salary",
             style="mystyle1.TLabel"
         ).place(x=350, y=190)
-        lbl_rating = ttk.Label(
+        self.lbl_rating = ttk.Label(
             self.root,
             text="Avg Rating",
             style="mystyle1.TLabel"
         ).place(x=750, y=190)
 
-        txt_name = ttk.Label(
+        self.txt_name = ttk.Label(
             self.root,
             textvariable=self.var_emp_date,
             style="mystyle1.TLabel"
         ).place(x=150, y=190, width=180)
-        txt_salary = ttk.Label(
+        self.txt_salary = ttk.Label(
             self.root,
             textvariable=self.var_emp_salary,
             style="mystyle1.TLabel"
         ).place(x=500, y=190, width=180)
-        txt_rating = ttk.Label(
+        self.txt_rating = ttk.Label(
             self.root,
             textvariable=self.var_emp_rating,
             style="mystyle1.TLabel"
@@ -131,7 +131,7 @@ class Rating:
             style="mystyle1.TLabel"
         ).place(x=50, y=240)
 
-        slider1 = customtkinter.CTkSlider(
+        self.slider1 = customtkinter.CTkSlider(
             master=self.root,
             width=320,
             from_=0,
@@ -147,7 +147,7 @@ class Rating:
         )
         label.place(x=560, y=240)
 
-        slider2 = customtkinter.CTkSlider(
+        self.slider2 = customtkinter.CTkSlider(
             master=self.root,
             from_=0,
             width=320,
@@ -163,7 +163,7 @@ class Rating:
         )
         label.place(x=50, y=280)
 
-        slider3 = customtkinter.CTkSlider(
+        self.slider3 = customtkinter.CTkSlider(
             master=self.root,
             from_=0,
             width=320,
@@ -179,7 +179,7 @@ class Rating:
         )
         label.place(x=560, y=280)
 
-        slider4 = customtkinter.CTkSlider(
+        self.slider4 = customtkinter.CTkSlider(
             master=self.root,
             from_=0,
             to=5,
@@ -200,14 +200,14 @@ class Rating:
         button.place(x=850, y=310, width=180, height=28)
 
         # Employee Details
-        emp_frame = Frame(self.root, bd=3, relief=RIDGE)
-        emp_frame.place(x=0, y=350, relwidth=1, height=150)
+        self.emp_frame = Frame(self.root, bd=3, relief=RIDGE)
+        self.emp_frame.place(x=0, y=350, relwidth=1, height=150)
 
-        scrolly = Scrollbar(emp_frame, orient=VERTICAL)
-        scrollx = Scrollbar(emp_frame, orient=HORIZONTAL)
+        scrolly = Scrollbar(self.emp_frame, orient=VERTICAL)
+        scrollx = Scrollbar(self.emp_frame, orient=HORIZONTAL)
 
         self.EmployeeTable = ttk.Treeview(
-            emp_frame,
+            self.emp_frame,
             columns=("eid", "name", "salary", "absent_days", "present_days", "fsalary"),
             yscrollcommand=scrolly.set,
             xscrollcommand=scrollx.set,

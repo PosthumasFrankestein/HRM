@@ -16,40 +16,40 @@ class Login_system:
         self.password = StringVar()
         self.utype = StringVar()
 
-        login_frame = customtkinter.CTkFrame(
+        self.login_frame = customtkinter.CTkFrame(
             self.root, bd=2, relief=RIDGE, fg_color="white"
         )
-        login_frame.place(x=520, y=90, width=350, height=460)
+        self.login_frame.place(x=520, y=90, width=350, height=460)
 
-        title = Label(
-            login_frame, text="Login System", font=("Elephant", 30, "bold"), bg="white"
+        self.title = Label(
+            self.login_frame, text="Login System", font=("Elephant", 30, "bold"), bg="white"
         ).place(x=0, y=30, relwidth=1)
 
-        lbl_user = Label(
-            login_frame,
+        self.lbl_user = Label(
+            self.login_frame,
             text="Employee ID",
             font=("Andalus", 15),
             bg="white",
             fg="#767171",
         ).place(x=50, y=100)
-        txt_username = Entry(
-            login_frame,
+        self.txt_username = Entry(
+            self.login_frame,
             textvariable=self.eid,
             font=("times new roman", 15),
             bg="#ECECEC",
         ).place(x=50, y=140, width=250)
-        lbl_pass = Label(
-            login_frame, text="Password", font=("Andalus", 15), bg="white", fg="#767171"
+        self.lbl_pass = Label(
+            self.login_frame, text="Password", font=("Andalus", 15), bg="white", fg="#767171"
         ).place(x=50, y=200)
-        txt_pass = Entry(
-            login_frame,
+        self.txt_pass = Entry(
+            self.login_frame,
             textvariable=self.password,
             show="*",
             font=("times new roman", 15),
             bg="#ECECEC",
         ).place(x=50, y=240, width=250)
-        btn_login = customtkinter.CTkButton(
-            login_frame,
+        self.btn_login = customtkinter.CTkButton(
+            self.login_frame,
             width=250,
             height=35,
             border_width=0,

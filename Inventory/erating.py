@@ -35,7 +35,7 @@ class EmpRate:
             anchor=CENTER
         )
 
-        title = Label(
+        self.title = Label(
             self.root,
             text="Rating System",
             font=("goudy old style", 11),
@@ -45,79 +45,79 @@ class EmpRate:
 
         # #contents
         # row 1
-        lbl_empid = ttk.Label(
+        self.lbl_empid = ttk.Label(
             self.root,
             text="Emp ID",
             style="mystyle1.TLabel"
 
         ).place(x=50, y=150)
 
-        lbl_name = ttk.Label(
+        self.lbl_name = ttk.Label(
             self.root, text="Name", style="mystyle1.TLabel"
         ).place(x=350, y=150)
 
-        lbl_utype = ttk.Label(
+        self.lbl_utype = ttk.Label(
             self.root,
             text="User Type",
             style="mystyle1.TLabel"
         ).place(x=750, y=150)
 
-        txt_empid = ttk.Label(
+        self.txt_empid = ttk.Label(
             self.root,
             textvariable=self.var_emp_id,
             style="mystyle1.TLabel"
         ).place(x=150, y=150, width=180)
-        txt_name = ttk.Label(
+        self.txt_name = ttk.Label(
             self.root,
             textvariable=self.var_emp_name,
             style="mystyle1.TLabel"
         ).place(x=500, y=150, width=180)
-        txt_utype = ttk.Label(
+        self.txt_utype = ttk.Label(
             self.root,
             textvariable=self.var_emp_utype,
             style="mystyle1.TLabel"
         ).place(x=850, y=150, width=180)
 
         # row 2
-        lbl_date = ttk.Label(
+        self.lbl_date = ttk.Label(
             self.root, text="Date", style="mystyle1.TLabel"
         ).place(x=50, y=190)
-        lbl_salary = ttk.Label(
+        self.lbl_salary = ttk.Label(
             self.root,
             text="Salary",
             style="mystyle1.TLabel"
         ).place(x=350, y=190)
-        lbl_rating = ttk.Label(
+        self.lbl_rating = ttk.Label(
             self.root,
             text="Avg Rating",
             style="mystyle1.TLabel"
         ).place(x=750, y=190)
 
-        txt_name = ttk.Label(
+        self.txt_name = ttk.Label(
             self.root,
             textvariable=self.var_emp_date,
             style="mystyle1.TLabel"
         ).place(x=150, y=190, width=180)
-        txt_salary = ttk.Label(
+        self.txt_salary = ttk.Label(
             self.root,
             textvariable=self.var_emp_salary,
             style="mystyle1.TLabel"
         ).place(x=500, y=190, width=180)
-        txt_rating = ttk.Label(
+        self.txt_rating = ttk.Label(
             self.root,
-            textvariable=self.var_emp_utype,
+            textvariable=self.var_emp_rating,
             style="mystyle1.TLabel"
         ).place(x=850, y=190, width=180)
 
         # row 3
         # ====row4=======
-        label = ttk.Label(
+        self.collab_label = ttk.Label(
             self.root,
             text="Collaboration",
             style="mystyle1.TLabel"
         ).place(x=50, y=240)
 
-        slider1 = customtkinter.CTkSlider(
+        self.slider1 = customtkinter.CTkSlider(
             master=self.root,
             width=320,
             from_=0,
@@ -126,14 +126,13 @@ class EmpRate:
             variable=self.value1,
         ).place(x=190, y=245)
 
-        label = ttk.Label(
+        self.prob_label = ttk.Label(
             master=self.root,
             text="Problem Solving",
             style="mystyle1.TLabel"
-        )
-        label.place(x=560, y=240)
+        ).place(x=560, y=240)
 
-        slider2 = customtkinter.CTkSlider(
+        self.slider2 = customtkinter.CTkSlider(
             master=self.root,
             from_=0,
             width=320,
@@ -142,14 +141,13 @@ class EmpRate:
             variable=self.value2,
         ).place(x=720, y=245)
 
-        label = ttk.Label(
+        self.Know_label = ttk.Label(
             master=self.root,
             text="Knowledge/Skills",
             style="mystyle1.TLabel"
-        )
-        label.place(x=50, y=280)
+        ).place(x=50, y=280)
 
-        slider3 = customtkinter.CTkSlider(
+        self.slider3 = customtkinter.CTkSlider(
             master=self.root,
             from_=0,
             width=320,
@@ -158,14 +156,13 @@ class EmpRate:
             variable=self.value3,
         ).place(x=190, y=285)
 
-        label = ttk.Label(
+        self.CS_label = ttk.Label(
             master=self.root,
             text="Customer service",
             style="mystyle1.TLabel"
-        )
-        label.place(x=560, y=280)
+        ).place(x=560, y=280)
 
-        slider4 = customtkinter.CTkSlider(
+        self.slider4 = customtkinter.CTkSlider(
             master=self.root,
             from_=0,
             to=5,
@@ -174,7 +171,7 @@ class EmpRate:
             variable=self.value4,
         ).place(x=720, y=285)
 
-        button = customtkinter.CTkButton(
+        self.button = customtkinter.CTkButton(
             master=self.root,
             border_width=0,
             corner_radius=8,
@@ -183,7 +180,7 @@ class EmpRate:
             command=lambda: self.tvalue(eid),
             text_font=("goudy old style", 11),
         )
-        button.place(x=850, y=310, width=180, height=28)
+        self.button.place(x=850, y=310, width=180, height=28)
         self.get_data(eid)
 
     def tvalue(self, eid):
@@ -222,7 +219,6 @@ class EmpRate:
 
     def get_data(self, eid):
         today = date.today()
-        num_days = monthrange(today.year, today.month)
         con = sqlite3.connect(database=r"ims.db")
         cur = con.cursor()
 
@@ -231,11 +227,32 @@ class EmpRate:
                 "Select eid,name,utype,doj,salary from employee where eid=?", str(eid)
             )
             row = cur.fetchone()
+            cur.execute(
+                "Select count(*),sum(rate) from rating where eid=? and ratedby IS NOT NULL",
+                (str(row[0])),
+            )
+            rows1 = cur.fetchone()
+            cur.execute(
+                "Select count(*),sum(rate) from rating where eid=? and ratedby IS NULL",
+                (str(row[0])),
+            )
+            rows2 = cur.fetchone()
+            if rows1[1] is None and rows2[1] is None:
+                value=0
+            elif rows1[1] is None and rows2[1] is not None:
+                value = (rows1[1] / rows1[0])
+            elif rows1[1] is None and rows2[1] is not None:
+                value = (rows2[1] / rows2[0])
+            else:
+                value = (rows1[1] / rows1[0])+(rows2[1] / rows2[0])
+
+
             self.var_emp_id.set(row[0]),
             self.var_emp_name.set(row[1]),
             self.var_emp_utype.set(row[2]),
-            self.var_emp_date.set(row[3]),
-            self.var_emp_salary.set(row[4])
+            self.var_emp_date.set(today),
+            self.var_emp_salary.set(row[4]),
+            self.var_emp_rating.set(value)
 
         except Exception as ex:
             messagebox.showerror(

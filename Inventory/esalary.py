@@ -39,7 +39,8 @@ class esalaryClass:
             anchor=CENTER
         )
         
-        title = Label(
+
+        self.title = Label(
             self.root,
             text="Salary Details",
             font=("goudy old style", 15),
@@ -49,61 +50,61 @@ class esalaryClass:
 
         # #contents
         # row 1
-        ttk.Label(
+        self.lbl_empid = ttk.Label(
             self.root,
             text="Emp ID",
             style="mystyle1.TLabel"
         ).place(x=50, y=150)
-        ttk.Label(
+        self.lbl_name = ttk.Label(
             self.root, text="Name", style="mystyle1.TLabel").place(x=350, y=150)
-        ttk.Label(
+        self.lbl_email = ttk.Label(
             self.root,
             text="Email",
             style="mystyle1.TLabel"
         ).place(x=750, y=150)
 
-        ttk.Label(
+        self.txt_empid = ttk.Label(
             self.root,
             textvariable=self.var_emp_id,
             style="mystyle1.TLabel"
         ).place(x=150, y=150, width=180)
-        ttk.Label(
+        self.txt_name = ttk.Label(
             self.root,
             textvariable=self.var_emp_name,
             style="mystyle1.TLabel"
         ).place(x=500, y=150, width=180)
-        ttk.Label(
+        self.txt_email = ttk.Label(
             self.root,
             textvariable=self.var_emp_email,
             style="mystyle1.TLabel"
         ).place(x=850, y=150, width=180)
 
         # row 2
-        ttk.Label(
+        self.lbl_date = ttk.Label(
             self.root, text="Date", style="mystyle1.TLabel"
         ).place(x=50, y=190)
-        ttk.Label(
+        self.lbl_salary = ttk.Label(
             self.root,
             text="Salary",
             style="mystyle1.TLabel"
         ).place(x=350, y=190)
-        ttk.Label(
+        self.lbl_utype = ttk.Label(
             self.root,
             text="User Type",
             style="mystyle1.TLabel"
         ).place(x=750, y=190)
 
-        ttk.Label(
+        self.txt_name = ttk.Label(
             self.root,
             textvariable=self.var_emp_date,
             style="mystyle1.TLabel"
         ).place(x=150, y=190, width=180)
-        ttk.Label(
+        self.txt_salary = ttk.Label(
             self.root,
             textvariable=self.var_emp_salary,
             style="mystyle1.TLabel"
         ).place(x=500, y=190, width=180)
-        ttk.Label(
+        self.txt_utype = ttk.Label(
             self.root,
             textvariable=self.var_emp_utype,
             style="mystyle1.TLabel"
@@ -111,73 +112,73 @@ class esalaryClass:
 
         # row 3
         # ====row4=======
-        ttk.Label(
+        self.lbl_present = ttk.Label(
             self.root,
             text="Present Days",
             style="mystyle1.TLabel"
         ).place(x=50, y=230)
-        ttk.Label(
+        self.lbl_absent = ttk.Label(
             self.root,
             text="Absent Days",
             style="mystyle1.TLabel"
         ).place(x=350, y=230)
-        ttk.Label(
+        self.lbl_holiday = ttk.Label(
             self.root,
             text="Holiday",
             style="mystyle1.TLabel"
         ).place(x=750, y=230)
 
-        ttk.Label(
+        self.txt_present = ttk.Label(
             self.root,
             textvariable=self.var_emp_present,
             style="mystyle1.TLabel"
         ).place(x=150, y=230, width=180)
-        ttk.Label(
+        self.txt_absent = ttk.Label(
             self.root,
             textvariable=self.var_emp_absent,
             style="mystyle1.TLabel"
         ).place(x=500, y=230, width=180)
-        ttk.Label(
+        self.txt_holiday = ttk.Label(
             self.root,
             textvariable=self.var_emp_holiday,
             style="mystyle1.TLabel"
         ).place(x=850, y=230, width=180)
 
         # row 4
-        ttk.Label(
+        self.lbl_rating = ttk.Label(
             self.root,
             text="Rating",
             style="mystyle1.TLabel"
         ).place(x=50, y=270)
-        ttk.Label(
+        self.lbl_bonus = ttk.Label(
             self.root,
             text="Bonus",
             style="mystyle1.TLabel"
         ).place(x=350, y=270)
-        ttk.Label(
+        self.lbl_tsalary = ttk.Label(
             self.root,
             text="Total Salary",
             style="mystyle1.TLabel"
         ).place(x=750, y=270)
 
-        ttk.Label(
+        self.txt_rating = ttk.Label(
             self.root,
             textvariable=self.var_emp_rating,
             style="mystyle1.TLabel"
         ).place(x=150, y=270, width=180)
-        ttk.Label(
+        self.txt_bonus = ttk.Label(
             self.root,
             textvariable=self.var_emp_bonus,
             style="mystyle1.TLabel"
         ).place(x=500, y=270, width=180)
-        ttk.Label(
+        self.txt_tsalary = ttk.Label(
             self.root,
             textvariable=self.var_emp_tsalary,
             style="mystyle1.TLabel"
         ).place(x=850, y=270, width=180)
 
         # row 5
-        ttk.Label(
+        self.lbl_remark = ttk.Label(
             self.root,
             text="Remark",
             style="mystyle1.TLabel"
@@ -193,7 +194,7 @@ class esalaryClass:
         self.var_sremark.place(x=150, y=310, width=180,height=80)
 
         # button
-        customtkinter.CTkButton(
+        self.btn_approve = customtkinter.CTkButton(
             self.root,
             text="Approve",
             command=lambda: self.approve(eid),
@@ -202,7 +203,7 @@ class esalaryClass:
             cursor="hand2",
         ).place(x=645, y=395, width=180, height=28)
 
-        customtkinter.CTkButton(
+        self.btn_reappeal = customtkinter.CTkButton(
             self.root,
             text="Re-appeal",
             command=lambda: self.reappeal(eid),

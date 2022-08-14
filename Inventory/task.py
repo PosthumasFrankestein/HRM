@@ -43,7 +43,7 @@ class taskClass:
         )
 
 
-        title = customtkinter.CTkLabel(
+        self.title = customtkinter.CTkLabel(
             self.root,
             text="Manage Tasks",
             text_font=("goudy old style", 11),
@@ -52,66 +52,66 @@ class taskClass:
 
         # #contents
         # row 1
-        lbl_tid = ttk.Label(
+        self.lbl_tid = ttk.Label(
             self.root,
             text="Task ID",
             style="mystyle1.TLabel"
         ).place(x=50, y=150)
-        lbl_eid = ttk.Label(
+        self.lbl_eid = ttk.Label(
             self.root,
             text="Emp Id",
             style="mystyle1.TLabel"
         ).place(x=350, y=150)
-        lbl_name = ttk.Label(
+        self.lbl_name = ttk.Label(
             self.root,
             text="Name",
             style="mystyle1.TLabel"
         ).place(x=750, y=150)
 
-        txt_tid = ttk.Label(
+        self.txt_tid = ttk.Label(
             self.root,
             textvariable=self.var_task_id,
             style="mystyle1.TLabel"
         ).place(x=160, y=150, width=180)
-        txt_eid = ttk.Label(
+        self.txt_eid = ttk.Label(
             self.root,
             textvariable=self.var_emp_id,
             style="mystyle1.TLabel"
         ).place(x=500, y=150, width=180)
-        txt_name = ttk.Label(
+        self.txt_name = ttk.Label(
             self.root,
             textvariable=self.var_emp_name,
             style="mystyle1.TLabel"
         ).place(x=850, y=150, width=180)
 
         # row 2
-        lbl_date_assigned = ttk.Label(
+        self.lbl_date_assigned = ttk.Label(
             self.root,
             text="Date Assigned",
             style="mystyle1.TLabel"
         ).place(x=50, y=190)
-        lbl_date_completed = ttk.Label(
+        self.lbl_date_completed = ttk.Label(
             self.root,
             text="Date completed",
             style="mystyle1.TLabel"
         ).place(x=350, y=190)
-        lbl_task = ttk.Label(
+        self.lbl_task = ttk.Label(
             self.root,
             text="Task",
             style="mystyle1.TLabel"
         ).place(x=750, y=190)
 
-        txt_date_assigned = ttk.Label(
+        self.txt_date_assigned = ttk.Label(
             self.root,
             textvariable=self.var_adate,
             style="mystyle1.TLabel"
         ).place(x=160, y=190, width=180)
-        txt_date_completed = ttk.Label(
+        self.txt_date_completed = ttk.Label(
             self.root,
             textvariable=self.var_cdate,
             style="mystyle1.TLabel"
         ).place(x=500, y=190, width=180)
-        txt_task = Entry(
+        self.txt_task = Entry(
             self.root,
             textvariable=self.var_task,
             font=("goudy old style", 11),
@@ -122,7 +122,7 @@ class taskClass:
 
         # row 3
         # ====row4=======
-        lbl_task_remark = Label(
+        self.lbl_task_remark = Label(
             self.root,
             text="Task Remark",
             font=("goudy old style", 11),
@@ -140,7 +140,7 @@ class taskClass:
         self.var_tremark.place(x=160, y=230, width=280, height=100)
 
         # button
-        btn_complete = customtkinter.CTkButton(
+        self.btn_complete = customtkinter.CTkButton(
             self.root,
             text="Complete",
             command=lambda: self.complete(eid),
@@ -148,7 +148,7 @@ class taskClass:
             fg_color="#4caf50",
             cursor="hand2",
         ).place(x=620, y=305, width=110, height=28)
-        btn_forfeit = customtkinter.CTkButton(
+        self.btn_forfeit = customtkinter.CTkButton(
             self.root,
             text="Forfeit",
             command=lambda: self.forfeit(eid),
@@ -156,7 +156,7 @@ class taskClass:
             fg_color="#f44336",
             cursor="hand2",
         ).place(x=740, y=305, width=110, height=28)
-        btn_clear = customtkinter.CTkButton(
+        self.btn_clear = customtkinter.CTkButton(
             self.root,
             text="Clear",
             command=lambda: self.clear(eid),
@@ -166,14 +166,14 @@ class taskClass:
         ).place(x=860, y=305, width=110, height=28)
 
         # Employee Details
-        emp_frame = Frame(self.root, bd=3, relief=RIDGE)
-        emp_frame.place(x=0, y=350, relwidth=1, height=150)
+        self.emp_frame = Frame(self.root, bd=3, relief=RIDGE)
+        self.emp_frame.place(x=0, y=350, relwidth=1, height=150)
 
-        scrolly = Scrollbar(emp_frame, orient=VERTICAL)
-        scrollx = Scrollbar(emp_frame, orient=HORIZONTAL)
+        scrolly = Scrollbar(self.emp_frame, orient=VERTICAL)
+        scrollx = Scrollbar(self.emp_frame, orient=HORIZONTAL)
 
         self.EmployeeTable = ttk.Treeview(
-            emp_frame,
+            self.emp_frame,
             columns=(
                 "tid",
                 "task",
