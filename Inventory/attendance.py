@@ -37,8 +37,7 @@ class calender:
             othermonthwebackground="white",
         )
         cur.execute(
-            "Select date,astatus,status from attendance where eid=?", 
-            (str(eid))
+            "Select date,astatus,status from attendance where eid=?", (str(eid))
         )
         days = cur.fetchall()
         for day in days:
