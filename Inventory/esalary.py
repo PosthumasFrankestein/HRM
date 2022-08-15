@@ -1,13 +1,14 @@
+"""Import required modules"""
 from tkinter import *
 import sqlite3
 from tkinter import messagebox, ttk
-from datetime import *
+from datetime import date
 from calendar import monthrange
 import customtkinter
-from logins import Login_system
+from logins import LoginSystem
 
 
-class esalaryClass:
+class EsalaryClass:
     """Check salary"""
 
     def __init__(self, root, eid):
@@ -45,98 +46,119 @@ class esalaryClass:
             font=("goudy old style", 15),
             bg="#0f4d7d",
             fg="white",
-        ).place(x=50, y=100, width=1000)
+        )
+        self.title.place(x=50, y=100, width=1000)
 
         # #contents
         # row 1
-        self.lbl_empid = ttk.Label(
-            self.root, text="Emp ID", style="mystyle1.TLabel"
-        ).place(x=50, y=150)
-        self.lbl_name = ttk.Label(
-            self.root, text="Name", style="mystyle1.TLabel"
-        ).place(x=350, y=150)
-        self.lbl_email = ttk.Label(
-            self.root, text="Email", style="mystyle1.TLabel"
-        ).place(x=750, y=150)
+        self.lbl_empid = ttk.Label(self.root, text="Emp ID", style="mystyle1.TLabel")
+        self.lbl_empid.place(x=50, y=150)
+
+        self.lbl_name = ttk.Label(self.root, text="Name", style="mystyle1.TLabel")
+        self.lbl_name.place(x=350, y=150)
+
+        self.lbl_email = ttk.Label(self.root, text="Email", style="mystyle1.TLabel")
+        self.lbl_email.place(x=750, y=150)
 
         self.txt_empid = ttk.Label(
             self.root, textvariable=self.var_emp_id, style="mystyle1.TLabel"
-        ).place(x=150, y=150, width=180)
+        )
+        self.txt_empid.place(x=150, y=150, width=180)
+
         self.txt_name = ttk.Label(
             self.root, textvariable=self.var_emp_name, style="mystyle1.TLabel"
-        ).place(x=500, y=150, width=180)
+        )
+        self.txt_name.place(x=500, y=150, width=180)
+
         self.txt_email = ttk.Label(
             self.root, textvariable=self.var_emp_email, style="mystyle1.TLabel"
-        ).place(x=850, y=150, width=180)
+        )
+        self.txt_email.place(x=850, y=150, width=180)
 
         # row 2
-        self.lbl_date = ttk.Label(
-            self.root, text="Date", style="mystyle1.TLabel"
-        ).place(x=50, y=190)
-        self.lbl_salary = ttk.Label(
-            self.root, text="Salary", style="mystyle1.TLabel"
-        ).place(x=350, y=190)
-        self.lbl_utype = ttk.Label(
-            self.root, text="User Type", style="mystyle1.TLabel"
-        ).place(x=750, y=190)
+        self.lbl_date = ttk.Label(self.root, text="Date", style="mystyle1.TLabel")
+        self.lbl_date.place(x=50, y=190)
+
+        self.lbl_salary = ttk.Label(self.root, text="Salary", style="mystyle1.TLabel")
+        self.lbl_salary.place(x=350, y=190)
+
+        self.lbl_utype = ttk.Label(self.root, text="User Type", style="mystyle1.TLabel")
+        self.lbl_utype.place(x=750, y=190)
 
         self.txt_name = ttk.Label(
             self.root, textvariable=self.var_emp_date, style="mystyle1.TLabel"
-        ).place(x=150, y=190, width=180)
+        )
+        self.txt_name.place(x=150, y=190, width=180)
+
         self.txt_salary = ttk.Label(
             self.root, textvariable=self.var_emp_salary, style="mystyle1.TLabel"
-        ).place(x=500, y=190, width=180)
+        )
+        self.txt_salary.place(x=500, y=190, width=180)
+
         self.txt_utype = ttk.Label(
             self.root, textvariable=self.var_emp_utype, style="mystyle1.TLabel"
         )
-
+        self.txt_utype.place(x=850, y=190, width=180)
         # row 3
         # ====row4=======
         self.lbl_present = ttk.Label(
             self.root, text="Present Days", style="mystyle1.TLabel"
-        ).place(x=50, y=230)
+        )
+        self.lbl_present.place(x=50, y=230)
+
         self.lbl_absent = ttk.Label(
             self.root, text="Absent Days", style="mystyle1.TLabel"
-        ).place(x=350, y=230)
-        self.lbl_holiday = ttk.Label(
-            self.root, text="Holiday", style="mystyle1.TLabel"
-        ).place(x=750, y=230)
+        )
+        self.lbl_absent.place(x=350, y=230)
+
+        self.lbl_holiday = ttk.Label(self.root, text="Holiday", style="mystyle1.TLabel")
+        self.lbl_holiday.place(x=750, y=230)
 
         self.txt_present = ttk.Label(
             self.root, textvariable=self.var_emp_present, style="mystyle1.TLabel"
-        ).place(x=150, y=230, width=180)
+        )
+        self.txt_present.place(x=150, y=230, width=180)
+
         self.txt_absent = ttk.Label(
             self.root, textvariable=self.var_emp_absent, style="mystyle1.TLabel"
-        ).place(x=500, y=230, width=180)
+        )
+        self.txt_absent.place(x=500, y=230, width=180)
+
         self.txt_holiday = ttk.Label(
             self.root, textvariable=self.var_emp_holiday, style="mystyle1.TLabel"
-        ).place(x=850, y=230, width=180)
+        )
+        self.txt_holiday.place(x=850, y=230, width=180)
 
         # row 4
-        self.lbl_rating = ttk.Label(
-            self.root, text="Rating", style="mystyle1.TLabel"
-        ).place(x=50, y=270)
-        self.lbl_bonus = ttk.Label(
-            self.root, text="Bonus", style="mystyle1.TLabel"
-        ).place(x=350, y=270)
+        self.lbl_rating = ttk.Label(self.root, text="Rating", style="mystyle1.TLabel")
+        self.lbl_rating.place(x=50, y=270)
+
+        self.lbl_bonus = ttk.Label(self.root, text="Bonus", style="mystyle1.TLabel")
+        self.lbl_bonus.place(x=350, y=270)
+
         self.lbl_tsalary = ttk.Label(
             self.root, text="Total Salary", style="mystyle1.TLabel"
-        ).place(x=750, y=270)
+        )
+        self.lbl_tsalary.place(x=750, y=270)
 
         self.txt_rating = ttk.Label(
             self.root, textvariable=self.var_emp_rating, style="mystyle1.TLabel"
-        ).place(x=150, y=270, width=180)
+        )
+        self.txt_rating.place(x=150, y=270, width=180)
+
         self.txt_bonus = ttk.Label(
             self.root, textvariable=self.var_emp_bonus, style="mystyle1.TLabel"
-        ).place(x=500, y=270, width=180)
+        )
+        self.txt_bonus.place(x=500, y=270, width=180)
+
         self.txt_tsalary = ttk.Label(
             self.root, textvariable=self.var_emp_tsalary, style="mystyle1.TLabel"
-        ).place(x=850, y=270, width=180)
+        )
+        self.txt_tsalary.place(x=850, y=270, width=180)
 
         # row 5
-        self.lbl_remark = ttk.Label(
-            self.root, text="Remark", style="mystyle1.TLabel"
-        ).place(x=50, y=310)
+        self.lbl_remark = ttk.Label(self.root, text="Remark", style="mystyle1.TLabel")
+        self.lbl_remark.place(x=50, y=310)
 
         self.var_sremark = Text(
             self.root,
@@ -155,7 +177,8 @@ class esalaryClass:
             text_font=("goudy old style", 11),
             fg_color="#4caf50",
             cursor="hand2",
-        ).place(x=645, y=395, width=180, height=28)
+        )
+        self.btn_approve.place(x=645, y=395, width=180, height=28)
 
         self.btn_reappeal = customtkinter.CTkButton(
             self.root,
@@ -164,7 +187,8 @@ class esalaryClass:
             text_font=("goudy old style", 11),
             fg_color="blue",
             cursor="hand2",
-        ).place(x=850, y=395, width=180, height=28)
+        )
+        self.btn_reappeal.place(x=850, y=395, width=180, height=28)
 
         self.get_data(eid)
 
@@ -188,16 +212,17 @@ class esalaryClass:
         row1 = cur.fetchone()
         if row1 is None:
             messagebox.showerror(
-                "Error", f"Salary for this month not released", parent=self.root
+                "Error", "Salary for this month not released", parent=self.root
             )
         elif row1[4] == "approved":
             messagebox.showerror(
-                "Error", f"Salary for this month already approved", parent=self.root
+                "Error", "Salary for this month already approved", parent=self.root
             )
         else:
             try:
                 cur.execute(
-                    "Select count(*) from attendance where eid=? and astatus='present' and date LIKE ?",
+                    "Select count(*) from attendance where eid=?"
+                    " and astatus='present' and date LIKE ?",
                     (str(row[0]), "%" + dvalue + "%"),
                 )
                 rows = cur.fetchone()
@@ -220,23 +245,23 @@ class esalaryClass:
                 else:
                     value = (rows1[1] / rows1[0]) + (rows2[1] / rows2[0])
 
-                self.var_emp_id.set(row[0]),
-                self.var_emp_name.set(row[1]),
-                self.var_emp_email.set(row[2]),
-                self.var_emp_date.set(row[3]),
-                self.var_emp_contact.set(row[4]),
-                self.var_emp_utype.set(row[5]),
-                self.var_emp_salary.set(row[6]),
+                self.var_emp_id.set(row[0])
+                self.var_emp_name.set(row[1])
+                self.var_emp_email.set(row[2])
+                self.var_emp_date.set(row[3])
+                self.var_emp_contact.set(row[4])
+                self.var_emp_utype.set(row[5])
+                self.var_emp_salary.set(row[6])
                 self.var_emp_absent.set(int(num_days[1]) - int(rows[0]))
-                self.var_emp_present.set(rows[0]),
-                self.var_emp_rating.set(value),
-                self.var_emp_holiday.set(row1[0]),
-                self.var_emp_bonus.set(row1[1]),
-                self.var_emp_tsalary.set(row1[2]),
+                self.var_emp_present.set(rows[0])
+                self.var_emp_rating.set(value)
+                self.var_emp_holiday.set(row1[0])
+                self.var_emp_bonus.set(row1[1])
+                self.var_emp_tsalary.set(row1[2])
                 if row1[3] is not None:
-                    self.var_sremark.insert(END, row1[3]),
+                    self.var_sremark.insert(END, row1[3])
 
-            except Exception as ex:
+            except (IOError, TypeError) as ex:
                 messagebox.showerror(
                     "Error", f"Error due to : {str(ex)}", parent=self.root
                 )
@@ -249,9 +274,9 @@ class esalaryClass:
             cur.execute("update salary set sstatus='approved' where eid=?", str(eid))
             con.commit()
             messagebox.showinfo("Success", "Salary Approved", parent=self.root)
-            self.get_data(self, eid)
+            self.get_data(eid)
 
-        except Exception as ex:
+        except (IOError, TypeError) as ex:
             messagebox.showerror("Error", f"Error due to : {str(ex)}", parent=self.root)
 
     def reappeal(self, eid):
@@ -265,13 +290,13 @@ class esalaryClass:
             )
             con.commit()
             messagebox.showinfo("Success", "Salary Reappealed", parent=self.root)
-            self.get_data(self, eid)
+            self.get_data(eid)
 
-        except Exception as ex:
+        except (IOError, TypeError) as ex:
             messagebox.showerror("Error", f"Error due to : {str(ex)}", parent=self.root)
 
 
 if __name__ == "__main__":
     root = customtkinter.CTk()
-    obj = Login_system(root)
+    obj = LoginSystem(root)
     root.mainloop()

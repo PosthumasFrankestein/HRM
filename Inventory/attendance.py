@@ -1,13 +1,19 @@
-# Import Required Library
-from tkinter import *
-from tkinter import messagebox
-from tkcalendar import *
+"""Import Required Library"""
 import sqlite3
-from logins import Login_system
+from tkinter import Label, Button
+from tkinter import messagebox
+from datetime import datetime
+from tkcalendar import Calendar
+from logins import LoginSystem
 import customtkinter
 
+
 # Create Object
-class calender:
+
+
+class Calender:
+    """Calender class"""
+
     def __init__(self, root, eid):
         # Set geometry
         self.root = root
@@ -37,13 +43,10 @@ class calender:
             othermonthwebackground="white",
         )
         cur.execute(
-            "Select date,astatus,status from attendance where eid=?", 
-            (str(eid))
+            "Select date,astatus,status from attendance where eid=?", (str(eid))
         )
         days = cur.fetchall()
         for day in days:
-            from datetime import datetime
-
             date = datetime.strptime(day[0], "%d/%m/%y").date()
 
             if day[1] == "present" and day[2] == "approve":
@@ -75,7 +78,8 @@ class calender:
                 row = cur.fetchone()
                 if row is None or row[-1] != dvalue:
                     cur.execute(
-                        "Insert into attendance (date,astatus,status,remark,eid) values(?,'present','unapproved','',?)",
+                        "Insert into attendance (date,astatus,status,remark,eid)"
+                        " values(?,'present','unapproved','',?)",
                         (dvalue, eid),
                     )
                     con.commit()
@@ -88,14 +92,15 @@ class calender:
                         "Today's attendance already registered",
                         parent=self.root,
                     )
-            except Exception as ex:
+            except IOError as ex:
                 print(str(ex))
                 messagebox.showerror(
                     "Error", f"Error due to : {str(ex)}", parent=self.root
                 )
 
         # Add Button and Label
-        Button(root, text="Make Present", bg="#4dfa16", command=present).pack(pady=0)
+        make_present = Button(root, text="Make Present", bg="#4dfa16", command=present)
+        make_present.pack(pady=0)
 
         date = Label(root, text="")
         date.pack(pady=0)
@@ -105,5 +110,5 @@ class calender:
 
 if __name__ == "__main__":
     root = customtkinter.CTk()
-    obj = Login_system(root)
+    obj = LoginSystem(root)
     root.mainloop()

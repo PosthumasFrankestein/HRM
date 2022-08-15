@@ -1,12 +1,15 @@
+"""Import required module"""
 from tkinter import *
 import sqlite3
 from tkinter import messagebox, ttk
-from datetime import *
+from datetime import date
 import customtkinter
-from logins import Login_system
+from logins import LoginSystem
 
 
 class EmpRate:
+    """Rate yourself"""
+
     def __init__(self, root, eid):
         self.root = root
         self.root.geometry("1100x500+220+130")
@@ -40,58 +43,68 @@ class EmpRate:
             font=("goudy old style", 11),
             bg="#0f4d7d",
             fg="white",
-        ).place(x=50, y=100, width=1000)
+        )
+        self.title.place(x=50, y=100, width=1000)
 
         # #contents
         # row 1
-        self.lbl_empid = ttk.Label(
-            self.root, text="Emp ID", style="mystyle1.TLabel"
-        ).place(x=50, y=150)
+        self.lbl_empid = ttk.Label(self.root, text="Emp ID", style="mystyle1.TLabel")
+        self.lbl_empid.place(x=50, y=150)
 
-        self.lbl_name = ttk.Label(
-            self.root, text="Name", style="mystyle1.TLabel"
-        ).place(x=350, y=150)
+        self.lbl_name = ttk.Label(self.root, text="Name", style="mystyle1.TLabel")
+        self.lbl_name.place(x=350, y=150)
 
-        self.lbl_utype = ttk.Label(
-            self.root, text="User Type", style="mystyle1.TLabel"
-        ).place(x=750, y=150)
+        self.lbl_utype = ttk.Label(self.root, text="User Type", style="mystyle1.TLabel")
+        self.lbl_utype.place(x=750, y=150)
 
         self.txt_empid = ttk.Label(
             self.root, textvariable=self.var_emp_id, style="mystyle1.TLabel"
-        ).place(x=150, y=150, width=180)
+        )
+        self.txt_empid.place(x=150, y=150, width=180)
+
         self.txt_name = ttk.Label(
             self.root, textvariable=self.var_emp_name, style="mystyle1.TLabel"
-        ).place(x=500, y=150, width=180)
+        )
+        self.txt_name.place(x=500, y=150, width=180)
+
         self.txt_utype = ttk.Label(
             self.root, textvariable=self.var_emp_utype, style="mystyle1.TLabel"
-        ).place(x=850, y=150, width=180)
+        )
+        self.txt_utype.place(x=850, y=150, width=180)
 
         # row 2
-        self.lbl_date = ttk.Label(
-            self.root, text="Date", style="mystyle1.TLabel"
-        ).place(x=50, y=190)
-        self.lbl_salary = ttk.Label(
-            self.root, text="Salary", style="mystyle1.TLabel"
-        ).place(x=350, y=190)
+        self.lbl_date = ttk.Label(self.root, text="Date", style="mystyle1.TLabel")
+        self.lbl_date.place(x=50, y=190)
+
+        self.lbl_salary = ttk.Label(self.root, text="Salary", style="mystyle1.TLabel")
+        self.lbl_salary.place(x=350, y=190)
+
         self.lbl_rating = ttk.Label(
             self.root, text="Avg Rating", style="mystyle1.TLabel"
-        ).place(x=750, y=190)
+        )
+        self.lbl_rating.place(x=750, y=190)
 
         self.txt_name = ttk.Label(
             self.root, textvariable=self.var_emp_date, style="mystyle1.TLabel"
-        ).place(x=150, y=190, width=180)
+        )
+        self.txt_name.place(x=150, y=190, width=180)
+
         self.txt_salary = ttk.Label(
             self.root, textvariable=self.var_emp_salary, style="mystyle1.TLabel"
-        ).place(x=500, y=190, width=180)
+        )
+        self.txt_salary.place(x=500, y=190, width=180)
+
         self.txt_rating = ttk.Label(
             self.root, textvariable=self.var_emp_rating, style="mystyle1.TLabel"
-        ).place(x=850, y=190, width=180)
+        )
+        self.txt_rating.place(x=850, y=190, width=180)
 
         # row 3
         # ====row4=======
         self.collab_label = ttk.Label(
             self.root, text="Collaboration", style="mystyle1.TLabel"
-        ).place(x=50, y=240)
+        )
+        self.collab_label.place(x=50, y=240)
 
         self.slider1 = customtkinter.CTkSlider(
             master=self.root,
@@ -100,11 +113,13 @@ class EmpRate:
             to=5,
             number_of_steps=5,
             variable=self.value1,
-        ).place(x=190, y=245)
+        )
+        self.slider1.place(x=190, y=245)
 
         self.prob_label = ttk.Label(
             master=self.root, text="Problem Solving", style="mystyle1.TLabel"
-        ).place(x=560, y=240)
+        )
+        self.prob_label.place(x=560, y=240)
 
         self.slider2 = customtkinter.CTkSlider(
             master=self.root,
@@ -113,11 +128,13 @@ class EmpRate:
             to=5,
             number_of_steps=5,
             variable=self.value2,
-        ).place(x=720, y=245)
+        )
+        self.slider2.place(x=720, y=245)
 
-        self.Know_label = ttk.Label(
+        self.know_label = ttk.Label(
             master=self.root, text="Knowledge/Skills", style="mystyle1.TLabel"
-        ).place(x=50, y=280)
+        )
+        self.know_label.place(x=50, y=280)
 
         self.slider3 = customtkinter.CTkSlider(
             master=self.root,
@@ -126,11 +143,13 @@ class EmpRate:
             to=5,
             number_of_steps=5,
             variable=self.value3,
-        ).place(x=190, y=285)
+        )
+        self.slider3.place(x=190, y=285)
 
-        self.CS_label = ttk.Label(
+        self.cs_label = ttk.Label(
             master=self.root, text="Customer service", style="mystyle1.TLabel"
-        ).place(x=560, y=280)
+        )
+        self.cs_label.place(x=560, y=280)
 
         self.slider4 = customtkinter.CTkSlider(
             master=self.root,
@@ -139,7 +158,8 @@ class EmpRate:
             width=320,
             number_of_steps=5,
             variable=self.value4,
-        ).place(x=720, y=285)
+        )
+        self.slider4.place(x=720, y=285)
 
         self.button = customtkinter.CTkButton(
             master=self.root,
@@ -154,6 +174,7 @@ class EmpRate:
         self.get_data(eid)
 
     def tvalue(self, eid):
+        """Get total rating value"""
         con = sqlite3.connect(database=r"ims.db")
         cur = con.cursor()
         value = (
@@ -184,10 +205,11 @@ class EmpRate:
                     "Error", "You have already rated for today", parent=self.root
                 )
 
-        except Exception as ex:
+        except (IOError, TypeError) as ex:
             messagebox.showerror("Error", f"Error due to : {str(ex)}", parent=self.root)
 
     def get_data(self, eid):
+        """Get data from database"""
         today = date.today()
         con = sqlite3.connect(database=r"ims.db")
         cur = con.cursor()
@@ -216,14 +238,14 @@ class EmpRate:
             else:
                 value = (rows1[1] / rows1[0]) + (rows2[1] / rows2[0])
 
-            self.var_emp_id.set(row[0]),
-            self.var_emp_name.set(row[1]),
-            self.var_emp_utype.set(row[2]),
-            self.var_emp_date.set(today),
-            self.var_emp_salary.set(row[4]),
+            self.var_emp_id.set(row[0])
+            self.var_emp_name.set(row[1])
+            self.var_emp_utype.set(row[2])
+            self.var_emp_date.set(today)
+            self.var_emp_salary.set(row[4])
             self.var_emp_rating.set(value)
 
-        except Exception as ex:
+        except (IOError, TypeError) as ex:
             messagebox.showerror(
                 "Error", f"Error here due to : {str(ex)}", parent=self.root
             )
@@ -231,5 +253,5 @@ class EmpRate:
 
 if __name__ == "__main__":
     root = customtkinter.CTk()
-    obj = Login_system(root)
+    obj = LoginSystem(root)
     root.mainloop()

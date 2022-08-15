@@ -1,16 +1,16 @@
+"""Import Required Modues"""
 import tkinter
-from tkinter import messagebox
-import customtkinter
-from tkinter import *
-from employee import employeeclass
-from mngattendance import AttendanceMng
-import sqlite3
 import os
-from logins import Login_system
-from salary import salaryClass
-from rating import Rating
+import sqlite3
+from tkinter import *
 import datetime
-from mtask import Mngtask
+import customtkinter
+from employee import EmployeeClass
+from mngattendance import AttendanceMng
+from logins import LoginSystem
+from salary import SalaryClass
+from rating import Rating
+from mtask import MngTask
 
 
 customtkinter.set_appearance_mode(
@@ -22,17 +22,12 @@ customtkinter.set_default_color_theme(
 
 
 class Dashboard(customtkinter.CTk):
-
-    WIDTH = 780
-    HEIGHT = 520
+    """Dashboard class"""
 
     def __init__(self, eid):
         super().__init__()
         self.geometry("1350x700+0+0")
         self.title("Logged as Admin")
-
-        # ============ create two frames ============
-
         # configure grid layout (2x1)
         self.grid_columnconfigure(1, weight=1)
         self.grid_rowconfigure(0, weight=1)
@@ -64,7 +59,7 @@ class Dashboard(customtkinter.CTk):
         self.button_1.grid(row=2, column=0, pady=10, padx=20)
 
         self.button_2 = customtkinter.CTkButton(
-            master=self.frame_left, cursor="hand2", text="Salary", command=self.Salary
+            master=self.frame_left, cursor="hand2", text="Salary", command=self.salary
         )
         self.button_2.grid(row=3, column=0, pady=10, padx=20)
 
@@ -72,7 +67,7 @@ class Dashboard(customtkinter.CTk):
             master=self.frame_left,
             cursor="hand2",
             text="Task",
-            command=lambda: self.Task(eid),
+            command=lambda: self.task(eid),
         )
         self.button_3.grid(row=4, column=0, pady=10, padx=20)
 
@@ -80,7 +75,7 @@ class Dashboard(customtkinter.CTk):
             master=self.frame_left,
             cursor="hand2",
             text="Rating",
-            command=lambda: self.Rating(eid),
+            command=lambda: self.rating(eid),
         )
         self.button_4.grid(row=5, column=0, pady=10, padx=20)
 
@@ -88,7 +83,7 @@ class Dashboard(customtkinter.CTk):
             master=self.frame_left,
             cursor="hand2",
             text="Attendance",
-            command=self.Attendance,
+            command=self.attendance,
         )
         self.button_5.grid(row=6, column=0, pady=10, padx=20)
 
@@ -223,36 +218,44 @@ class Dashboard(customtkinter.CTk):
 
     @staticmethod
     def change_appearance_mode(new_appearance_mode):
+        """Change Appearance"""
         customtkinter.set_appearance_mode(new_appearance_mode)
 
     def employee(self):
+        """Manage employees"""
         self.new_win = Toplevel(self)
-        self.new_obj = employeeclass(self.new_win)
+        self.new_obj = EmployeeClass(self.new_win)
 
-    def Salary(self):
+    def salary(self):
+        """Manage Salary"""
         self.new_win = Toplevel(self)
-        self.new_obj = salaryClass(self.new_win)
+        self.new_obj = SalaryClass(self.new_win)
 
-    def Task(self, eid):
+    def task(self, eid):
+        """Manage Tasks"""
         self.new_win = Toplevel(self)
-        self.new_obj = Mngtask(self.new_win, eid)
+        self.new_obj = MngTask(self.new_win, eid)
 
-    def Rating(self, eid):
+    def rating(self, eid):
+        """Rate employee"""
         self.new_win = Toplevel(self)
         self.new_obj = Rating(self.new_win, eid)
 
-    def Attendance(self):
+    def attendance(self):
+        """Manage attendance"""
         self.new_win = Toplevel(self)
         self.new_obj = AttendanceMng(self.new_win)
 
     def logout(self):
+        """LOgout Function"""
         self.label_info_1.after_cancel(self.update)
         self.destroy()
         root = customtkinter.CTk()
-        obj = Login_system(root)
+        obj = LoginSystem(root)
         root.mainloop()
 
     def update_content(self):
+        """Update content on dshboard"""
         con = sqlite3.connect(database=r"ims.db")
         cur = con.cursor()
 
@@ -266,16 +269,21 @@ class Dashboard(customtkinter.CTk):
             now = datetime.datetime.now()
 
             self.label_info_1.configure(
-                text=f'Employee Management System \t Time: {now.strftime("%I:%M:%S")}  \t Date: {now.strftime("%d-%m-%Y")}'
+                text=(
+                    f"Employee Management System \t "
+                    f'Time: {now.strftime("%I:%M:%S")}  \t'
+                    f' Date: {now.strftime("%d-%m-%Y")}'
+                )
             )
             self.update = self.label_info_1.after(200, self.update_content)
 
-        except Exception as ex:
-            print(ex)
-            messagebox.showerror("Error", f"Error due to : {str(ex)}", parent=self)
+        except IOError as ex:
+            tkinter.messagebox.showerror(
+                "Error", f"Error due to : {str(ex)}", parent=self
+            )
 
 
 if __name__ == "__main__":
     root = customtkinter.CTk()
-    obj = Login_system(root)
+    obj = LoginSystem(root)
     root.mainloop()

@@ -1,13 +1,16 @@
+"""Import required modules"""
 from tkinter import *
 import sqlite3
-from tkinter import messagebox
+import tkinter
 import customtkinter
 
 
 customtkinter.set_appearance_mode("system")
 
 
-class Login_system:
+class LoginSystem:
+    """Login Class"""
+
     def __init__(self, root):
         self.root = root
         self.root.title("Login System")
@@ -26,7 +29,8 @@ class Login_system:
             text="Login System",
             font=("Elephant", 30, "bold"),
             bg="white",
-        ).place(x=0, y=30, relwidth=1)
+        )
+        self.title.place(x=0, y=30, relwidth=1)
 
         self.lbl_user = Label(
             self.login_frame,
@@ -34,27 +38,35 @@ class Login_system:
             font=("Andalus", 15),
             bg="white",
             fg="#767171",
-        ).place(x=50, y=100)
+        )
+        self.lbl_user.place(x=50, y=100)
+
         self.txt_username = Entry(
             self.login_frame,
             textvariable=self.eid,
             font=("times new roman", 15),
             bg="#ECECEC",
-        ).place(x=50, y=140, width=250)
+        )
+        self.txt_username.place(x=50, y=140, width=250)
+
         self.lbl_pass = Label(
             self.login_frame,
             text="Password",
             font=("Andalus", 15),
             bg="white",
             fg="#767171",
-        ).place(x=50, y=200)
+        )
+        self.lbl_pass.place(x=50, y=200)
+
         self.txt_pass = Entry(
             self.login_frame,
             textvariable=self.password,
             show="*",
             font=("times new roman", 15),
             bg="#ECECEC",
-        ).place(x=50, y=240, width=250)
+        )
+        self.txt_pass.place(x=50, y=240, width=250)
+
         self.btn_login = customtkinter.CTkButton(
             self.login_frame,
             width=250,
@@ -65,15 +77,17 @@ class Login_system:
             hover_color="green",
             text="Log In",
             command=self.login,
-        ).place(x=50, y=300)
+        )
+        self.btn_login.place(x=50, y=300)
 
     def login(self):
+        """Login user when condition is right"""
         con = sqlite3.connect(database=r"ims.db")
         cur = con.cursor()
 
         try:
             if self.eid.get() == "" or self.password.get() == "":
-                messagebox.showerror(
+                tkinter.messagebox.showerror(
                     "Error", "All fields are required", parent=self.root
                 )
             else:
@@ -83,7 +97,7 @@ class Login_system:
                 )
                 user = cur.fetchone()
                 if user is None:
-                    messagebox.showerror(
+                    tkinter.messagebox.showerror(
                         "Error", "Invalid username/password", parent=self.root
                     )
                 elif user[0] == "Admin":
@@ -95,17 +109,19 @@ class Login_system:
                     app.mainloop()
                 else:
                     eid = user[1]
-                    from edashboard import eDashboard
+                    from edashboard import EDashboard
 
                     self.root.destroy()
-                    app = eDashboard(eid)
+                    app = EDashboard(eid)
                     app.mainloop()
 
-        except Exception as ex:
-            messagebox.showerror("Error", f"Error due to : {str(ex)}", parent=self.root)
+        except IOError as ex:
+            tkinter.messagebox.showerror(
+                "Error", f"Error due to : {str(ex)}", parent=self.root
+            )
 
 
 if __name__ == "__main__":
     root = customtkinter.CTk()
-    obj = Login_system(root)
+    obj = LoginSystem(root)
     root.mainloop()

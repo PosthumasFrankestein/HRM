@@ -1,14 +1,13 @@
+"""import required modules"""
 import tkinter
-from tkinter import messagebox
-import customtkinter
 from tkinter import *
-from employee import employeeclass
 import sqlite3
 import os
-from logins import Login_system
-from esalary import esalaryClass
 import datetime
-from attendance import calender
+import customtkinter
+from logins import LoginSystem
+from esalary import EsalaryClass
+from attendance import Calender
 from erating import EmpRate
 from task import taskClass
 
@@ -20,10 +19,8 @@ customtkinter.set_default_color_theme(
 )  # Themes: "blue" (standard), "green", "dark-blue"
 
 
-class eDashboard(customtkinter.CTk):
-
-    WIDTH = 780
-    HEIGHT = 520
+class EDashboard(customtkinter.CTk):
+    """Employee Dashboard"""
 
     def __init__(self, eid):
         super().__init__()
@@ -218,36 +215,39 @@ class eDashboard(customtkinter.CTk):
 
     @staticmethod
     def change_appearance_mode(new_appearance_mode):
+        """Change Appearance"""
         customtkinter.set_appearance_mode(new_appearance_mode)
 
-    def employee(self):
-        self.new_win = Toplevel(self)
-        self.new_obj = employeeclass(self.new_win)
-
     def salary(self, eid):
+        """Check Salary"""
         self.new_win = Toplevel(self)
-        self.new_obj = esalaryClass(self.new_win, eid)
+        self.new_obj = EsalaryClass(self.new_win, eid)
 
     def task(self, eid):
+        """Manage assigned tasks"""
         self.new_win = Toplevel(self)
         self.new_obj = taskClass(self.new_win, eid)
 
-    def Rating(self, eid):
+    def rating(self, eid):
+        """Rate Yourself"""
         self.new_win = Toplevel(self)
         self.new_obj = EmpRate(self.new_win, eid)
 
-    def Attendance(self, eid):
+    def attendance(self, eid):
+        """Check attendance"""
         self.new_win = Toplevel(self)
-        self.new_obj = calender(self.new_win, eid)
+        self.new_obj = Calender(self.new_win, eid)
 
     def logout(self):
+        """Logout"""
         self.label_info_1.after_cancel(self.update)
         self.destroy()
         root = customtkinter.CTk()
-        obj = Login_system(root)
+        obj = LoginSystem(root)
         root.mainloop()
 
     def update_content(self):
+        """Update content on dashboard"""
         con = sqlite3.connect(database=r"ims.db")
         cur = con.cursor()
 
@@ -261,16 +261,21 @@ class eDashboard(customtkinter.CTk):
             now = datetime.datetime.now()
 
             self.label_info_1.configure(
-                text=f'Employee Management System \t Time: {now.strftime("%I:%M:%S")}  \t Date: {now.strftime("%d-%m-%Y")}'
+                text=(
+                    f"Employee Management System \t"
+                    f' Time: {now.strftime("%I:%M:%S")}  \t Date: {now.strftime("%d-%m-%Y")}'
+                )
             )
             self.update = self.label_info_1.after(200, self.update_content)
 
-        except Exception as ex:
-            messagebox.showerror("Error", f"Error due to : {str(ex)}", parent=self)
+        except (IOError, TypeError) as ex:
+            tkinter.messagebox.showerror(
+                "Error", f"Error due to : {str(ex)}", parent=self
+            )
 
 
 if __name__ == "__main__":
 
     root = customtkinter.CTk()
-    obj = Login_system(root)
+    obj = LoginSystem(root)
     root.mainloop()

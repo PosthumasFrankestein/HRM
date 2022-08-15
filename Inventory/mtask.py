@@ -1,13 +1,15 @@
+"""Import required modules"""
 from tkinter import *
 import sqlite3
 from tkinter import ttk, messagebox
-from datetime import *
-from logins import Login_system
+from logins import LoginSystem
 import customtkinter
-from tkcalendar import *
+from tkcalendar import Calendar
 
 
 class Mngtask:
+    """Manage Tasks"""
+
     def __init__(self, root, eid):
         self.root = root
         self.aby = eid
@@ -56,50 +58,62 @@ class Mngtask:
             text="Manage Tasks",
             text_font=("goudy old style", 11),
             fg_color="#0f4d7d",
-        ).place(x=50, y=100, width=1000)
+        )
+        self.title.place(x=50, y=100, width=1000)
 
         # #contents
         # row 1
-        self.lbl_tid = ttk.Label(
-            self.root, text="Task ID", style="mystyle1.TLabel"
-        ).place(x=50, y=150)
-        self.lbl_eid = ttk.Label(
-            self.root, text="Emp Id", style="mystyle1.TLabel"
-        ).place(x=350, y=150)
-        self.lbl_name = ttk.Label(
-            self.root, text="Name", style="mystyle1.TLabel"
-        ).place(x=750, y=150)
+        self.lbl_tid = ttk.Label(self.root, text="Task ID", style="mystyle1.TLabel")
+        self.lbl_tid.place(x=50, y=150)
+
+        self.lbl_eid = ttk.Label(self.root, text="Emp Id", style="mystyle1.TLabel")
+        self.lbl_eid.place(x=350, y=150)
+
+        self.lbl_name = ttk.Label(self.root, text="Name", style="mystyle1.TLabel")
+        self.lbl_name.place(x=750, y=150)
 
         self.txt_tid = ttk.Label(
             self.root, textvariable=self.var_task_id, style="mystyle1.TLabel"
-        ).place(x=160, y=150, width=180)
+        )
+        self.txt_tid.place(x=160, y=150, width=180)
+
         self.txt_eid = customtkinter.CTkComboBox(
             self.root,
             values=self.value,
             variable=self.var_emp_id,
-            command=self.fetchName,
-        ).place(x=500, y=150, width=180)
+            command=self.fetchname,
+        )
+        self.txt_eid.place(x=500, y=150, width=180)
+
         self.txt_name = ttk.Label(
             self.root, textvariable=self.var_emp_name, style="mystyle1.TLabel"
-        ).place(x=850, y=150, width=180)
+        )
+        self.txt_name.place(x=850, y=150, width=180)
 
         # row 2
         self.lbl_date_assigned = ttk.Label(
             self.root, text="Date Assigned", style="mystyle1.TLabel"
-        ).place(x=50, y=190)
+        )
+        self.lbl_date_assigned.place(x=50, y=190)
+
         self.lbl_date_completed = ttk.Label(
             self.root, text="Date completed", style="mystyle1.TLabel"
-        ).place(x=350, y=190)
-        self.lbl_task = ttk.Label(
-            self.root, text="Task", style="mystyle1.TLabel"
-        ).place(x=750, y=190)
+        )
+        self.lbl_date_completed.place(x=350, y=190)
+
+        self.lbl_task = ttk.Label(self.root, text="Task", style="mystyle1.TLabel")
+        self.lbl_task.place(x=750, y=190)
 
         self.txt_date_assigned = ttk.Label(
             self.root, textvariable=self.var_adate, style="mystyle1.TLabel"
-        ).place(x=160, y=190, width=180)
+        )
+        self.txt_date_assigned.place(x=160, y=190, width=180)
+
         self.txt_date_completed = ttk.Label(
             self.root, textvariable=self.var_cdate, style="mystyle1.TLabel"
-        ).place(x=500, y=190, width=180)
+        )
+        self.txt_date_completed.place(x=500, y=190, width=180)
+
         self.txt_task = Entry(
             self.root,
             textvariable=self.var_task,
@@ -107,7 +121,8 @@ class Mngtask:
             bg="#211f1f",
             fg="white",
             insertbackground="white",
-        ).place(x=850, y=190, width=180)
+        )
+        self.txt_task.place(x=850, y=190, width=180)
 
         # row 3
         # ====row4=======
@@ -117,7 +132,8 @@ class Mngtask:
             font=("goudy old style", 11),
             fg="white",
             bg="black",
-        ).place(x=50, y=230)
+        )
+        self.lbl_task_remark.place(x=50, y=230)
 
         self.var_tremark = Text(
             self.root,
@@ -136,7 +152,9 @@ class Mngtask:
             text_font=("goudy old style", 15),
             fg_color="#2196f3",
             cursor="hand2",
-        ).place(x=500, y=305, width=110, height=28)
+        )
+        self.btn_add.place(x=500, y=305, width=110, height=28)
+
         self.btn_approve = customtkinter.CTkButton(
             self.root,
             text="Approve",
@@ -144,7 +162,9 @@ class Mngtask:
             text_font=("goudy old style", 15),
             fg_color="#4caf50",
             cursor="hand2",
-        ).place(x=620, y=305, width=110, height=28)
+        )
+        self.btn_approve.place(x=620, y=305, width=110, height=28)
+
         self.btn_update = customtkinter.CTkButton(
             self.root,
             text="Reassign",
@@ -152,7 +172,9 @@ class Mngtask:
             text_font=("goudy old style", 15),
             fg_color="#f44336",
             cursor="hand2",
-        ).place(x=740, y=305, width=110, height=28)
+        )
+        self.btn_update.place(x=740, y=305, width=110, height=28)
+
         self.btn_clear = customtkinter.CTkButton(
             self.root,
             text="Clear",
@@ -160,7 +182,8 @@ class Mngtask:
             text_font=("goudy old style", 15),
             fg_color="#607d8b",
             cursor="hand2",
-        ).place(x=860, y=305, width=110, height=28)
+        )
+        self.btn_clear.place(x=860, y=305, width=110, height=28)
 
         # Employee Details
         self.emp_frame = Frame(self.root, bd=3, relief=RIDGE)
@@ -169,7 +192,7 @@ class Mngtask:
         scrolly = Scrollbar(self.emp_frame, orient=VERTICAL)
         scrollx = Scrollbar(self.emp_frame, orient=HORIZONTAL)
 
-        self.EmployeeTable = ttk.Treeview(
+        self.employee_table = ttk.Treeview(
             self.emp_frame,
             columns=(
                 "tid",
@@ -187,33 +210,34 @@ class Mngtask:
         )
         scrollx.pack(side=BOTTOM, fill=X)
         scrolly.pack(side=RIGHT, fill=Y)
-        scrollx.config(command=self.EmployeeTable.xview)
-        scrolly.config(command=self.EmployeeTable.yview)
-        self.EmployeeTable.heading("tid", text="Task ID")
-        self.EmployeeTable.heading("task", text="Task")
-        self.EmployeeTable.heading("eid", text="Emp Id")
-        self.EmployeeTable.heading("name", text="Name")
-        self.EmployeeTable.heading("adate", text="Assign")
-        self.EmployeeTable.heading("cdate", text="Complete")
-        self.EmployeeTable.heading("tstatus", text="Status")
-        self.EmployeeTable.heading("tremark", text="Remark")
-        self.EmployeeTable["show"] = "headings"
+        scrollx.config(command=self.employee_table.xview)
+        scrolly.config(command=self.employee_table.yview)
+        self.employee_table.heading("tid", text="Task ID")
+        self.employee_table.heading("task", text="Task")
+        self.employee_table.heading("eid", text="Emp Id")
+        self.employee_table.heading("name", text="Name")
+        self.employee_table.heading("adate", text="Assign")
+        self.employee_table.heading("cdate", text="Complete")
+        self.employee_table.heading("tstatus", text="Status")
+        self.employee_table.heading("tremark", text="Remark")
+        self.employee_table["show"] = "headings"
 
-        self.EmployeeTable.column("tid", width=10)
-        self.EmployeeTable.column("task", width=10)
-        self.EmployeeTable.column("eid", width=10)
-        self.EmployeeTable.column("name", width=10)
-        self.EmployeeTable.column("adate", width=10)
-        self.EmployeeTable.column("cdate", width=10)
-        self.EmployeeTable.column("tstatus", width=10)
-        self.EmployeeTable.column("tremark", width=10)
+        self.employee_table.column("tid", width=10)
+        self.employee_table.column("task", width=10)
+        self.employee_table.column("eid", width=10)
+        self.employee_table.column("name", width=10)
+        self.employee_table.column("adate", width=10)
+        self.employee_table.column("cdate", width=10)
+        self.employee_table.column("tstatus", width=10)
+        self.employee_table.column("tremark", width=10)
 
-        self.EmployeeTable.pack(fill=BOTH, expand=1)
+        self.employee_table.pack(fill=BOTH, expand=1)
 
-        self.EmployeeTable.bind("<ButtonRelease-1>", self.get_data)
+        self.employee_table.bind("<ButtonRelease-1>", self.get_data)
         self.show()
 
-    def fetchName(self, choice):
+    def fetchname(self, choice):
+        """Fetch name from database"""
         con = sqlite3.connect(database=r"ims.db")
         cur = con.cursor()
         try:
@@ -222,30 +246,33 @@ class Mngtask:
             self.var_emp_name.set(rows[0])
             self.var_emp_id.set(choice)
 
-        except Exception as ex:
+        except IOError as ex:
             messagebox.showerror("Error", f"Error due to : {str(ex)}", parent=self.root)
 
     def show(self):
+        """Show data on tables"""
         con = sqlite3.connect(database=r"ims.db")
         cur = con.cursor()
         try:
             cur.execute(
-                "Select tid,task,eid,adate,cdate,tstatus,tremark from tasks where tstatus!='approved'"
+                "Select tid,task,eid,adate,cdate,tstatus,tremark"
+                " from tasks where tstatus!='approved'"
             )
             rows = cur.fetchall()
-            self.EmployeeTable.delete(*self.EmployeeTable.get_children())
+            self.employee_table.delete(*self.employee_table.get_children())
             for row in rows:
                 cur.execute("Select name from employee where eid=?", str(row[2]))
                 row1 = cur.fetchone()
                 value = list(row[0:3]) + list(row1[0:]) + list(row[3:])
-                self.EmployeeTable.insert("", END, values=value)
+                self.employee_table.insert("", END, values=value)
 
-        except Exception as ex:
+        except IOError as ex:
             messagebox.showerror("Error", f"Error due to : {str(ex)}", parent=self.root)
 
-    def get_data(self, ev):
-        f = self.EmployeeTable.focus()
-        content = self.EmployeeTable.item(f)
+    def get_data(self, _ev):
+        """Get data from table"""
+        _f = self.employee_table.focus()
+        content = self.employee_table.item(_f)
         row = content["values"]
         if row != "":
             self.var_task_id.set(row[0])
@@ -258,6 +285,7 @@ class Mngtask:
             self.var_tremark.insert(END, row[7])
 
     def add(self):
+        """Add tasks"""
         con = sqlite3.connect(database=r"ims.db")
         cur = con.cursor()
         try:
@@ -280,10 +308,11 @@ class Mngtask:
                     "Success", "Employee added Sucessfully", parent=self.root
                 )
                 self.show()
-        except Exception as ex:
+        except IOError as ex:
             messagebox.showerror("Error", f"Error due to : {str(ex)}", parent=self.root)
 
     def approve(self):
+        """Approve tasks"""
         con = sqlite3.connect(database=r"ims.db")
         cur = con.cursor()
         try:
@@ -292,10 +321,10 @@ class Mngtask:
                     "Error", "Select Task to approve", parent=self.root
                 )
             else:
-                op = messagebox.askyesno(
+                _op = messagebox.askyesno(
                     "Confirm", "Do you really want to Approve?", parent=self.root
                 )
-                if op is True:
+                if _op is True:
 
                     cur.execute(
                         "update tasks set tstatus='approved' where tid=?",
@@ -306,10 +335,11 @@ class Mngtask:
                     self.show()
                     self.clear()
 
-        except Exception as ex:
+        except IOError as ex:
             messagebox.showerror("Error", f"Error due to : {str(ex)}", parent=self.root)
 
     def reassign(self):
+        """Reassgn tasks to another employee"""
         con = sqlite3.connect(database=r"ims.db")
         cur = con.cursor()
         try:
@@ -318,10 +348,10 @@ class Mngtask:
                     "Error", "Select Task to reassign", parent=self.root
                 )
             else:
-                op = messagebox.askyesno(
+                _op = messagebox.askyesno(
                     "Confirm", "Do you really want to Reassign?", parent=self.root
                 )
-                if op is True:
+                if _op is True:
                     cal = Calendar()
                     dvalue = cal.get_date()
                     cur.execute(
@@ -353,10 +383,11 @@ class Mngtask:
                     self.show()
                     self.clear()
 
-        except Exception as ex:
+        except IOError as ex:
             messagebox.showerror("Error", f"Error due to : {str(ex)}", parent=self.root)
 
     def reject(self):
+        """Reject tasks"""
         con = sqlite3.connect(database=r"ims.db")
         cur = con.cursor()
         try:
@@ -386,23 +417,22 @@ class Mngtask:
                         "Success", "Employee Updated Sucessfully", parent=self.root
                     )
                     self.show()
-        except Exception as ex:
+        except IOError as ex:
             messagebox.showerror("Error", f"Error due to : {str(ex)}", parent=self.root)
 
     def clear(self):
-        self.var_emp_id.set(""),
-
-        self.var_emp_name.set(""),
-        self.var_task_id.set(""),
-        self.var_task.set(""),
-        self.var_adate.set(""),
-
-        self.var_cdate.set(""),
-        self.var_tremark.delete("1.0", END),
+        """Clear Fields"""
+        self.var_emp_id.set("")
+        self.var_emp_name.set("")
+        self.var_task_id.set("")
+        self.var_task.set("")
+        self.var_adate.set("")
+        self.var_cdate.set("")
+        self.var_tremark.delete("1.0", END)
         self.show()
 
 
 if __name__ == "__main__":
     root = customtkinter.CTk()
-    obj = Login_system(root)
+    obj = LoginSystem(root)
     root.mainloop()

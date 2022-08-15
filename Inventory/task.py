@@ -1,13 +1,13 @@
+"""Import required modules"""
 from tkinter import *
 import sqlite3
 from tkinter import ttk, messagebox
-from datetime import *
-from logins import Login_system
+from logins import LoginSystem
 import customtkinter
-from tkcalendar import *
+from tkcalendar import Calendar
 
 
-class taskClass:
+class TaskClass:
     """Show assigned employee tasks"""
 
     def __init__(self, root, eid):
@@ -47,47 +47,59 @@ class taskClass:
             text="Manage Tasks",
             text_font=("goudy old style", 11),
             fg_color="#0f4d7d",
-        ).place(x=50, y=100, width=1000)
+        )
+        self.title.place(x=50, y=100, width=1000)
 
         # #contents
         # row 1
-        self.lbl_tid = ttk.Label(
-            self.root, text="Task ID", style="mystyle1.TLabel"
-        ).place(x=50, y=150)
-        self.lbl_eid = ttk.Label(
-            self.root, text="Emp Id", style="mystyle1.TLabel"
-        ).place(x=350, y=150)
-        self.lbl_name = ttk.Label(
-            self.root, text="Name", style="mystyle1.TLabel"
-        ).place(x=750, y=150)
+        self.lbl_tid = ttk.Label(self.root, text="Task ID", style="mystyle1.TLabel")
+        self.lbl_tid.place(x=50, y=150)
+
+        self.lbl_eid = ttk.Label(self.root, text="Emp Id", style="mystyle1.TLabel")
+        self.lbl_eid.place(x=350, y=150)
+
+        self.lbl_name = ttk.Label(self.root, text="Name", style="mystyle1.TLabel")
+        self.lbl_name.place(x=750, y=150)
 
         self.txt_tid = ttk.Label(
             self.root, textvariable=self.var_task_id, style="mystyle1.TLabel"
-        ).place(x=160, y=150, width=180)
+        )
+        self.txt_tid.place(x=160, y=150, width=180)
+
         self.txt_eid = ttk.Label(
             self.root, textvariable=self.var_emp_id, style="mystyle1.TLabel"
-        ).place(x=500, y=150, width=180)
+        )
+        self.txt_eid.place(x=500, y=150, width=180)
+
         self.txt_name = ttk.Label(
             self.root, textvariable=self.var_emp_name, style="mystyle1.TLabel"
-        ).place(x=850, y=150, width=180)
+        )
+        self.txt_name.place(x=850, y=150, width=180)
 
         # row 2
         self.lbl_date_assigned = ttk.Label(
             self.root, text="Date Assigned", style="mystyle1.TLabel"
-        ).place(x=50, y=190)
+        )
+        self.lbl_date_assigned.place(x=50, y=190)
+
         self.lbl_date_completed = ttk.Label(
             self.root, text="Date completed", style="mystyle1.TLabel"
-        ).place(x=350, y=190)
-        self.lbl_task = ttk.Label(
-            self.root, text="Task", style="mystyle1.TLabel"
-        ).place(x=750, y=190)
+        )
+        self.lbl_date_completed.place(x=350, y=190)
+
+        self.lbl_task = ttk.Label(self.root, text="Task", style="mystyle1.TLabel")
+        self.lbl_task.place(x=750, y=190)
 
         self.txt_date_assigned = ttk.Label(
             self.root, textvariable=self.var_adate, style="mystyle1.TLabel"
-        ).place(x=160, y=190, width=180)
+        )
+        self.txt_date_assigned.place(x=160, y=190, width=180)
+
         self.txt_date_completed = ttk.Label(
             self.root, textvariable=self.var_cdate, style="mystyle1.TLabel"
-        ).place(x=500, y=190, width=180)
+        )
+        self.txt_date_completed.place(x=500, y=190, width=180)
+
         self.txt_task = Entry(
             self.root,
             textvariable=self.var_task,
@@ -95,7 +107,8 @@ class taskClass:
             insertbackground="white",
             bg="#211f1f",
             fg="white",
-        ).place(x=850, y=190, width=180)
+        )
+        self.txt_task.place(x=850, y=190, width=180)
 
         # row 3
         # ====row4=======
@@ -105,7 +118,8 @@ class taskClass:
             font=("goudy old style", 11),
             fg="white",
             bg="black",
-        ).place(x=50, y=230)
+        )
+        self.lbl_task_remark.place(x=50, y=230)
 
         self.var_tremark = Text(
             self.root,
@@ -124,7 +138,9 @@ class taskClass:
             text_font=("goudy old style", 15),
             fg_color="#4caf50",
             cursor="hand2",
-        ).place(x=620, y=305, width=110, height=28)
+        )
+        self.btn_complete.place(x=620, y=305, width=110, height=28)
+
         self.btn_forfeit = customtkinter.CTkButton(
             self.root,
             text="Forfeit",
@@ -132,7 +148,9 @@ class taskClass:
             text_font=("goudy old style", 15),
             fg_color="#f44336",
             cursor="hand2",
-        ).place(x=740, y=305, width=110, height=28)
+        )
+        self.btn_forfeit.place(x=740, y=305, width=110, height=28)
+
         self.btn_clear = customtkinter.CTkButton(
             self.root,
             text="Clear",
@@ -140,7 +158,8 @@ class taskClass:
             text_font=("goudy old style", 15),
             fg_color="#607d8b",
             cursor="hand2",
-        ).place(x=860, y=305, width=110, height=28)
+        )
+        self.btn_clear.place(x=860, y=305, width=110, height=28)
 
         # Employee Details
         emp_frame = Frame(self.root, bd=3, relief=RIDGE)
@@ -149,7 +168,7 @@ class taskClass:
         scrolly = Scrollbar(emp_frame, orient=VERTICAL)
         scrollx = Scrollbar(emp_frame, orient=HORIZONTAL)
 
-        self.EmployeeTable = ttk.Treeview(
+        self.employee_table = ttk.Treeview(
             emp_frame,
             columns=(
                 "tid",
@@ -167,30 +186,30 @@ class taskClass:
         )
         scrollx.pack(side=BOTTOM, fill=X)
         scrolly.pack(side=RIGHT, fill=Y)
-        scrollx.config(command=self.EmployeeTable.xview)
-        scrolly.config(command=self.EmployeeTable.yview)
-        self.EmployeeTable.heading("tid", text="Task ID")
-        self.EmployeeTable.heading("task", text="Task")
-        self.EmployeeTable.heading("eid", text="Emp Id")
-        self.EmployeeTable.heading("name", text="Name")
-        self.EmployeeTable.heading("adate", text="Assign")
-        self.EmployeeTable.heading("cdate", text="Complete")
-        self.EmployeeTable.heading("tstatus", text="Status")
-        self.EmployeeTable.heading("tremark", text="Remark")
-        self.EmployeeTable["show"] = "headings"
+        scrollx.config(command=self.employee_table.xview)
+        scrolly.config(command=self.employee_table.yview)
+        self.employee_table.heading("tid", text="Task ID")
+        self.employee_table.heading("task", text="Task")
+        self.employee_table.heading("eid", text="Emp Id")
+        self.employee_table.heading("name", text="Name")
+        self.employee_table.heading("adate", text="Assign")
+        self.employee_table.heading("cdate", text="Complete")
+        self.employee_table.heading("tstatus", text="Status")
+        self.employee_table.heading("tremark", text="Remark")
+        self.employee_table["show"] = "headings"
 
-        self.EmployeeTable.column("tid", width=10)
-        self.EmployeeTable.column("task", width=10)
-        self.EmployeeTable.column("eid", width=10)
-        self.EmployeeTable.column("name", width=10)
-        self.EmployeeTable.column("adate", width=10)
-        self.EmployeeTable.column("cdate", width=10)
-        self.EmployeeTable.column("tstatus", width=10)
-        self.EmployeeTable.column("tremark", width=10)
+        self.employee_table.column("tid", width=10)
+        self.employee_table.column("task", width=10)
+        self.employee_table.column("eid", width=10)
+        self.employee_table.column("name", width=10)
+        self.employee_table.column("adate", width=10)
+        self.employee_table.column("cdate", width=10)
+        self.employee_table.column("tstatus", width=10)
+        self.employee_table.column("tremark", width=10)
 
-        self.EmployeeTable.pack(fill=BOTH, expand=1)
+        self.employee_table.pack(fill=BOTH, expand=1)
 
-        self.EmployeeTable.bind("<ButtonRelease-1>", self.get_data)
+        self.employee_table.bind("<ButtonRelease-1>", self.get_data)
         self.show(eid)
 
     def show(self, eid):
@@ -199,24 +218,25 @@ class taskClass:
         cur = con.cursor()
         try:
             cur.execute(
-                "Select tid,task,eid,adate,cdate,tstatus,tremark from tasks where eid=? and tstatus!='approved' and tstatus!='forfeit'",
+                "Select tid,task,eid,adate,cdate,tstatus,tremark"
+                " from tasks where eid=? and tstatus!='approved' and tstatus!='forfeit'",
                 str(eid),
             )
             rows = cur.fetchall()
-            self.EmployeeTable.delete(*self.EmployeeTable.get_children())
+            self.employee_table.delete(*self.employee_table.get_children())
             for row in rows:
                 cur.execute("Select name from employee where eid=?", str(row[2]))
                 row1 = cur.fetchone()
                 value = list(row[0:3]) + list(row1[0:]) + list(row[3:])
-                self.EmployeeTable.insert("", END, values=value)
+                self.employee_table.insert("", END, values=value)
 
-        except Exception as ex:
+        except (IOError, TypeError) as ex:
             messagebox.showerror("Error", f"Error due to : {str(ex)}", parent=self.root)
 
-    def get_data(self, ev):
+    def get_data(self, _ev):
         """Get table from table"""
-        f = self.EmployeeTable.focus()
-        content = self.EmployeeTable.item(f)
+        _f = self.employee_table.focus()
+        content = self.employee_table.item(_f)
         row = content["values"]
         if row != "":
             self.var_task_id.set(row[0])
@@ -239,10 +259,10 @@ class taskClass:
             if self.var_emp_name.get() == "":
                 messagebox.showerror("Error", "Select Employee ID", parent=self.root)
             else:
-                op = messagebox.askyesno(
+                _op = messagebox.askyesno(
                     "Confirm", "Do you really want mark as complete?", parent=self.root
                 )
-                if op is True:
+                if _op is True:
 
                     cur.execute(
                         "update tasks set tstatus='complete',cdate=? where tid=?",
@@ -256,7 +276,7 @@ class taskClass:
                     self.show(eid)
                     self.clear(eid)
 
-        except Exception as ex:
+        except (IOError, TypeError) as ex:
             messagebox.showerror("Error", f"Error due to : {str(ex)}", parent=self.root)
 
     def forfeit(self, eid):
@@ -267,10 +287,10 @@ class taskClass:
             if self.var_emp_name.get() == "":
                 messagebox.showerror("Error", "Select Employee ID", parent=self.root)
             else:
-                op = messagebox.askyesno(
+                _op = messagebox.askyesno(
                     "Confirm", "Do you really want to Forfeit?", parent=self.root
                 )
-                if op is True:
+                if _op is True:
                     cur.execute(
                         "update tasks set tstatus='forfeit' where tid=?",
                         (self.var_task_id.get(),),
@@ -282,24 +302,22 @@ class taskClass:
                     self.show(eid)
                     self.clear(eid)
 
-        except Exception as ex:
+        except (IOError, TypeError) as ex:
             messagebox.showerror("Error", f"Error due to : {str(ex)}", parent=self.root)
 
     def clear(self, eid):
         """Clear values"""
-        self.var_emp_id.set(""),
-
-        self.var_emp_name.set(""),
-        self.var_task_id.set(""),
-        self.var_task.set(""),
-        self.var_adate.set(""),
-
-        self.var_cdate.set(""),
-        self.var_tremark.delete("1.0", END),
+        self.var_emp_id.set("")
+        self.var_emp_name.set("")
+        self.var_task_id.set("")
+        self.var_task.set("")
+        self.var_adate.set("")
+        self.var_cdate.set("")
+        self.var_tremark.delete("1.0", END)
         self.show(eid)
 
 
 if __name__ == "__main__":
     root = customtkinter.CTk()
-    obj = Login_system(root)
+    obj = LoginSystem(root)
     root.mainloop()
